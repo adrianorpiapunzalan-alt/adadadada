@@ -19,495 +19,108 @@
       --max: 1080px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Inter, Segoe UI, Arial, sans-serif;
-      line-height: 1.65;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .wrap {
-      width: min(var(--max), calc(100% - 40px));
-      margin: auto;
-    }
-
-    /* ================= HEADER ================= */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 5;
-      background: rgba(11, 16, 32, .92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    nav {
-      min-height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .brand {
-      font-weight: 800;
-      letter-spacing: .3px;
-    }
-
-    .brand span {
-      color: var(--accent);
-    }
-
-    .navlinks {
-      display: flex;
-      gap: 22px;
-      flex-wrap: wrap;
-    }
-
-    .navlinks a {
-      font-size: .92rem;
-      color: var(--muted);
-    }
-
-    .navlinks a:hover {
-      color: var(--accent);
-    }
-
-    /* ================= HERO ================= */
-    .hero {
-      padding: 92px 0 74px;
-      display: grid;
-      grid-template-columns: 1.5fr .8fr;
-      gap: 44px;
-      align-items: center;
-    }
-
-    .eyebrow {
-      color: var(--accent);
-      font-size: .84rem;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      font-size: clamp(2.7rem, 7vw, 5rem);
-      line-height: 1.04;
-      letter-spacing: -2px;
-      margin: 15px 0 22px;
-    }
-
-    .hero p {
-      color: var(--muted);
-      font-size: 1.1rem;
-      max-width: 650px;
-    }
-
-    .actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 11px 17px;
-      border-radius: 10px;
-      border: 1px solid var(--line);
-      font-weight: 700;
-    }
-
-    .btn.primary {
-      background: var(--accent);
-      color: #07131a;
-      border-color: var(--accent);
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    /* ================= PROFILE CARD ================= */
-    .profile-card {
-      background: linear-gradient(145deg, var(--panel2), var(--panel));
-      border: 1px solid var(--line);
-      padding: 28px;
-      border-radius: 22px;
-    }
-
-    /* ⚠️ PHOTO HIGHLIGHT — replace photoko.jpg with your file name */
-    .avatar-photo {
-      width: 110px;
-      height: 110px;
-      border-radius: 20px;
-      object-fit: cover;
-      border: 2px solid var(--accent);
-      display: block;
-      margin-bottom: 20px;
-    }
-
-    .profile-card h2 {
-      margin: 0 0 6px;
-      font-size: 1.25rem;
-    }
-
-    .profile-card p {
-      font-size: .95rem;
-      margin: 0 0 16px;
-    }
-
-    .pillrow {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .pill {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 5px 10px;
-      color: var(--muted);
-      font-size: .8rem;
-    }
-
-    /* ================= SECTIONS ================= */
-    section {
-      padding: 56px 0;
-      scroll-margin-top: 75px;
-    }
-
-    .section-head {
-      margin-bottom: 25px;
-    }
-
-    .section-head .eyebrow {
-      font-size: .76rem;
-    }
-
-    .section-head h2 {
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      line-height: 1.2;
-      margin: 8px 0;
-    }
-
-    .section-head p {
-      color: var(--muted);
-      margin: 0;
-      max-width: 680px;
-    }
-
-    .about-grid,
-    .skills-grid,
-    .project-grid,
-    .cert-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 23px;
-    }
-
-    .card h3 {
-      margin: 0 0 9px;
-    }
-
-    .card p {
-      color: var(--muted);
-      margin: 0;
-    }
-
-    .detail {
-      display: flex;
-      gap: 12px;
-      margin-top: 13px;
-      color: var(--muted);
-      font-size: .95rem;
-    }
-
-    .detail strong {
-      color: var(--text);
-      min-width: 94px;
-    }
-
-    .skill-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 14px;
-    }
-
-    .skill {
-      background: var(--panel2);
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      padding: 7px 11px;
-      font-size: .9rem;
-    }
-
-    .project-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: flex-start;
-    }
-
-    .project-type {
-      font-size: .75rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 800;
-    }
-
-    .project-grid .card {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .project-grid .card p {
-      flex: 1;
-    }
-
-    .note {
-      font-size: .85rem;
-      color: var(--muted);
-      border-left: 2px solid var(--accent);
-      padding-left: 12px;
-      margin-top: 8px;
-    }
-
-    /* ================= CERTIFICATES ================= */
-    .cert-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 23px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .cert-card h3 {
-      margin: 0;
-    }
-
-    .cert-meta {
-      font-size: .82rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 800;
-    }
-
-    .cert-card p {
-      color: var(--muted);
-      margin: 0;
-      flex: 1;
-    }
-
-    .cert-preview {
-      width: 100%;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: #0e1526;
-      cursor: pointer;
-      transition: transform .2s;
-    }
-
-    .cert-preview:hover {
-      transform: scale(1.02);
-    }
-
-    .cert-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .cert-actions a {
-      font-size: .82rem;
-      padding: 8px 14px;
-      border-radius: 9px;
-      border: 1px solid var(--line);
-      font-weight: 700;
-    }
-
-    .cert-actions a:hover {
-      background: var(--panel2);
-      color: var(--accent);
-    }
-
-    /* ================= ACHIEVEMENTS ================= */
-    .achieve-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .achieve-list li {
-      padding: 16px 0;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      gap: 18px;
-    }
-
-    .achieve-list li:last-child {
-      border-bottom: 0;
-    }
-
-    .achieve-list .year {
-      font-size: .82rem;
-      color: var(--accent);
-      font-weight: 800;
-      min-width: 60px;
-    }
-
-    .achieve-list .body h3 {
-      margin: 0 0 4px;
-      font-size: 1rem;
-    }
-
-    .achieve-list .body p {
-      margin: 0;
-      color: var(--muted);
-      font-size: .92rem;
-    }
-
-    /* ================= RESUME BAND ================= */
-    .resume-band {
-      background: var(--panel2);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .resume-band h2 {
-      margin: 0 0 6px;
-      font-size: 1.4rem;
-    }
-
-    .resume-band p {
-      margin: 0;
-      color: var(--muted);
-      font-size: .95rem;
-      max-width: 600px;
-    }
-
-    .resume-note {
-      font-size: .78rem;
-      color: var(--muted);
-      margin-top: 8px;
-    }
-
-    /* ================= CONTACT ================= */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-    }
-
-    .contact-item {
-      padding: 17px 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .contact-item:last-child {
-      border-bottom: 0;
-    }
-
-    .contact-item small {
-      display: block;
-      color: var(--muted);
-      margin-bottom: 3px;
-    }
-
-    .contact-item a:hover {
-      color: var(--accent);
-    }
-
-    /* ================= FOOTER ================= */
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 24px 0;
-      color: var(--muted);
-      font-size: .88rem;
-    }
-
-    .footer-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    /* ================= RESPONSIVE ================= */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, Segoe UI, Arial, sans-serif; line-height: 1.65; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin: auto; }
+
+    /* HEADER */
+    header { position: sticky; top: 0; z-index: 5; background: rgba(11, 16, 32, .92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+    nav { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { font-weight: 800; letter-spacing: .3px; }
+    .brand span { color: var(--accent); }
+    .navlinks { display: flex; gap: 22px; flex-wrap: wrap; }
+    .navlinks a { font-size: .92rem; color: var(--muted); }
+    .navlinks a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero { padding: 92px 0 74px; display: grid; grid-template-columns: 1.5fr .8fr; gap: 44px; align-items: center; }
+    .eyebrow { color: var(--accent); font-size: .84rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+    h1 { font-size: clamp(2.7rem, 7vw, 5rem); line-height: 1.04; letter-spacing: -2px; margin: 15px 0 22px; }
+    .hero p { color: var(--muted); font-size: 1.1rem; max-width: 650px; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .btn { display: inline-block; padding: 11px 17px; border-radius: 10px; border: 1px solid var(--line); font-weight: 700; }
+    .btn.primary { background: var(--accent); color: #07131a; border-color: var(--accent); }
+    .btn:hover { transform: translateY(-1px); }
+
+    /* PROFILE */
+    .profile-card { background: linear-gradient(145deg, var(--panel2), var(--panel)); border: 1px solid var(--line); padding: 28px; border-radius: 22px; }
+    .avatar-photo { width: 110px; height: 110px; border-radius: 20px; object-fit: cover; border: 2px solid var(--accent); display: block; margin-bottom: 20px; }
+    .profile-card h2 { margin: 0 0 6px; font-size: 1.25rem; }
+    .profile-card p { font-size: .95rem; margin: 0 0 16px; }
+    .pillrow { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill { border: 1px solid var(--line); border-radius: 999px; padding: 5px 10px; color: var(--muted); font-size: .8rem; }
+
+    /* SECTIONS */
+    section { padding: 56px 0; scroll-margin-top: 75px; }
+    .section-head { margin-bottom: 25px; }
+    .section-head .eyebrow { font-size: .76rem; }
+    .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.2; margin: 8px 0; }
+    .section-head p { color: var(--muted); margin: 0; max-width: 680px; }
+    .about-grid, .skills-grid, .project-grid, .cert-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    
+    /* CARDS */
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 23px; }
+    .card h3 { margin: 0 0 9px; }
+    .card p { color: var(--muted); margin: 0; }
+    .detail { display: flex; gap: 12px; margin-top: 13px; color: var(--muted); font-size: .95rem; }
+    .detail strong { color: var(--text); min-width: 94px; }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 14px; }
+    .skill { background: var(--panel2); border: 1px solid var(--line); border-radius: 9px; padding: 7px 11px; font-size: .9rem; }
+    .project-top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .project-type { font-size: .75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; font-weight: 800; }
+    .project-grid .card { display: flex; flex-direction: column; gap: 12px; }
+    .project-grid .card p { flex: 1; }
+    .note { font-size: .85rem; color: var(--muted); border-left: 2px solid var(--accent); padding-left: 12px; margin-top: 8px; }
+
+    /* CERTIFICATES */
+    .cert-card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 23px; display: flex; flex-direction: column; gap: 12px; }
+    .cert-card h3 { margin: 0; }
+    .cert-preview { width: 100%; border-radius: 12px; border: 1px solid var(--line); background: #0e1526; cursor: pointer; transition: transform .2s; }
+    .cert-preview:hover { transform: scale(1.02); }
+    .cert-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .cert-actions a { font-size: .82rem; padding: 8px 14px; border-radius: 9px; border: 1px solid var(--line); font-weight: 700; }
+    .cert-actions a:hover { background: var(--panel2); color: var(--accent); }
+
+    /* ACHIEVEMENTS & RESUME */
+    .achieve-list { list-style: none; margin: 0; padding: 0; }
+    .achieve-list li { padding: 16px 0; border-bottom: 1px solid var(--line); display: flex; gap: 18px; }
+    .achieve-list li:last-child { border-bottom: 0; }
+    .achieve-list .year { font-size: .82rem; color: var(--accent); font-weight: 800; min-width: 60px; }
+    .achieve-list .body h3 { margin: 0 0 4px; font-size: 1rem; }
+    .achieve-list .body p { margin: 0; color: var(--muted); font-size: .92rem; }
+    .resume-band { background: var(--panel2); border: 1px solid var(--line); border-radius: 16px; padding: 32px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .resume-band h2 { margin: 0 0 6px; font-size: 1.4rem; }
+    .resume-band p { margin: 0; color: var(--muted); font-size: .95rem; max-width: 600px; }
+    .resume-note { font-size: .78rem; color: var(--muted); margin-top: 8px; }
+
+    /* CONTACT */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .contact-item { padding: 17px 0; border-bottom: 1px solid var(--line); }
+    .contact-item:last-child { border-bottom: 0; }
+    .contact-item small { display: block; color: var(--muted); margin-bottom: 3px; }
+    .contact-item a:hover { color: var(--accent); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--line); padding: 24px 0; color: var(--muted); font-size: .88rem; }
+    .footer-row { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+    /* RESPONSIVE */
     @media (max-width: 760px) {
-      .hero {
-        grid-template-columns: 1fr;
-        padding: 65px 0 45px;
-        gap: 26px;
-      }
-
-      .about-grid,
-      .skills-grid,
-      .project-grid,
-      .cert-grid,
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .navlinks {
-        gap: 12px;
-      }
-
-      .navlinks a {
-        font-size: .82rem;
-      }
-
-      .wrap {
-        width: min(var(--max), calc(100% - 28px));
-      }
-
-      h1 {
-        letter-spacing: -1px;
-      }
-
-      .profile-card {
-        max-width: 520px;
-      }
+      .hero { grid-template-columns: 1fr; padding: 65px 0 45px; gap: 26px; }
+      .about-grid, .skills-grid, .project-grid, .cert-grid, .contact-grid { grid-template-columns: 1fr; }
+      .navlinks { gap: 12px; }
+      .navlinks a { font-size: .82rem; }
+      .wrap { width: min(var(--max), calc(100% - 28px)); }
+      h1 { letter-spacing: -1px; }
+      .profile-card { max-width: 520px; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- ================= HEADER ================= -->
   <header>
     <div class="wrap">
       <nav aria-label="Main navigation">
@@ -517,7 +130,7 @@
           <a href="#education">Education</a>
           <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
-          <a href="#profdev">ProfDev</a>
+          <a href="#profdev">Certificates</a>
           <a href="#achievements">Achievements</a>
           <a href="#contact">Contact</a>
         </div>
@@ -527,24 +140,18 @@
 
   <main>
 
-    <!-- ================= HERO ================= -->
+    <!-- HERO -->
     <div class="wrap hero" id="home">
       <div>
         <div class="eyebrow">Information Technology Student</div>
         <h1>Hi, I'm Adrian<br>Punzalan.</h1>
-        <p>
-          I'm an Information Technology student at Northeastern College who is interested
-          in technology, software development, and learning through practical projects.
-          I'm building my skills one project at a time.
-        </p>
+        <p>I'm an Information Technology student at Northeastern College who is interested in technology, software development, and learning through practical projects. I'm building my skills one project at a time.</p>
         <div class="actions">
           <a class="btn primary" href="#projects">View My Projects</a>
           <a class="btn" href="#resume">Download Resume</a>
         </div>
       </div>
-
       <aside class="profile-card">
-        <!-- ⚠️ PHOTO — replace "photoko.jpg" with your own image file name -->
         <img class="avatar-photo" src="photoko.jpg" alt="Adrian Punzalan" />
         <h2>Adrian Punzalan</h2>
         <p>BS Information Technology student</p>
@@ -553,28 +160,18 @@
           <span class="pill">Web applications</span>
           <span class="pill">Continuous learning</span>
         </div>
-        <div class="detail">
-          <strong>Location</strong>
-          <span>Santiago City, Isabela, Philippines</span>
-        </div>
-        <div class="detail">
-          <strong>Education</strong>
-          <span>Northeastern College</span>
-        </div>
+        <div class="detail"><strong>Location</strong><span>Santiago City, Isabela, Philippines</span></div>
+        <div class="detail"><strong>Education</strong><span>Northeastern College</span></div>
       </aside>
     </div>
 
-    <!-- ================= ABOUT ================= -->
+    <!-- ABOUT -->
     <section id="about">
       <div class="wrap">
         <div class="section-head">
           <div class="eyebrow">About Me</div>
           <h2>Learning by building.</h2>
-          <p>
-            I'm a motivated IT student with an interest in computer systems, software,
-            programming, and problem-solving. I can work independently or with a team,
-            and I'm willing to keep learning and gain practical experience.
-          </p>
+          <p>I'm a motivated IT student with an interest in computer systems, software, programming, and problem-solving. I can work independently or with a team, and I'm willing to keep learning and gain practical experience.</p>
         </div>
         <div class="about-grid">
           <article class="card">
@@ -589,7 +186,7 @@
       </div>
     </section>
 
-    <!-- ================= EDUCATION ================= -->
+    <!-- EDUCATION -->
     <section id="education">
       <div class="wrap">
         <div class="section-head">
@@ -615,7 +212,7 @@
       </div>
     </section>
 
-    <!-- ================= SKILLS ================= -->
+    <!-- SKILLS -->
     <section id="skills">
       <div class="wrap">
         <div class="section-head">
@@ -655,7 +252,7 @@
       </div>
     </section>
 
-    <!-- ================= PROJECTS ================= -->
+    <!-- PROJECTS -->
     <section id="projects">
       <div class="wrap">
         <div class="section-head">
@@ -664,58 +261,172 @@
           <p>Examples of academic and practice projects. Add screenshots, repository links, or demos when you are ready to share them.</p>
         </div>
         <div class="project-grid">
-
           <article class="card">
-            <div class="project-top">
-              <h3>Barangay Data Management System</h3>
-              <span class="project-type">Academic project</span>
-            </div>
+            <div class="project-top"><h3>Barangay Data Management System</h3><span class="project-type">Academic project</span></div>
             <p>A system concept for organizing resident records and supporting barangay services such as certificate requests, assistance requests, announcements, and reports.</p>
-            <div class="pillrow">
-              <span class="pill">PHP</span>
-              <span class="pill">MySQL</span>
-              <span class="pill">XAMPP</span>
-            </div>
+            <div class="pillrow"><span class="pill">PHP</span><span class="pill">MySQL</span><span class="pill">XAMPP</span></div>
             <div class="note">Project description based on the system you have been developing. Add only features that are implemented in your current version.</div>
           </article>
-
           <article class="card">
-            <div class="project-top">
-              <h3>Meal App</h3>
-              <span class="project-type">Practice project</span>
-            </div>
+            <div class="project-top"><h3>Meal App</h3><span class="project-type">Practice project</span></div>
             <p>A Flutter application for browsing meal information and using meal categories and favorites, with Supabase used as a data source.</p>
-            <div class="pillrow">
-              <span class="pill">Flutter</span>
-              <span class="pill">Dart</span>
-              <span class="pill">Supabase</span>
-            </div>
+            <div class="pillrow"><span class="pill">Flutter</span><span class="pill">Dart</span><span class="pill">Supabase</span></div>
             <div class="note">Add a screenshot and the final feature list to show the current state of the app.</div>
           </article>
-
           <article class="card">
-            <div class="project-top">
-              <h3>Expense Tracker</h3>
-              <span class="project-type">Practice project</span>
-            </div>
+            <div class="project-top"><h3>Expense Tracker</h3><span class="project-type">Practice project</span></div>
             <p>A Flutter app project focused on recording expenses and presenting expense information with a chart and a list.</p>
-            <div class="pillrow">
-              <span class="pill">Flutter</span>
-              <span class="pill">Dart</span>
-              <span class="pill">Supabase</span>
-            </div>
+            <div class="pillrow"><span class="pill">Flutter</span><span class="pill">Dart</span><span class="pill">Supabase</span></div>
             <div class="note">Update this description to match the features that work in your final build.</div>
           </article>
-
           <article class="card">
-            <div class="project-top">
-              <h3>More Projects</h3>
-              <span class="project-type">Coming soon</span>
-            </div>
+            <div class="project-top"><h3>More Projects</h3><span class="project-type">Coming soon</span></div>
             <p>More coursework, web projects, and software experiments can be added here as they are completed.</p>
-            <div class="pillrow">
-              <span class="pill">Learning</span>
-              <span class="pill">Development</span>
+            <div class="pillrow"><span class="pill">Learning</span><span class="pill">Development</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROFDEV CERTIFICATES (USING EXACT FILENAMES) -->
+    <section id="profdev">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Professional Development</div>
+          <h2>Certificates</h2>
+        </div>
+
+        <div class="cert-grid">
+
+          <!-- TESDA 1 -->
+          <article class="cert-card">
+            <h3>TESDA</h3>
+            <a href="1.jpg" target="_blank" rel="noopener">
+              <img class="cert-preview" src="1.jpg" alt="TESDA Certificate 1" />
+            </a>
+            <div class="cert-actions">
+              <a href="1.jpg" target="_blank" rel="noopener">View</a>
+              <a href="1.jpg" download="TESDA-1.jpg">Download</a>
+            </div>
+          </article>
+
+          <!-- TESDA 2 -->
+          <article class="cert-card">
+            <h3>TESDA</h3>
+            <a href="2.jpg" target="_blank" rel="noopener">
+              <img class="cert-preview" src="2.jpg" alt="TESDA Certificate 2" />
+            </a>
+            <div class="cert-actions">
+              <a href="2.jpg" target="_blank" rel="noopener">View</a>
+              <a href="2.jpg" download="TESDA-2.jpg">Download</a>
+            </div>
+          </article>
+
+          <!-- TESDA 3 -->
+          <article class="cert-card">
+            <h3>TESDA</h3>
+            <a href="3.jpg" target="_blank" rel="noopener">
+              <img class="cert-preview" src="3.jpg" alt="TESDA Certificate 3" />
+            </a>
+            <div class="cert-actions">
+              <a href="3.jpg" target="_blank" rel="noopener">View</a>
+              <a href="3.jpg" download="TESDA-3.jpg">Download</a>
+            </div>
+          </article>
+
+          <!-- TESDA 4 -->
+          <article class="cert-card">
+            <h3>TESDA</h3>
+            <a href="4.jpg" target="_blank" rel="noopener">
+              <img class="cert-preview" src="4.jpg" alt="TESDA Certificate 4" />
+            </a>
+            <div class="cert-actions">
+              <a href="4.jpg" target="_blank" rel="noopener">View</a>
+              <a href="4.jpg" download="TESDA-4.jpg">Download</a>
+            </div>
+          </article>
+
+          <!-- TESDA 5 -->
+          <article class="cert-card">
+            <h3>TESDA</h3>
+            <a href="5.jpg" target="_blank" rel="noopener">
+              <img class="cert-preview" src="5.jpg" alt="TESDA Certificate 5" />
+            </a>
+            <div class="cert-actions">
+              <a href="5.jpg" target="_blank" rel="noopener">View</a>
+              <a href="5.jpg" download="TESDA-5.jpg">Download</a>
+            </div>
+          </article>
+
+          <!-- NETACAD -->
+          <article class="cert-card">
+            <h3>NetAcad</h3>
+            <a href="net.jpg" target="_blank" rel="noopener">
+              <img class="cert-preview" src="net.jpg" alt="NetAcad Certificate" />
+            </a>
+            <div class="cert-actions">
+              <a href="net.jpg" target="_blank" rel="noopener">View</a>
+              <a href="net.jpg" download="NetAcad.jpg">Download</a>
+            </div>
+          </article>
+
+          <!-- FREECODECAMP -->
+          <article class="cert-card">
+            <h3>freeCodeCamp</h3>
+            <a href="camp.png" target="_blank" rel="noopener">
+              <img class="cert-preview" src="camp.png" alt="freeCodeCamp Certificate" />
+            </a>
+            <div class="cert-actions">
+              <a href="camp.png" target="_blank" rel="noopener">View</a>
+              <a href="camp.png" download="freeCodeCamp.png">Download</a>
+            </div>
+          </article>
+
+          <!-- DICT 1 -->
+          <article class="cert-card">
+            <h3>DICT</h3>
+            <a href="dict1.jpg" target="_blank" rel="noopener">
+              <img class="cert-preview" src="dict1.jpg" alt="DICT Certificate 1" />
+            </a>
+            <div class="cert-actions">
+              <a href="dict1.jpg" target="_blank" rel="noopener">View</a>
+              <a href="dict1.jpg" download="DICT-1.jpg">Download</a>
+            </div>
+          </article>
+
+          <!-- DICT 2 -->
+          <article class="cert-card">
+            <h3>DICT</h3>
+            <a href="dict2.jpg" target="_blank" rel="noopener">
+              <img class="cert-preview" src="dict2.jpg" alt="DICT Certificate 2" />
+            </a>
+            <div class="cert-actions">
+              <a href="dict2.jpg" target="_blank" rel="noopener">View</a>
+              <a href="dict2.jpg" download="DICT-2.jpg">Download</a>
+            </div>
+          </article>
+
+          <!-- DICT 3 -->
+          <article class="cert-card">
+            <h3>DICT</h3>
+            <a href="dict3.jpg" target="_blank" rel="noopener">
+              <img class="cert-preview" src="dict3.jpg" alt="DICT Certificate 3" />
+            </a>
+            <div class="cert-actions">
+              <a href="dict3.jpg" target="_blank" rel="noopener">View</a>
+              <a href="dict3.jpg" download="DICT-3.jpg">Download</a>
+            </div>
+          </article>
+
+          <!-- DICT 4 -->
+          <article class="cert-card">
+            <h3>DICT</h3>
+            <a href="dict4.jpg" target="_blank" rel="noopener">
+              <img class="cert-preview" src="dict4.jpg" alt="DICT Certificate 4" />
+            </a>
+            <div class="cert-actions">
+              <a href="dict4.jpg" target="_blank" rel="noopener">View</a>
+              <a href="dict4.jpg" download="DICT-4.jpg">Download</a>
             </div>
           </article>
 
@@ -723,156 +434,7 @@
       </div>
     </section>
 
-   <section id="profdev">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Professional Development</div>
-      <h2>Certificates</h2>
-    </div>
-
-    <div class="cert-grid">
-
-      <!-- ================= TESDA (4) ================= -->
-
-      <!-- ⚠️ TESDA 1 — replace "certificates/tesda1.jpg" with your file name -->
-    <article class="cert-card">
-        <h3>TESDA</h3>
-        <a href="1.jpg" target="_blank" rel="noopener">
-          <img class="cert-preview" src="1.jpg" alt="TESDA Certificate 1" />
-        </a>
-        <div class="cert-actions">
-          <a href="1.jpg" target="_blank" rel="noopener">View</a>
-          <a href="1.jpg" download>Download</a>
-        </div>
-      </article>
-
-      <article class="cert-card">
-        <h3>TESDA</h3>
-        <a href="2.jpg" target="_blank" rel="noopener">
-          <img class="cert-preview" src="2.jpg" alt="TESDA Certificate 2" />
-        </a>
-        <div class="cert-actions">
-          <a href="2.jpg" target="_blank" rel="noopener">View</a>
-          <a href="2.jpg" download>Download</a>
-        </div>
-      </article>
-
-      <article class="cert-card">
-        <h3>TESDA</h3>
-        <a href="3.jpg" target="_blank" rel="noopener">
-          <img class="cert-preview" src="3.jpg" alt="TESDA Certificate 3" />
-        </a>
-        <div class="cert-actions">
-          <a href="3.jpg" target="_blank" rel="noopener">View</a>
-          <a href="3.jpg" download>Download</a>
-        </div>
-      </article>
-
-      <article class="cert-card">
-        <h3>TESDA</h3>
-        <a href="4.jpg" target="_blank" rel="noopener">
-          <img class="cert-preview" src="4.jpg" alt="TESDA Certificate 4" />
-        </a>
-        <div class="cert-actions">
-          <a href="4.jpg" target="_blank" rel="noopener">View</a>
-          <a href="4.jpg" download>Download</a>
-        </div>
-      </article>
-
-      <article class="cert-card">
-        <h3>TESDA</h3>
-        <a href="5.jpg" target="_blank" rel="noopener">
-          <img class="cert-preview" src="5.jpg" alt="TESDA Certificate 5" />
-        </a>
-        <div class="cert-actions">
-          <a href="5.jpg" target="_blank" rel="noopener">View</a>
-          <a href="5.jpg" download>Download</a>
-        </div>
-      </article>
-
-      <!-- ================= NETACAD (2) ================= -->
-
-      <!-- ⚠️ NETACAD 1 — replace "certificates/netacad1.png" with your file name -->
-      <article class="cert-card">
-        <h3>NetAcad</h3>
-        <a href="certificates/netacad1.png" target="_blank" rel="noopener">
-          <img class="cert-preview" src="certificates/netacad1.png" alt="NetAcad Certificate 1" />
-        </a>
-        <div class="cert-actions">
-          <a href="certificates/netacad1.png" target="_blank" rel="noopener">View</a>
-          <a href="certificates/netacad1.png" download>Download</a>
-        </div>
-      </article>
-
-      <!-- ⚠️ NETACAD 2 — replace "certificates/netacad2.png" with your file name -->
-      <article class="cert-card">
-        <h3>NetAcad</h3>
-        <a href="certificates/netacad2.png" target="_blank" rel="noopener">
-          <img class="cert-preview" src="certificates/netacad2.png" alt="NetAcad Certificate 2" />
-        </a>
-        <div class="cert-actions">
-          <a href="certificates/netacad2.png" target="_blank" rel="noopener">View</a>
-          <a href="certificates/netacad2.png" download>Download</a>
-        </div>
-      </article>
-
-      <!-- ================= FREECODECAMP (1) ================= -->
-
-      <!-- ⚠️ FREECODECAMP — replace "certificates/fcc.png" with your file name -->
-      <article class="cert-card">
-        <h3>freeCodeCamp</h3>
-        <a href="certificates/fcc.png" target="_blank" rel="noopener">
-          <img class="cert-preview" src="certificates/fcc.png" alt="freeCodeCamp Certificate" />
-        </a>
-        <div class="cert-actions">
-          <a href="certificates/fcc.png" target="_blank" rel="noopener">View</a>
-          <a href="certificates/fcc.png" download>Download</a>
-        </div>
-      </article>
-
-      <!-- ================= DICT (3) ================= -->
-
-      <!-- ⚠️ DICT 1 — replace "certificates/dict1.jpg" with your file name -->
-      <article class="cert-card">
-        <h3>DICT</h3>
-        <a href="certificates/dict1.jpg" target="_blank" rel="noopener">
-          <img class="cert-preview" src="certificates/dict1.jpg" alt="DICT Certificate 1" />
-        </a>
-        <div class="cert-actions">
-          <a href="certificates/dict1.jpg" target="_blank" rel="noopener">View</a>
-          <a href="certificates/dict1.jpg" download>Download</a>
-        </div>
-      </article>
-
-      <!-- ⚠️ DICT 2 — replace "certificates/dict2.jpg" with your file name -->
-      <article class="cert-card">
-        <h3>DICT</h3>
-        <a href="certificates/dict2.jpg" target="_blank" rel="noopener">
-          <img class="cert-preview" src="certificates/dict2.jpg" alt="DICT Certificate 2" />
-        </a>
-        <div class="cert-actions">
-          <a href="certificates/dict2.jpg" target="_blank" rel="noopener">View</a>
-          <a href="certificates/dict2.jpg" download>Download</a>
-        </div>
-      </article>
-
-      <!-- ⚠️ DICT 3 — replace "certificates/dict3.jpg" with your file name -->
-      <article class="cert-card">
-        <h3>DICT</h3>
-        <a href="certificates/dict3.jpg" target="_blank" rel="noopener">
-          <img class="cert-preview" src="certificates/dict3.jpg" alt="DICT Certificate 3" />
-        </a>
-        <div class="cert-actions">
-          <a href="certificates/dict3.jpg" target="_blank" rel="noopener">View</a>
-          <a href="certificates/dict3.jpg" download>Download</a>
-        </div>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-    <!-- ================= ACHIEVEMENTS ================= -->
+    <!-- ACHIEVEMENTS -->
     <section id="achievements">
       <div class="wrap">
         <div class="section-head">
@@ -906,22 +468,22 @@
       </div>
     </section>
 
-    <!-- ================= RESUME DOWNLOAD ================= -->
+    <!-- RESUME DOWNLOAD -->
     <section id="resume">
       <div class="wrap">
         <div class="resume-band">
           <div>
             <h2>Download my resume</h2>
-            <p>My resume is available as a PDF. It has been prepared for public viewing, with sensitive personal information removed.</p>
-            <div class="resume-note">Note: phone number and full address are not included in the public PDF.</div>
+            <p>My resume is available for viewing and download.</p>
+            <div class="resume-note">Note: If you have a PDF version, change "resume.jpg" to "resume.pdf" in the code.</div>
           </div>
-          <!-- ⚠️ RESUME — replace "resume/Adrian-Punzalan-Resume.pdf" with your file name -->
-          <a class="btn primary" href="resume/Adrian-Punzalan-Resume.pdf" download>Download PDF</a>
+          <!-- Using your resume.jpg here -->
+          <a class="btn primary" href="resume.jpg" download="Adrian-Punzalan-Resume.jpg">Download Resume</a>
         </div>
       </div>
     </section>
 
-    <!-- ================= CONTACT ================= -->
+    <!-- CONTACT -->
     <section id="contact">
       <div class="wrap">
         <div class="section-head">
@@ -956,7 +518,6 @@
 
   </main>
 
-  <!-- ================= FOOTER ================= -->
   <footer>
     <div class="wrap footer-row">
       <span>© <span id="year">2026</span> Adrian Punzalan</span>
