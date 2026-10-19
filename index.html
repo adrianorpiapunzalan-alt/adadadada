@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Adrian Punzalan's IT student portfolio, projects, skills, and contact information." />
+  <title>Adrian Punzalan | IT Student Portfolio</title>
+
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a2d;
+      --panel2: #172239;
+      --text: #edf2ff;
+      --muted: #aab6d1;
+      --accent: #72e0c1;
+      --line: #27334d;
+      --max: 1080px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 40px));
+      margin: auto;
+    }
+
+    /* ---------- Header ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(11, 16, 32, .92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand { font-weight: 800; letter-spacing: .3px; }
+    .brand span { color: var(--accent); }
+
+    .navlinks { display: flex; gap: 22px; flex-wrap: wrap; }
+    .navlinks a { font-size: .92rem; color: var(--muted); }
+    .navlinks a:hover { color: var(--accent); }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      padding: 92px 0 74px;
+      display: grid;
+      grid-template-columns: 1.5fr .8fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: .84rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(2.7rem, 7vw, 5rem);
+      line-height: 1.04;
+      letter-spacing: -2px;
+      margin: 15px 0 22px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 650px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 11px 17px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      font-weight: 700;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: #07131a;
+      border-color: var(--accent);
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    /* ---------- Profile card ---------- */
+    .profile-card {
+      background: linear-gradient(145deg, var(--panel2), var(--panel));
+      border: 1px solid var(--line);
+      padding: 28px;
+      border-radius: 22px;
+    }
+
+    .avatar {
+      width: 74px;
+      height: 74px;
+      border-radius: 20px;
+      background: var(--accent);
+      color: #07131a;
+      display: grid;
+      place-items: center;
+      font-size: 1.8rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+    }
+
+    /* Photo version of the avatar */
+    .avatar-photo {
+      width: 110px;
+      height: 110px;
+      border-radius: 20px;
+      object-fit: cover;
+      border: 2px solid var(--accent);
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .profile-card h2 { margin: 0 0 6px; font-size: 1.25rem; }
+    .profile-card p { font-size: .95rem; margin: 0 0 16px; }
+
+    .pillrow { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    /* ---------- Sections ---------- */
+    section { padding: 56px 0; scroll-margin-top: 75px; }
+
+    .section-head { margin-bottom: 25px; }
+    .section-head .eyebrow { font-size: .76rem; }
+    .section-head h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      line-height: 1.2;
+      margin: 8px 0;
+    }
+    .section-head p {
+      color: var(--muted);
+      margin: 0;
+      max-width: 680px;
+    }
+
+    .about-grid,
+    .skills-grid,
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 23px;
+    }
+
+    .card h3 { margin: 0 0 9px; }
+    .card p { color: var(--muted); margin: 0; }
+
+    .detail {
+      display: flex;
+      gap: 12px;
+      margin-top: 13px;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .detail strong { color: var(--text); min-width: 94px; }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 14px;
+    }
+
+    .skill {
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 7px 11px;
+      font-size: .9rem;
+    }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .project-type {
+      font-size: .75rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 800;
+    }
+
+    .project-grid .card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .project-grid .card p { flex: 1; }
+
+    .note {
+      font-size: .85rem;
+      color: var(--muted);
+      border-left: 2px solid var(--accent);
+      padding-left: 12px;
+      margin-top: 8px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .contact-item {
+      padding: 17px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .contact-item:last-child { border-bottom: 0; }
+
+    .contact-item small {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .contact-item a:hover { color: var(--accent); }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 0;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ---------- Mobile ---------- */
+    @media (max-width: 760px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 65px 0 45px;
+        gap: 26px;
+      }
+
+      .about-grid,
+      .skills-grid,
+      .project-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .navlinks { gap: 12px; }
+      .navlinks a { font-size: .82rem; }
+
+      .wrap { width: min(var(--max), calc(100% - 28px)); }
+      h1 { letter-spacing: -1px; }
+      .profile-card { max-width: 520px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header>
+    <div class="wrap">
+      <nav aria-label="Main navigation">
+        <a class="brand" href="#home">ADRIAN<span>.</span></a>
+        <div class="navlinks">
+          <a href="#about">About</a>
+          <a href="#education">Education</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================= HERO ================= -->
+    <div class="wrap hero" id="home">
+      <div>
+        <div class="eyebrow">Information Technology Student</div>
+        <h1>Hi, I'm Adrian<br>Punzalan.</h1>
+        <p>
+          I'm an Information Technology student at Northeastern College who is interested in
+          technology, software development, and learning through practical projects.
+          I'm building my skills one project at a time.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#projects">View My Projects</a>
+          <a class="btn" href="#contact">Contact Me</a>
+        </div>
+      </div>
+
+      <aside class="profile-card">
+        <img class="avatar-photo" src="photoko.jpg" alt="Adrian Punzalan" />
+        <h2>Adrian Punzalan</h2>
+        <p>BS Information Technology student</p>
+        <div class="pillrow">
+          <span class="pill">Problem-solving</span>
+          <span class="pill">Web applications</span>
+          <span class="pill">Continuous learning</span>
+        </div>
+        <div class="detail">
+          <strong>Location</strong>
+          <span>Santiago City, Isabela, Philippines</span>
+        </div>
+        <div class="detail">
+          <strong>Education</strong>
+          <span>Northeastern College</span>
+        </div>
+      </aside>
+    </div>
+
+    <!-- ================= ABOUT ================= -->
+    <section id="about">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">About Me</div>
+          <h2>Learning by building.</h2>
+          <p>
+            I'm a motivated IT student with an interest in computer systems, software,
+            programming, and problem-solving. I can work independently or with a team,
+            and I'm willing to keep learning and gain practical experience.
+          </p>
+        </div>
+        <div class="about-grid">
+          <article class="card">
+            <h3>What I'm working toward</h3>
+            <p>Developing practical technical skills and gaining experience through academic and personal software projects.</p>
+          </article>
+          <article class="card">
+            <h3>How I work</h3>
+            <p>I value communication, teamwork, attention to detail, adaptability, and solving problems step by step.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= EDUCATION ================= -->
+    <section id="education">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Education</div>
+          <h2>My academic background</h2>
+        </div>
+        <article class="card">
+          <div class="project-top">
+            <div>
+              <h3>Northeastern College</h3>
+              <p>Bachelor of Science in Information Technology</p>
+            </div>
+            <span class="pill">2024 – Present</span>
+          </div>
+          <div class="skill-list">
+            <span class="skill">Business Communication</span>
+            <span class="skill">Computer Applications</span>
+            <span class="skill">Information Management</span>
+            <span class="skill">Systems Analysis and Design</span>
+            <span class="skill">Database Management</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section id="skills">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Skills</div>
+          <h2>Tools and strengths</h2>
+          <p>Based on the skills listed in my resume and tools used in my projects.</p>
+        </div>
+        <div class="skills-grid">
+          <article class="card">
+            <h3>Technical Skills</h3>
+            <div class="skill-list">
+              <span class="skill">Google Workspace</span>
+              <span class="skill">Microsoft Office</span>
+              <span class="skill">Email Communication</span>
+              <span class="skill">Data Entry</span>
+              <span class="skill">Internet and Web Applications</span>
+              <span class="skill">Basic Computer Troubleshooting</span>
+              <span class="skill">Flutter / Dart</span>
+              <span class="skill">Supabase</span>
+              <span class="skill">PHP / MySQL</span>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Soft Skills</h3>
+            <div class="skill-list">
+              <span class="skill">Communication</span>
+              <span class="skill">Customer Service</span>
+              <span class="skill">Teamwork</span>
+              <span class="skill">Time Management</span>
+              <span class="skill">Problem Solving</span>
+              <span class="skill">Adaptability</span>
+              <span class="skill">Attention to Detail</span>
+              <span class="skill">Empathy</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJECTS ================= -->
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Selected Work</div>
+          <h2>Projects</h2>
+          <p>Examples of academic and practice projects. Add screenshots, repository links, or demos when you are ready to share them.</p>
+        </div>
+
+        <div class="project-grid">
+
+          <article class="card">
+            <div class="project-top">
+              <h3>Barangay Data Management System</h3>
+              <span class="project-type">Academic project</span>
+            </div>
+            <p>A system concept for organizing resident records and supporting barangay services such as certificate requests, assistance requests, announcements, and reports.</p>
+            <div class="pillrow">
+              <span class="pill">PHP</span>
+              <span class="pill">MySQL</span>
+              <span class="pill">XAMPP</span>
+            </div>
+            <div class="note">Project description based on the system you have been developing. Add only features that are implemented in your current version.</div>
+          </article>
+
+          <article class="card">
+            <div class="project-top">
+              <h3>Meal App</h3>
+              <span class="project-type">Practice project</span>
+            </div>
+            <p>A Flutter application for browsing meal information and using meal categories and favorites, with Supabase used as a data source.</p>
+            <div class="pillrow">
+              <span class="pill">Flutter</span>
+              <span class="pill">Dart</span>
+              <span class="pill">Supabase</span>
+            </div>
+            <div class="note">Add a screenshot and the final feature list to show the current state of the app.</div>
+          </article>
+
+          <article class="card">
+            <div class="project-top">
+              <h3>Expense Tracker</h3>
+              <span class="project-type">Practice project</span>
+            </div>
+            <p>A Flutter app project focused on recording expenses and presenting expense information with a chart and a list.</p>
+            <div class="pillrow">
+              <span class="pill">Flutter</span>
+              <span class="pill">Dart</span>
+              <span class="pill">Supabase</span>
+            </div>
+            <div class="note">Update this description to match the features that work in your final build.</div>
+          </article>
+
+          <article class="card">
+            <div class="project-top">
+              <h3>More Projects</h3>
+              <span class="project-type">Coming soon</span>
+            </div>
+            <p>More coursework, web projects, and software experiments can be added here as they are completed.</p>
+            <div class="pillrow">
+              <span class="pill">Learning</span>
+              <span class="pill">Development</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Contact</div>
+          <h2>Let's connect.</h2>
+          <p>For entry-level opportunities, collaboration, or questions about my projects, you can reach me using the details below.</p>
+        </div>
+
+        <div class="contact-grid">
+          <article class="card">
+            <h3>Contact Information</h3>
+            <div class="contact-item">
+              <small>Email</small>
+              <a href="mailto:adrianorpiapunzalan@gmail.com">adrianorpiapunzalan@gmail.com</a>
+            </div>
+            <div class="contact-item">
+              <small>Phone</small>
+              <a href="tel:+639120120787">+63 912 012 0787</a>
+            </div>
+            <div class="contact-item">
+              <small>Location</small>
+              <span>Santiago City, Isabela, Philippines</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Career Objective</h3>
+            <p>Seeking an entry-level customer service or virtual assistant opportunity where I can apply my communication, computer, and problem-solving skills while learning new tools and gaining professional experience.</p>
+            <p style="margin-top:14px">I'm also interested in continuing to develop my IT and software project skills.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="wrap footer-row">
+      <span>© <span id="year">2026</span> Adrian Punzalan</span>
+      <span>Portfolio • Santiago City, Isabela</span>
+    </div>
+  </footer>
+
+</body>
+</html>
