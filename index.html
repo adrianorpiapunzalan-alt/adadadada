@@ -7,7 +7,7 @@
   <title>Adrian Punzalan | IT Portfolio</title>
 
   <style>
-    /* ================= CINEMATIC CYBER-MINT THEME ================= */
+    /* ================= CYBER-MINT THEME (No Purple) ================= */
     :root {
       --bg: #040b11;
       --surface: rgba(10, 25, 35, 0.7);
@@ -40,7 +40,6 @@
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
     
-    /* Wider wrap for that cinematic feel */
     .wrap { width: min(1300px, calc(100% - 40px)); margin: auto; }
     .wrap-narrow { width: min(1100px, calc(100% - 40px)); margin: auto; }
 
@@ -133,7 +132,7 @@
     }
 
     h1 {
-      font-size: clamp(3rem, 7vw, 6rem); /* Bigger typography */
+      font-size: clamp(3rem, 7vw, 6rem); 
       line-height: 1;
       margin-bottom: 20px;
       font-weight: 900;
@@ -152,7 +151,7 @@
     .btn {
       display: inline-block;
       padding: 16px 32px;
-      border-radius: 2px; /* Sharper corners for cinematic look */
+      border-radius: 2px; 
       font-size: 0.9rem;
       font-weight: 800;
       text-transform: uppercase;
@@ -180,55 +179,54 @@
       transform: translateY(-3px);
     }
 
-    /* ================= HEXAGON PROFILE PIC ================= */
-    .hex-container {
+    /* ================= NEW CYBER-PFP FRAME ================= */
+    .cyber-pfp-frame {
       position: relative;
       width: 320px;
-      height: 360px;
+      height: 380px;
       margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .hex-bg {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: var(--accent);
-      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-      animation: pulseGlow 3s infinite alternate;
-      z-index: 1;
-    }
-
-    @keyframes pulseGlow {
-      0% { opacity: 0.5; transform: scale(0.98); }
-      100% { opacity: 1; transform: scale(1.02); filter: drop-shadow(0 0 20px var(--accent)); }
-    }
-
-    .hex-photo-container {
-      position: relative;
-      width: 300px;
-      height: 340px;
-      background: var(--bg);
-      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-      z-index: 2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: #0a121e;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 0 30px rgba(114, 224, 193, 0.1);
       overflow: hidden;
+      /* Tech corner accents */
+      background-image: 
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent));
+      background-repeat: no-repeat;
+      background-size: 25px 2px, 2px 25px, 25px 2px, 2px 25px;
+      background-position: top left, top left, bottom right, bottom right;
     }
 
-    .hex-photo-container img {
+    .cyber-pfp-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.9;
-      transition: transform 0.5s;
+      border-radius: 6px;
+      position: relative;
+      z-index: 1;
     }
 
-    .hex-photo-container:hover img {
-      transform: scale(1.1);
+    /* The moving scanner line */
+    .scan-line {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 5px;
+      background: var(--accent);
+      box-shadow: 0 0 15px 5px var(--accent);
+      opacity: 0.7;
+      z-index: 2;
+      animation: scan 3s linear infinite;
+    }
+
+    @keyframes scan {
+      0% { top: 0; }
+      50% { top: 100%; }
+      100% { top: 0; }
     }
 
     /* ================= UNIQUE TECH PANELS ================= */
@@ -280,138 +278,71 @@
       border-radius: 2px;
     }
 
-    /* ================= ROCKSTAR STYLE CERTIFICATE SLIDER ================= */
-    .cert-section {
-      position: relative;
-      overflow: hidden; /* Hide scrollbar issues */
-      padding-bottom: 50px;
+    /* ================= MINI GAME CSS ================= */
+    #target { transition: top 0.1s, left 0.1s; }
+    
+    @keyframes targetPulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
     }
+    
+    #target:not(#game-over) { animation: targetPulse 0.5s infinite; }
 
-    /* Flanking Arrows */
+    /* ================= ROCKSTAR STYLE CERT SLIDER ================= */
+    .cert-section { position: relative; overflow: hidden; padding-bottom: 50px; }
     .slider-arrow {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 60px;
-      height: 100px;
+      top: 50%; transform: translateY(-50%);
+      width: 60px; height: 100px;
       background: rgba(4, 11, 17, 0.6);
       border: 1px solid var(--border);
       color: var(--accent);
       font-size: 2rem;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      z-index: 10;
-      transition: all 0.3s;
+      display: grid; place-items: center;
+      cursor: pointer; z-index: 10; transition: all 0.3s;
       backdrop-filter: blur(10px);
     }
-
-    .slider-arrow:hover {
-      background: var(--accent);
-      color: #040b11;
-      box-shadow: 0 0 20px var(--accent);
-    }
-
+    .slider-arrow:hover { background: var(--accent); color: #040b11; box-shadow: 0 0 20px var(--accent); }
     .arrow-left { left: 0; border-left: none; }
     .arrow-right { right: 0; border-right: none; }
 
-    /* The horizontal scrolling track */
     .cert-track {
-      display: flex;
-      gap: 30px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      padding: 20px 80px; /* Space for arrows */
-      -ms-overflow-style: none;  
-      scrollbar-width: none;  
+      display: flex; gap: 30px;
+      overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+      padding: 20px 80px; -ms-overflow-style: none; scrollbar-width: none;  
     }
     .cert-track::-webkit-scrollbar { display: none; }
 
-    /* The Cards */
     .cert-card {
-      flex: 0 0 380px; /* Wide poster look */
-      scroll-snap-align: center;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      position: relative;
-      transition: all 0.4s ease;
-      backdrop-filter: blur(10px);
+      flex: 0 0 380px; scroll-snap-align: center;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 20px; display: flex; flex-direction: column; gap: 15px;
+      position: relative; transition: all 0.4s ease; backdrop-filter: blur(10px);
     }
-
     .cert-card:hover {
       transform: scale(1.02) translateY(-5px);
       box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(114, 224, 193, 0.2);
-      border-color: var(--accent);
-      z-index: 2; 
+      border-color: var(--accent); z-index: 2; 
     }
 
-    .cert-card h3 {
-      font-size: 1rem;
-      color: var(--accent);
-      text-align: left;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      font-weight: 900;
-    }
-
-    .cert-preview {
-      width: 100%;
-      height: 250px; /* Fixed height for uniformity */
-      object-fit: cover; /* Crops image to fit nicely */
-      object-position: top; /* Shows the top of the cert */
-      border-radius: 2px;
-      border: 1px solid rgba(255,255,255,0.1);
-      cursor: pointer;
-    }
-
-    .cert-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: auto;
-    }
-
+    .cert-card h3 { font-size: 1rem; color: var(--accent); text-align: left; letter-spacing: 2px; text-transform: uppercase; font-weight: 900; }
+    .cert-preview { width: 100%; height: 250px; object-fit: cover; object-position: top; border-radius: 2px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
+    .cert-actions { display: flex; gap: 10px; margin-top: auto; }
     .cert-actions a {
-      flex: 1;
-      text-align: center;
-      font-size: 0.8rem;
-      padding: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text);
-      transition: all 0.3s;
+      flex: 1; text-align: center; font-size: 0.8rem; padding: 12px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 1px; background: transparent;
+      border: 1px solid var(--border); color: var(--text); transition: all 0.3s;
     }
-
-    .cert-actions a:hover {
-      background: var(--accent);
-      color: #040b11;
-    }
-
-    .cert-actions a.download {
-      background: rgba(114, 224, 193, 0.1);
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-    .cert-actions a.download:hover {
-      background: var(--accent);
-      color: #040b11;
-    }
+    .cert-actions a:hover { background: var(--accent); color: #040b11; }
+    .cert-actions a.download { background: rgba(114, 224, 193, 0.1); border-color: var(--accent); color: var(--accent); }
+    .cert-actions a.download:hover { background: var(--accent); color: #040b11; }
 
     /* ================= RESUME & CONTACT ================= */
     .resume-band {
-      background: var(--surface);
-      border: 1px solid var(--accent);
-      padding: 40px;
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 30px; flex-wrap: wrap;
-      box-shadow: inset 0 0 20px var(--accent-dim);
+      background: var(--surface); border: 1px solid var(--accent);
+      padding: 40px; display: flex; justify-content: space-between; align-items: center;
+      gap: 30px; flex-wrap: wrap; box-shadow: inset 0 0 20px var(--accent-dim);
     }
 
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
@@ -425,73 +356,9 @@
       .hero p { margin: 0 auto 35px auto; }
       .about-grid, .skills-grid, .project-grid, .contact-grid { grid-template-columns: 1fr; }
       .navlinks { display: none; }
-      .slider-arrow { display: none; } /* Hide arrows on mobile, let them swipe */
+      .slider-arrow { display: none; } 
       .cert-track { padding: 20px; }
       .cert-card { flex: 0 0 300px; }
-    }
-        /* ================= SANDEVISTAN CURSOR STYLES ================= */
-    .cursor {
-      width: 8px; height: 8px;
-      background: #00f3ff; /* Cyan center */
-      box-shadow: 0 0 10px #00f3ff;
-      position: fixed;
-      top: -4px; left: -4px; /* Offset for exact centering */
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transition: width 0.2s, height 0.2s, background 0.2s;
-    }
-
-    .cursor-follower {
-      width: 40px; height: 40px;
-      border: 1px solid #b026ff; /* Magenta border */
-      border-radius: 2px; /* Square target */
-      position: fixed;
-      top: -20px; left: -20px;
-      pointer-events: none;
-      z-index: 9998;
-      transition: width 0.3s, height 0.3s, border-color 0.3s, transform 0.1s;
-      box-shadow: 0 0 15px rgba(176, 38, 255, 0.3);
-    }
-
-    .cursor-ghost {
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      position: fixed;
-      top: -20px; left: -20px;
-      pointer-events: none;
-      z-index: 9997;
-      opacity: 0.5;
-      filter: blur(2px);
-    }
-
-    .ghost-cyan {
-      border: 2px solid #00f3ff;
-      box-shadow: 0 0 15px #00f3ff;
-    }
-
-    .ghost-magenta {
-      border: 2px solid #ff00ea;
-      box-shadow: 0 0 15px #ff00ea;
-    }
-
-    /* When hovering over interactive elements */
-    .cursor-active.cursor {
-      width: 12px; height: 12px;
-      background: #fff;
-      box-shadow: 0 0 20px #fff;
-    }
-
-    .cursor-active.cursor-follower {
-      width: 60px; height: 60px;
-      top: -30px; left: -30px;
-      border-color: #fff;
-      border-width: 2px;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
-    }
-
-    @media (max-width: 900px) {
-      .cursor, .cursor-follower, .cursor-ghost { display: none; } /* Hide on mobile */
     }
   </style>
 </head>
@@ -511,9 +378,8 @@
         <a class="brand" href="#home">ADRIAN<span>.</span></a>
         <div class="navlinks">
           <a href="#about">About</a>
-          <a href="#education">Education</a>
           <a href="#skills">Skills</a>
-          <a href="#projects">Projects</a>
+          <a href="#game">Mini-Game</a>
           <a href="#profdev">Certificates</a>
           <a href="#contact">Contact</a>
         </div>
@@ -536,12 +402,10 @@
       </div>
       
       <div class="hidden-el">
-        <!-- THE HEXAGON PROFILE PIC -->
-        <div class="hex-container">
-          <div class="hex-bg"></div>
-          <div class="hex-photo-container">
-            <img src="photoko.jpg" alt="Adrian Punzalan" />
-          </div>
+        <!-- THE NEW CYBER-PFP FRAME -->
+        <div class="cyber-pfp-frame">
+          <div class="scan-line"></div>
+          <img src="photoko.jpg" alt="Adrian Punzalan" />
         </div>
       </div>
     </div>
@@ -562,6 +426,44 @@
             <h3>How I work</h3>
             <p>I value communication, teamwork, attention to detail, adaptability, and solving problems step by step.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MINI GAME -->
+    <section id="game">
+      <div class="wrap-narrow">
+        <div class="section-head hidden-el">
+          <div class="eyebrow">Interactive</div>
+          <h2>Cyber Reflex</h2>
+          <p>Test your reaction time. Click the glowing target as fast as you can.</p>
+        </div>
+
+        <div class="tech-card hidden-el" style="text-align: center;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: 900; font-size: 1.2rem; color: var(--accent);">
+            <span>Score: <span id="score">0</span></span>
+            <span>Time: <span id="time">30</span>s</span>
+          </div>
+
+          <div id="game-board" style="position: relative; width: 100%; height: 300px; background: rgba(0,0,0,0.5); border: 2px solid var(--border); border-radius: 8px; overflow: hidden; cursor: crosshair;">
+            
+            <!-- Start Screen -->
+            <div id="game-start" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(10, 25, 35, 0.8); z-index: 10;">
+              <p style="margin-bottom: 20px; font-size: 1.1rem;">Ready to test your reflexes?</p>
+              <button id="start-btn" class="btn primary" style="cursor: pointer;">Start Game</button>
+            </div>
+
+            <!-- The Target -->
+            <div id="target" style="display: none; position: absolute; width: 50px; height: 50px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 20px var(--accent); cursor: pointer;"></div>
+            
+            <!-- Game Over Screen -->
+            <div id="game-over" style="display: none; position: absolute; inset: 0; flex-direction: column; justify-content: center; align-items: center; background: rgba(10, 25, 35, 0.9); z-index: 10;">
+              <h3 style="color: var(--accent); font-size: 2rem; margin-bottom: 10px;">Time's Up!</h3>
+              <p style="margin-bottom: 20px;">You scored <strong id="final-score">0</strong> points.</p>
+              <button id="restart-btn" class="btn primary" style="cursor: pointer;">Play Again</button>
+            </div>
+
+          </div>
         </div>
       </div>
     </section>
@@ -624,7 +526,7 @@
       </div>
     </section>
 
-    <!-- PROFDEV CERTIFICATES (ROCKSTAR STYLE SLIDER) -->
+    <!-- PROFDEV CERTIFICATES -->
     <section id="profdev" class="cert-section">
       <div class="wrap">
         <div class="section-head hidden-el">
@@ -634,18 +536,14 @@
         </div>
       </div>
 
-      <!-- Left Arrow -->
       <button class="slider-arrow arrow-left" id="slide-left">&#10094;</button>
-      <!-- Right Arrow -->
       <button class="slider-arrow arrow-right" id="slide-right">&#10095;</button>
 
       <div class="cert-track" id="cert-track">
         
         <article class="cert-card hidden-el">
           <h3>TESDA</h3>
-          <a href="1.jpg" target="_blank">
-            <img class="cert-preview" src="1.jpg" alt="TESDA 1" />
-          </a>
+          <a href="1.jpg" target="_blank"><img class="cert-preview" src="1.jpg" alt="TESDA 1" /></a>
           <div class="cert-actions">
             <a href="1.jpg" target="_blank">View</a>
             <a href="1.jpg" download="TESDA-1.jpg" class="download">Save</a>
@@ -654,9 +552,7 @@
 
         <article class="cert-card hidden-el">
           <h3>TESDA</h3>
-          <a href="2.jpg" target="_blank">
-            <img class="cert-preview" src="2.jpg" alt="TESDA 2" />
-          </a>
+          <a href="2.jpg" target="_blank"><img class="cert-preview" src="2.jpg" alt="TESDA 2" /></a>
           <div class="cert-actions">
             <a href="2.jpg" target="_blank">View</a>
             <a href="2.jpg" download="TESDA-2.jpg" class="download">Save</a>
@@ -665,9 +561,7 @@
 
         <article class="cert-card hidden-el">
           <h3>TESDA</h3>
-          <a href="3.jpg" target="_blank">
-            <img class="cert-preview" src="3.jpg" alt="TESDA 3" />
-          </a>
+          <a href="3.jpg" target="_blank"><img class="cert-preview" src="3.jpg" alt="TESDA 3" /></a>
           <div class="cert-actions">
             <a href="3.jpg" target="_blank">View</a>
             <a href="3.jpg" download="TESDA-3.jpg" class="download">Save</a>
@@ -676,9 +570,7 @@
 
         <article class="cert-card hidden-el">
           <h3>TESDA</h3>
-          <a href="4.jpg" target="_blank">
-            <img class="cert-preview" src="4.jpg" alt="TESDA 4" />
-          </a>
+          <a href="4.jpg" target="_blank"><img class="cert-preview" src="4.jpg" alt="TESDA 4" /></a>
           <div class="cert-actions">
             <a href="4.jpg" target="_blank">View</a>
             <a href="4.jpg" download="TESDA-4.jpg" class="download">Save</a>
@@ -687,9 +579,7 @@
 
         <article class="cert-card hidden-el">
           <h3>TESDA</h3>
-          <a href="5.jpg" target="_blank">
-            <img class="cert-preview" src="5.jpg" alt="TESDA 5" />
-          </a>
+          <a href="5.jpg" target="_blank"><img class="cert-preview" src="5.jpg" alt="TESDA 5" /></a>
           <div class="cert-actions">
             <a href="5.jpg" target="_blank">View</a>
             <a href="5.jpg" download="TESDA-5.jpg" class="download">Save</a>
@@ -698,9 +588,7 @@
 
         <article class="cert-card hidden-el">
           <h3>NetAcad</h3>
-          <a href="net.jpg" target="_blank">
-            <img class="cert-preview" src="net.jpg" alt="NetAcad" />
-          </a>
+          <a href="net.jpg" target="_blank"><img class="cert-preview" src="net.jpg" alt="NetAcad" /></a>
           <div class="cert-actions">
             <a href="net.jpg" target="_blank">View</a>
             <a href="net.jpg" download="NetAcad.jpg" class="download">Save</a>
@@ -709,9 +597,7 @@
 
         <article class="cert-card hidden-el">
           <h3>freeCodeCamp</h3>
-          <a href="camp.png" target="_blank">
-            <img class="cert-preview" src="camp.png" alt="freeCodeCamp" />
-          </a>
+          <a href="camp.png" target="_blank"><img class="cert-preview" src="camp.png" alt="freeCodeCamp" /></a>
           <div class="cert-actions">
             <a href="camp.png" target="_blank">View</a>
             <a href="camp.png" download="freeCodeCamp.png" class="download">Save</a>
@@ -720,9 +606,7 @@
 
         <article class="cert-card hidden-el">
           <h3>DICT</h3>
-          <a href="dict1.jpg" target="_blank">
-            <img class="cert-preview" src="dict1.jpg" alt="DICT 1" />
-          </a>
+          <a href="dict1.jpg" target="_blank"><img class="cert-preview" src="dict1.jpg" alt="DICT 1" /></a>
           <div class="cert-actions">
             <a href="dict1.jpg" target="_blank">View</a>
             <a href="dict1.jpg" download="DICT-1.jpg" class="download">Save</a>
@@ -731,9 +615,7 @@
 
         <article class="cert-card hidden-el">
           <h3>DICT</h3>
-          <a href="dict2.jpg" target="_blank">
-            <img class="cert-preview" src="dict2.jpg" alt="DICT 2" />
-          </a>
+          <a href="dict2.jpg" target="_blank"><img class="cert-preview" src="dict2.jpg" alt="DICT 2" /></a>
           <div class="cert-actions">
             <a href="dict2.jpg" target="_blank">View</a>
             <a href="dict2.jpg" download="DICT-2.jpg" class="download">Save</a>
@@ -742,9 +624,7 @@
 
         <article class="cert-card hidden-el">
           <h3>DICT</h3>
-          <a href="dict3.jpg" target="_blank">
-            <img class="cert-preview" src="dict3.jpg" alt="DICT 3" />
-          </a>
+          <a href="dict3.jpg" target="_blank"><img class="cert-preview" src="dict3.jpg" alt="DICT 3" /></a>
           <div class="cert-actions">
             <a href="dict3.jpg" target="_blank">View</a>
             <a href="dict3.jpg" download="DICT-3.jpg" class="download">Save</a>
@@ -753,9 +633,7 @@
 
         <article class="cert-card hidden-el">
           <h3>DICT</h3>
-          <a href="dict4.png" target="_blank">
-            <img class="cert-preview" src="dict4.png" alt="DICT 4" />
-          </a>
+          <a href="dict4.png" target="_blank"><img class="cert-preview" src="dict4.png" alt="DICT 4" /></a>
           <div class="cert-actions">
             <a href="dict4.png" target="_blank">View</a>
             <a href="dict4.png" download="DICT-4.png" class="download">Save</a>
@@ -809,7 +687,7 @@
   </footer>
 
   <!-- ================= JAVASCRIPT ================= -->
- <script>
+  <script>
     // 1. Scroll Reveal Animation
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -820,87 +698,119 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.hidden-el').forEach((el) => observer.observe(el));
 
-    // 2. SANDEVISTAN CURSOR LOGIC
+    // 2. Custom Cursor
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
-    
-    // Create the chromatic ghosts dynamically
-    const ghostCyan = document.createElement('div');
-    ghostCyan.classList.add('cursor-ghost', 'ghost-cyan');
-    document.body.appendChild(ghostCyan);
 
-    const ghostMagenta = document.createElement('div');
-    ghostMagenta.classList.add('cursor-ghost', 'ghost-magenta');
-    document.body.appendChild(ghostMagenta);
-
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-    let followerX = 0, followerY = 0;
-    let ghostCyanX = 0, ghostCyanY = 0;
-    let ghostMagentaX = 0, ghostMagentaY = 0;
-
-    // Track mouse movement
     document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      setTimeout(() => {
+        follower.style.left = e.clientX + 'px';
+        follower.style.top = e.clientY + 'px';
+      }, 50);
     });
 
-    // The Animation Loop (Sandevistan Snap)
-    function animateCursor() {
-      // Lerp (Linear Interpolation) for smooth trailing
-      // 0.2 is the speed for the main cursor (fast)
-      cursorX += (mouseX - cursorX) * 0.3;
-      cursorY += (mouseY - cursorY) * 0.3;
-      
-      // 0.15 is the speed for the follower (slower, heavier)
-      followerX += (mouseX - followerX) * 0.15;
-      followerY += (mouseY - followerY) * 0.15;
-
-      // Chromatic ghosts drag behind even more
-      ghostCyanX += (mouseX - ghostCyanX) * 0.08;
-      ghostCyanY += (mouseY - ghostCyanY) * 0.08;
-
-      ghostMagentaX += (mouseX - ghostMagentaX) * 0.05;
-      ghostMagentaY += (mouseY - ghostMagentaY) * 0.05;
-
-      // Apply positions
-      cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
-      follower.style.transform = `translate(${followerX}px, ${followerY}px)`;
-      ghostCyan.style.transform = `translate(${ghostCyanX}px, ${ghostCyanY}px)`;
-      ghostMagenta.style.transform = `translate(${ghostMagentaX}px, ${ghostMagentaY}px)`;
-
-      requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    // Hover Effects
     document.querySelectorAll('a, button, .tech-card, .cert-card').forEach(el => {
       el.addEventListener('mouseenter', () => {
-        follower.classList.add('cursor-active');
-        cursor.classList.add('cursor-active');
+        follower.style.width = '50px';
+        follower.style.height = '50px';
+        follower.style.background = 'rgba(114, 224, 193, 0.1)';
       });
       el.addEventListener('mouseleave', () => {
-        follower.classList.remove('cursor-active');
-        cursor.classList.remove('cursor-active');
+        follower.style.width = '36px';
+        follower.style.height = '36px';
+        follower.style.background = 'transparent';
       });
     });
 
-    // 3. Slider Button Logic
+    // 3. Mini Game Logic
+    const startBtn = document.getElementById('start-btn');
+    const restartBtn = document.getElementById('restart-btn');
+    const gameStart = document.getElementById('game-start');
+    const gameOver = document.getElementById('game-over');
+    const gameBoard = document.getElementById('game-board');
+    const target = document.getElementById('target');
+    const scoreDisplay = document.getElementById('score');
+    const timeDisplay = document.getElementById('time');
+    const finalScoreDisplay = document.getElementById('final-score');
+
+    let score = 0;
+    let timeLeft = 30;
+    let gameInterval;
+    let timerInterval;
+    let isPlaying = false;
+
+    function moveTarget() {
+      if (!isPlaying) return;
+      const boardWidth = gameBoard.clientWidth;
+      const boardHeight = gameBoard.clientHeight;
+      const targetSize = 50;
+      
+      const randomX = Math.floor(Math.random() * (boardWidth - targetSize));
+      const randomY = Math.floor(Math.random() * (boardHeight - targetSize));
+      
+      target.style.left = randomX + 'px';
+      target.style.top = randomY + 'px';
+    }
+
+    function startGame() {
+      score = 0;
+      timeLeft = 30;
+      isPlaying = true;
+      scoreDisplay.textContent = score;
+      timeDisplay.textContent = timeLeft;
+      
+      gameStart.style.display = 'none';
+      gameOver.style.display = 'none';
+      target.style.display = 'block';
+      
+      moveTarget();
+      
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timeDisplay.textContent = timeLeft;
+        if (timeLeft <= 0) endGame();
+      }, 1000);
+      
+      gameInterval = setInterval(() => {
+        moveTarget();
+      }, Math.max(400, 800 - (score * 20)));
+    }
+
+    function endGame() {
+      isPlaying = false;
+      clearInterval(timerInterval);
+      clearInterval(gameInterval);
+      target.style.display = 'none';
+      gameOver.style.display = 'flex';
+      finalScoreDisplay.textContent = score;
+    }
+
+    target.addEventListener('click', () => {
+      if (!isPlaying) return;
+      score++;
+      scoreDisplay.textContent = score;
+      gameBoard.style.borderColor = '#fff';
+      setTimeout(() => { gameBoard.style.borderColor = 'var(--border)'; }, 100);
+      moveTarget();
+    });
+
+    startBtn.addEventListener('click', startGame);
+    restartBtn.addEventListener('click', startGame);
+
+    // 4. Slider Button Logic
     const track = document.getElementById('cert-track');
     const btnLeft = document.getElementById('slide-left');
     const btnRight = document.getElementById('slide-right');
 
     if (track && btnLeft && btnRight) {
       const scrollAmount = 410; 
-      btnLeft.addEventListener('click', () => {
-        track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-      });
-      btnRight.addEventListener('click', () => {
-        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-      });
+      btnLeft.addEventListener('click', () => track.scrollBy({ left: -scrollAmount, behavior: 'smooth' }));
+      btnRight.addEventListener('click', () => track.scrollBy({ left: scrollAmount, behavior: 'smooth' }));
     }
 
-    // 4. Interactive Particle Background (Canvas)
+    // 5. Interactive Particle Background
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     let particlesArray;
@@ -978,7 +888,7 @@
       canvas.height = innerHeight;
       init();
     });
-</script>
+  </script>
 
 </body>
 </html>
