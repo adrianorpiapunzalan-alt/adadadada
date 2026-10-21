@@ -7,13 +7,13 @@
   <title>Adrian Punzalan | IT Portfolio</title>
 
   <style>
-    /* ================= UNIQUE CYBER-MINT THEME ================= */
+    /* ================= CINEMATIC CYBER-MINT THEME ================= */
     :root {
       --bg: #040b11;
-      --surface: rgba(10, 25, 35, 0.6);
+      --surface: rgba(10, 25, 35, 0.7);
       --text: #edf2ff;
       --muted: #7a8f9f;
-      --accent: #72e0c1; /* Mint */
+      --accent: #72e0c1; 
       --accent-dim: rgba(114, 224, 193, 0.2);
       --border: rgba(114, 224, 193, 0.3);
     }
@@ -39,9 +39,12 @@
 
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
-    .wrap { width: min(1100px, calc(100% - 40px)); margin: auto; }
+    
+    /* Wider wrap for that cinematic feel */
+    .wrap { width: min(1300px, calc(100% - 40px)); margin: auto; }
+    .wrap-narrow { width: min(1100px, calc(100% - 40px)); margin: auto; }
 
-    /* ================= NEW CUSTOM CURSOR (SQUARE TARGET) ================= */
+    /* ================= CUSTOM CURSOR ================= */
     .cursor {
       width: 6px; height: 6px;
       background: var(--accent);
@@ -114,7 +117,7 @@
     .hero {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.2fr 0.8fr;
       gap: 60px;
       align-items: center;
       padding-top: 75px;
@@ -130,28 +133,30 @@
     }
 
     h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      line-height: 1.1;
+      font-size: clamp(3rem, 7vw, 6rem); /* Bigger typography */
+      line-height: 1;
       margin-bottom: 20px;
       font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -2px;
     }
     
     .hero p {
       color: var(--muted);
-      font-size: 1.1rem;
-      max-width: 500px;
+      font-size: 1.2rem;
+      max-width: 600px;
       margin-bottom: 35px;
     }
 
     .actions { display: flex; gap: 15px; flex-wrap: wrap; }
     .btn {
       display: inline-block;
-      padding: 14px 28px;
-      border-radius: 4px;
+      padding: 16px 32px;
+      border-radius: 2px; /* Sharper corners for cinematic look */
       font-size: 0.9rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       transition: all 0.3s;
       border: 1px solid var(--border);
     }
@@ -162,7 +167,7 @@
       box-shadow: 0 0 15px var(--accent-dim);
     }
     .btn.primary:hover {
-      box-shadow: 0 0 30px var(--accent);
+      box-shadow: 0 0 40px var(--accent);
       transform: translateY(-3px);
     }
     .btn.secondary {
@@ -175,7 +180,7 @@
       transform: translateY(-3px);
     }
 
-    /* ================= NEW HEXAGON PROFILE PIC ================= */
+    /* ================= HEXAGON PROFILE PIC ================= */
     .hex-container {
       position: relative;
       width: 320px;
@@ -186,7 +191,6 @@
       align-items: center;
     }
 
-    /* The glowing background border */
     .hex-bg {
       position: absolute;
       width: 100%;
@@ -202,7 +206,6 @@
       100% { opacity: 1; transform: scale(1.02); filter: drop-shadow(0 0 20px var(--accent)); }
     }
 
-    /* The inner photo container */
     .hex-photo-container {
       position: relative;
       width: 300px;
@@ -228,31 +231,13 @@
       transform: scale(1.1);
     }
 
-    /* Decorative floating dots around the hex */
-    .dot {
-      position: absolute;
-      width: 8px; height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--accent);
-      z-index: 3;
-    }
-    .dot-1 { top: 10%; left: 5%; animation: float 4s infinite alternate; }
-    .dot-2 { bottom: 15%; right: 5%; animation: float 5s infinite alternate-reverse; }
-    .dot-3 { top: 50%; right: -10px; animation: float 6s infinite alternate; }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-20px); }
-    }
-
-    /* ================= UNIQUE TECH PANELS (Boxes) ================= */
+    /* ================= UNIQUE TECH PANELS ================= */
     section { padding: 100px 0; }
-    .section-head { margin-bottom: 50px; text-align: center; }
-    .section-head h2 { font-size: 2.5rem; color: #fff; }
-    .section-head p { color: var(--muted); margin-top: 10px; }
+    .section-head { margin-bottom: 40px; text-align: left; }
+    .section-head h2 { font-size: 3rem; color: #fff; text-transform: uppercase; font-weight: 900; letter-spacing: -1px;}
+    .section-head p { color: var(--muted); margin-top: 10px; font-size: 1.1rem;}
 
-    .about-grid, .skills-grid, .project-grid, .cert-grid {
+    .about-grid, .skills-grid, .project-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 25px;
@@ -264,7 +249,6 @@
       padding: 35px;
       position: relative;
       transition: all 0.3s;
-      /* The corner bracket effect */
       background-image: 
         linear-gradient(var(--accent), var(--accent)),
         linear-gradient(var(--accent), var(--accent)),
@@ -282,8 +266,8 @@
       transform: translateY(-3px);
     }
 
-    .tech-card h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--accent); }
-    .tech-card p { color: var(--muted); }
+    .tech-card h3 { font-size: 1.3rem; margin-bottom: 12px; color: var(--accent); text-transform: uppercase;}
+    .tech-card p { color: var(--muted); font-size: 1.05rem;}
 
     .pillrow { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
     .pill {
@@ -293,67 +277,112 @@
       font-size: 0.8rem;
       font-weight: 700;
       border: 1px solid var(--border);
-      border-radius: 4px;
+      border-radius: 2px;
     }
 
-    /* ================= CERTIFICATES (HOVER ZOOM GRID) ================= */
-    .cert-grid {
-      grid-template-columns: repeat(3, 1fr); /* 3 columns for desktop */
-      gap: 20px;
+    /* ================= ROCKSTAR STYLE CERTIFICATE SLIDER ================= */
+    .cert-section {
+      position: relative;
+      overflow: hidden; /* Hide scrollbar issues */
+      padding-bottom: 50px;
     }
-    
+
+    /* Flanking Arrows */
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 60px;
+      height: 100px;
+      background: rgba(4, 11, 17, 0.6);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-size: 2rem;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .slider-arrow:hover {
+      background: var(--accent);
+      color: #040b11;
+      box-shadow: 0 0 20px var(--accent);
+    }
+
+    .arrow-left { left: 0; border-left: none; }
+    .arrow-right { right: 0; border-right: none; }
+
+    /* The horizontal scrolling track */
+    .cert-track {
+      display: flex;
+      gap: 30px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 20px 80px; /* Space for arrows */
+      -ms-overflow-style: none;  
+      scrollbar-width: none;  
+    }
+    .cert-track::-webkit-scrollbar { display: none; }
+
+    /* The Cards */
     .cert-card {
+      flex: 0 0 380px; /* Wide poster look */
+      scroll-snap-align: center;
       background: var(--surface);
       border: 1px solid var(--border);
-      padding: 15px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 15px;
       position: relative;
-      overflow: hidden;
       transition: all 0.4s ease;
+      backdrop-filter: blur(10px);
     }
 
     .cert-card:hover {
-      transform: scale(1.05) translateY(-5px);
-      box-shadow: 0 10px 30px rgba(114, 224, 193, 0.2);
+      transform: scale(1.02) translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(114, 224, 193, 0.2);
       border-color: var(--accent);
-      z-index: 2; /* Pops out over other cards */
+      z-index: 2; 
     }
 
     .cert-card h3 {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: var(--accent);
-      text-align: center;
-      letter-spacing: 1px;
+      text-align: left;
+      letter-spacing: 2px;
       text-transform: uppercase;
+      font-weight: 900;
     }
 
     .cert-preview {
       width: 100%;
-      border-radius: 4px;
+      height: 250px; /* Fixed height for uniformity */
+      object-fit: cover; /* Crops image to fit nicely */
+      object-position: top; /* Shows the top of the cert */
+      border-radius: 2px;
       border: 1px solid rgba(255,255,255,0.1);
       cursor: pointer;
     }
 
-    /* Buttons only appear on hover to look clean */
     .cert-actions {
       display: flex;
       gap: 10px;
       margin-top: auto;
-      opacity: 0.7;
-      transition: opacity 0.3s;
     }
-    
-    .cert-card:hover .cert-actions { opacity: 1; }
 
     .cert-actions a {
       flex: 1;
       text-align: center;
-      font-size: 0.75rem;
-      padding: 8px;
+      font-size: 0.8rem;
+      padding: 12px;
       font-weight: 800;
       text-transform: uppercase;
+      letter-spacing: 1px;
       background: transparent;
       border: 1px solid var(--border);
       color: var(--text);
@@ -366,7 +395,7 @@
     }
 
     .cert-actions a.download {
-      background: var(--accent-dim);
+      background: rgba(114, 224, 193, 0.1);
       border-color: var(--accent);
       color: var(--accent);
     }
@@ -395,12 +424,10 @@
       .hero .actions { justify-content: center; }
       .hero p { margin: 0 auto 35px auto; }
       .about-grid, .skills-grid, .project-grid, .contact-grid { grid-template-columns: 1fr; }
-      .cert-grid { grid-template-columns: repeat(2, 1fr); }
       .navlinks { display: none; }
-    }
-    @media (max-width: 600px) {
-      .cert-grid { grid-template-columns: 1fr; }
-      .hex-container { transform: scale(0.8); }
+      .slider-arrow { display: none; } /* Hide arrows on mobile, let them swipe */
+      .cert-track { padding: 20px; }
+      .cert-card { flex: 0 0 300px; }
     }
   </style>
 </head>
@@ -436,7 +463,7 @@
     <div class="wrap hero" id="home">
       <div class="hidden-el">
         <div class="eyebrow">Information Technology Student</div>
-        <h1>Hi, I'm Adrian Punzalan.</h1>
+        <h1>Adrian<br>Punzalan</h1>
         <p>I'm an IT student at Northeastern College interested in technology, software development, and learning through practical projects.</p>
         <div class="actions">
           <a class="btn primary" href="#projects">View My Projects</a>
@@ -445,22 +472,19 @@
       </div>
       
       <div class="hidden-el">
-        <!-- THE NEW HEXAGON PROFILE PIC -->
+        <!-- THE HEXAGON PROFILE PIC -->
         <div class="hex-container">
           <div class="hex-bg"></div>
           <div class="hex-photo-container">
             <img src="photoko.jpg" alt="Adrian Punzalan" />
           </div>
-          <div class="dot dot-1"></div>
-          <div class="dot dot-2"></div>
-          <div class="dot dot-3"></div>
         </div>
       </div>
     </div>
 
     <!-- ABOUT -->
     <section id="about">
-      <div class="wrap">
+      <div class="wrap-narrow">
         <div class="section-head hidden-el">
           <div class="eyebrow">About Me</div>
           <h2>Learning by building.</h2>
@@ -478,29 +502,9 @@
       </div>
     </section>
 
-    <!-- EDUCATION -->
-    <section id="education">
-      <div class="wrap">
-        <div class="section-head hidden-el">
-          <div class="eyebrow">Education</div>
-          <h2>Academic Background</h2>
-        </div>
-        <article class="tech-card hidden-el">
-          <h3>Northeastern College</h3>
-          <p>Bachelor of Science in Information Technology (2024 – Present)</p>
-          <div class="pillrow">
-            <span class="pill">Business Communication</span>
-            <span class="pill">Information Management</span>
-            <span class="pill">Systems Analysis</span>
-            <span class="pill">Database Management</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
     <!-- SKILLS -->
     <section id="skills">
-      <div class="wrap">
+      <div class="wrap-narrow">
         <div class="section-head hidden-el">
           <div class="eyebrow">Skills</div>
           <h2>Tools and Strengths</h2>
@@ -536,7 +540,7 @@
 
     <!-- PROJECTS -->
     <section id="projects">
-      <div class="wrap">
+      <div class="wrap-narrow">
         <div class="section-head hidden-el">
           <div class="eyebrow">Selected Work</div>
           <h2>Projects</h2>
@@ -556,145 +560,150 @@
       </div>
     </section>
 
-    <!-- PROFDEV CERTIFICATES (HOVER ZOOM GRID) -->
-    <section id="profdev">
+    <!-- PROFDEV CERTIFICATES (ROCKSTAR STYLE SLIDER) -->
+    <section id="profdev" class="cert-section">
       <div class="wrap">
         <div class="section-head hidden-el">
           <div class="eyebrow">Professional Development</div>
           <h2>Certificates</h2>
-          <p>Hover over a certificate to view or download.</p>
+          <p>Use the arrows or swipe to browse the gallery.</p>
         </div>
+      </div>
 
-        <div class="cert-grid">
-          
-          <article class="cert-card hidden-el">
-            <h3>TESDA</h3>
-            <a href="1.jpg" target="_blank">
-              <img class="cert-preview" src="1.jpg" alt="TESDA 1" />
-            </a>
-            <div class="cert-actions">
-              <a href="1.jpg" target="_blank">View</a>
-              <a href="1.jpg" download="TESDA-1.jpg" class="download">Save</a>
-            </div>
-          </article>
+      <!-- Left Arrow -->
+      <button class="slider-arrow arrow-left" id="slide-left">&#10094;</button>
+      <!-- Right Arrow -->
+      <button class="slider-arrow arrow-right" id="slide-right">&#10095;</button>
 
-          <article class="cert-card hidden-el">
-            <h3>TESDA</h3>
-            <a href="2.jpg" target="_blank">
-              <img class="cert-preview" src="2.jpg" alt="TESDA 2" />
-            </a>
-            <div class="cert-actions">
-              <a href="2.jpg" target="_blank">View</a>
-              <a href="2.jpg" download="TESDA-2.jpg" class="download">Save</a>
-            </div>
-          </article>
+      <div class="cert-track" id="cert-track">
+        
+        <article class="cert-card hidden-el">
+          <h3>TESDA</h3>
+          <a href="1.jpg" target="_blank">
+            <img class="cert-preview" src="1.jpg" alt="TESDA 1" />
+          </a>
+          <div class="cert-actions">
+            <a href="1.jpg" target="_blank">View</a>
+            <a href="1.jpg" download="TESDA-1.jpg" class="download">Save</a>
+          </div>
+        </article>
 
-          <article class="cert-card hidden-el">
-            <h3>TESDA</h3>
-            <a href="3.jpg" target="_blank">
-              <img class="cert-preview" src="3.jpg" alt="TESDA 3" />
-            </a>
-            <div class="cert-actions">
-              <a href="3.jpg" target="_blank">View</a>
-              <a href="3.jpg" download="TESDA-3.jpg" class="download">Save</a>
-            </div>
-          </article>
+        <article class="cert-card hidden-el">
+          <h3>TESDA</h3>
+          <a href="2.jpg" target="_blank">
+            <img class="cert-preview" src="2.jpg" alt="TESDA 2" />
+          </a>
+          <div class="cert-actions">
+            <a href="2.jpg" target="_blank">View</a>
+            <a href="2.jpg" download="TESDA-2.jpg" class="download">Save</a>
+          </div>
+        </article>
 
-          <article class="cert-card hidden-el">
-            <h3>TESDA</h3>
-            <a href="4.jpg" target="_blank">
-              <img class="cert-preview" src="4.jpg" alt="TESDA 4" />
-            </a>
-            <div class="cert-actions">
-              <a href="4.jpg" target="_blank">View</a>
-              <a href="4.jpg" download="TESDA-4.jpg" class="download">Save</a>
-            </div>
-          </article>
+        <article class="cert-card hidden-el">
+          <h3>TESDA</h3>
+          <a href="3.jpg" target="_blank">
+            <img class="cert-preview" src="3.jpg" alt="TESDA 3" />
+          </a>
+          <div class="cert-actions">
+            <a href="3.jpg" target="_blank">View</a>
+            <a href="3.jpg" download="TESDA-3.jpg" class="download">Save</a>
+          </div>
+        </article>
 
-          <article class="cert-card hidden-el">
-            <h3>TESDA</h3>
-            <a href="5.jpg" target="_blank">
-              <img class="cert-preview" src="5.jpg" alt="TESDA 5" />
-            </a>
-            <div class="cert-actions">
-              <a href="5.jpg" target="_blank">View</a>
-              <a href="5.jpg" download="TESDA-5.jpg" class="download">Save</a>
-            </div>
-          </article>
+        <article class="cert-card hidden-el">
+          <h3>TESDA</h3>
+          <a href="4.jpg" target="_blank">
+            <img class="cert-preview" src="4.jpg" alt="TESDA 4" />
+          </a>
+          <div class="cert-actions">
+            <a href="4.jpg" target="_blank">View</a>
+            <a href="4.jpg" download="TESDA-4.jpg" class="download">Save</a>
+          </div>
+        </article>
 
-          <article class="cert-card hidden-el">
-            <h3>NetAcad</h3>
-            <a href="net.jpg" target="_blank">
-              <img class="cert-preview" src="net.jpg" alt="NetAcad" />
-            </a>
-            <div class="cert-actions">
-              <a href="net.jpg" target="_blank">View</a>
-              <a href="net.jpg" download="NetAcad.jpg" class="download">Save</a>
-            </div>
-          </article>
+        <article class="cert-card hidden-el">
+          <h3>TESDA</h3>
+          <a href="5.jpg" target="_blank">
+            <img class="cert-preview" src="5.jpg" alt="TESDA 5" />
+          </a>
+          <div class="cert-actions">
+            <a href="5.jpg" target="_blank">View</a>
+            <a href="5.jpg" download="TESDA-5.jpg" class="download">Save</a>
+          </div>
+        </article>
 
-          <article class="cert-card hidden-el">
-            <h3>freeCodeCamp</h3>
-            <a href="camp.png" target="_blank">
-              <img class="cert-preview" src="camp.png" alt="freeCodeCamp" />
-            </a>
-            <div class="cert-actions">
-              <a href="camp.png" target="_blank">View</a>
-              <a href="camp.png" download="freeCodeCamp.png" class="download">Save</a>
-            </div>
-          </article>
+        <article class="cert-card hidden-el">
+          <h3>NetAcad</h3>
+          <a href="net.jpg" target="_blank">
+            <img class="cert-preview" src="net.jpg" alt="NetAcad" />
+          </a>
+          <div class="cert-actions">
+            <a href="net.jpg" target="_blank">View</a>
+            <a href="net.jpg" download="NetAcad.jpg" class="download">Save</a>
+          </div>
+        </article>
 
-          <article class="cert-card hidden-el">
-            <h3>DICT</h3>
-            <a href="dict1.jpg" target="_blank">
-              <img class="cert-preview" src="dict1.jpg" alt="DICT 1" />
-            </a>
-            <div class="cert-actions">
-              <a href="dict1.jpg" target="_blank">View</a>
-              <a href="dict1.jpg" download="DICT-1.jpg" class="download">Save</a>
-            </div>
-          </article>
+        <article class="cert-card hidden-el">
+          <h3>freeCodeCamp</h3>
+          <a href="camp.png" target="_blank">
+            <img class="cert-preview" src="camp.png" alt="freeCodeCamp" />
+          </a>
+          <div class="cert-actions">
+            <a href="camp.png" target="_blank">View</a>
+            <a href="camp.png" download="freeCodeCamp.png" class="download">Save</a>
+          </div>
+        </article>
 
-          <article class="cert-card hidden-el">
-            <h3>DICT</h3>
-            <a href="dict2.jpg" target="_blank">
-              <img class="cert-preview" src="dict2.jpg" alt="DICT 2" />
-            </a>
-            <div class="cert-actions">
-              <a href="dict2.jpg" target="_blank">View</a>
-              <a href="dict2.jpg" download="DICT-2.jpg" class="download">Save</a>
-            </div>
-          </article>
+        <article class="cert-card hidden-el">
+          <h3>DICT</h3>
+          <a href="dict1.jpg" target="_blank">
+            <img class="cert-preview" src="dict1.jpg" alt="DICT 1" />
+          </a>
+          <div class="cert-actions">
+            <a href="dict1.jpg" target="_blank">View</a>
+            <a href="dict1.jpg" download="DICT-1.jpg" class="download">Save</a>
+          </div>
+        </article>
 
-          <article class="cert-card hidden-el">
-            <h3>DICT</h3>
-            <a href="dict3.jpg" target="_blank">
-              <img class="cert-preview" src="dict3.jpg" alt="DICT 3" />
-            </a>
-            <div class="cert-actions">
-              <a href="dict3.jpg" target="_blank">View</a>
-              <a href="dict3.jpg" download="DICT-3.jpg" class="download">Save</a>
-            </div>
-          </article>
+        <article class="cert-card hidden-el">
+          <h3>DICT</h3>
+          <a href="dict2.jpg" target="_blank">
+            <img class="cert-preview" src="dict2.jpg" alt="DICT 2" />
+          </a>
+          <div class="cert-actions">
+            <a href="dict2.jpg" target="_blank">View</a>
+            <a href="dict2.jpg" download="DICT-2.jpg" class="download">Save</a>
+          </div>
+        </article>
 
-          <article class="cert-card hidden-el">
-            <h3>DICT</h3>
-            <a href="dict4.png" target="_blank">
-              <img class="cert-preview" src="dict4.png" alt="DICT 4" />
-            </a>
-            <div class="cert-actions">
-              <a href="dict4.png" target="_blank">View</a>
-              <a href="dict4.png" download="DICT-4.png" class="download">Save</a>
-            </div>
-          </article>
+        <article class="cert-card hidden-el">
+          <h3>DICT</h3>
+          <a href="dict3.jpg" target="_blank">
+            <img class="cert-preview" src="dict3.jpg" alt="DICT 3" />
+          </a>
+          <div class="cert-actions">
+            <a href="dict3.jpg" target="_blank">View</a>
+            <a href="dict3.jpg" download="DICT-3.jpg" class="download">Save</a>
+          </div>
+        </article>
 
-        </div>
+        <article class="cert-card hidden-el">
+          <h3>DICT</h3>
+          <a href="dict4.png" target="_blank">
+            <img class="cert-preview" src="dict4.png" alt="DICT 4" />
+          </a>
+          <div class="cert-actions">
+            <a href="dict4.png" target="_blank">View</a>
+            <a href="dict4.png" download="DICT-4.png" class="download">Save</a>
+          </div>
+        </article>
+
       </div>
     </section>
 
     <!-- RESUME DOWNLOAD -->
     <section id="resume">
-      <div class="wrap">
+      <div class="wrap-narrow">
         <div class="resume-band hidden-el">
           <div>
             <h2>Download my resume</h2>
@@ -707,7 +716,7 @@
 
     <!-- CONTACT -->
     <section id="contact">
-      <div class="wrap">
+      <div class="wrap-narrow">
         <div class="section-head hidden-el">
           <div class="eyebrow">Contact</div>
           <h2>Let's connect.</h2>
@@ -730,7 +739,9 @@
   </main>
 
   <footer style="text-align:center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--muted);">
-    <p>© 2026 Adrian Punzalan. All rights reserved.</p>
+    <div class="wrap">
+      <p>© 2026 Adrian Punzalan. All rights reserved.</p>
+    </div>
   </footer>
 
   <!-- ================= JAVASCRIPT ================= -->
@@ -745,7 +756,7 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.hidden-el').forEach((el) => observer.observe(el));
 
-    // 2. Custom Glowing Cursor (Updated to match new design)
+    // 2. Custom Cursor
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
 
@@ -771,7 +782,25 @@
       });
     });
 
-    // 3. Interactive Particle Background (Canvas)
+    // 3. Slider Button Logic (Rockstar Style)
+    const track = document.getElementById('cert-track');
+    const btnLeft = document.getElementById('slide-left');
+    const btnRight = document.getElementById('slide-right');
+
+    if (track && btnLeft && btnRight) {
+      // The width of one card + the gap
+      const scrollAmount = 410; 
+
+      btnLeft.addEventListener('click', () => {
+        track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+
+      btnRight.addEventListener('click', () => {
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
+    }
+
+    // 4. Interactive Particle Background (Canvas)
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     let particlesArray;
