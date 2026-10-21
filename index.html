@@ -7,7 +7,7 @@
   <title>Adrian Punzalan | IT Portfolio</title>
 
   <style>
-    /* ================= CYBER-MINT THEME (No Purple) ================= */
+    /* ================= CYBER-MINT THEME ================= */
     :root {
       --bg: #040b11;
       --surface: rgba(10, 25, 35, 0.7);
@@ -73,6 +73,69 @@
     .show-el {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* ================= SECRET RANDOM ENCOUNTER ================= */
+    /* The hidden digital bug */
+    .encounter-bug {
+      position: fixed;
+      width: 15px;
+      height: 15px;
+      background: var(--accent);
+      box-shadow: 0 0 15px 5px var(--accent);
+      border-radius: 50%;
+      z-index: 999;
+      cursor: crosshair;
+      animation: bugPulse 1s infinite alternate;
+      display: none; /* Hidden by default */
+    }
+
+    @keyframes bugPulse {
+      0% { transform: scale(0.8); opacity: 0.5; }
+      100% { transform: scale(1.2); opacity: 1; }
+    }
+
+    /* The hacker terminal pop-up */
+    #secret-terminal {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      width: min(500px, 90%);
+      background: rgba(4, 11, 17, 0.95);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 40px rgba(114, 224, 193, 0.4);
+      padding: 30px;
+      z-index: 10000;
+      font-family: 'Courier New', Courier, monospace;
+      color: var(--accent);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    #secret-terminal.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    #secret-terminal h3 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      border-bottom: 1px dashed var(--accent);
+      padding-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    #secret-terminal p {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .close-terminal {
+      cursor: pointer;
+      color: #ff5555;
     }
 
     /* ================= HEADER ================= */
@@ -179,47 +242,66 @@
       transform: translateY(-3px);
     }
 
-    /* ================= NEW CYBER-PFP FRAME ================= */
-    .cyber-pfp-frame {
+    /* ================= OCTAGON PFP FRAME ================= */
+    .octagon-frame {
       position: relative;
-      width: 320px;
-      height: 380px;
+      width: 340px;
+      height: 340px;
       margin: 0 auto;
-      background: #0a121e;
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      padding: 10px;
-      box-shadow: 0 0 30px rgba(114, 224, 193, 0.1);
-      overflow: hidden;
-      /* Tech corner accents */
-      background-image: 
-        linear-gradient(var(--accent), var(--accent)),
-        linear-gradient(var(--accent), var(--accent)),
-        linear-gradient(var(--accent), var(--accent)),
-        linear-gradient(var(--accent), var(--accent));
-      background-repeat: no-repeat;
-      background-size: 25px 2px, 2px 25px, 25px 2px, 2px 25px;
-      background-position: top left, top left, bottom right, bottom right;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .cyber-pfp-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 6px;
-      position: relative;
+    /* The glowing rotating background rings */
+    .octagon-bg {
+      position: absolute;
+      width: 100%; height: 100%;
+      background: var(--accent);
+      clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+      animation: pulseGlow 3s infinite alternate;
       z-index: 1;
     }
 
-    /* The moving scanner line */
+    @keyframes pulseGlow {
+      0% { opacity: 0.6; transform: scale(0.98); }
+      100% { opacity: 1; transform: scale(1.02); filter: drop-shadow(0 0 20px var(--accent)); }
+    }
+
+    /* The inner dark tech background */
+    .octagon-inner {
+      position: relative;
+      width: 320px; height: 320px;
+      background: #0a121e;
+      clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+      z-index: 2;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .octagon-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+      transition: transform 0.5s;
+    }
+
+    .octagon-inner:hover img {
+      transform: scale(1.1);
+    }
+
+    /* The scanning line */
     .scan-line {
       position: absolute;
       top: 0; left: 0;
-      width: 100%; height: 5px;
+      width: 100%; height: 4px;
       background: var(--accent);
       box-shadow: 0 0 15px 5px var(--accent);
-      opacity: 0.7;
-      z-index: 2;
+      opacity: 0.8;
+      z-index: 3;
       animation: scan 3s linear infinite;
     }
 
@@ -277,17 +359,6 @@
       border: 1px solid var(--border);
       border-radius: 2px;
     }
-
-    /* ================= MINI GAME CSS ================= */
-    #target { transition: top 0.1s, left 0.1s; }
-    
-    @keyframes targetPulse {
-      0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.1); opacity: 0.8; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    
-    #target:not(#game-over) { animation: targetPulse 0.5s infinite; }
 
     /* ================= ROCKSTAR STYLE CERT SLIDER ================= */
     .cert-section { position: relative; overflow: hidden; padding-bottom: 50px; }
@@ -359,6 +430,8 @@
       .slider-arrow { display: none; } 
       .cert-track { padding: 20px; }
       .cert-card { flex: 0 0 300px; }
+      .octagon-frame { width: 280px; height: 280px; }
+      .octagon-inner { width: 260px; height: 260px; }
     }
   </style>
 </head>
@@ -372,6 +445,15 @@
   <div class="cursor"></div>
   <div class="cursor-follower"></div>
 
+  <!-- SECRET ENCOUNTER ELEMENTS -->
+  <div class="encounter-bug" id="encounter-bug"></div>
+  <div id="secret-terminal">
+    <h3>SYSTEM BREACH <span class="close-terminal" id="close-terminal">[X]</span></h3>
+    <p>> INITIATING SANDEVISTAN PROTOCOL...</p>
+    <p>> ACCESS GRANTED. WELCOME, CHOOM.</p>
+    <p>> YOU FOUND THE SECRET. NICE REFLEXES.</p>
+  </div>
+
   <header>
     <div class="wrap">
       <nav>
@@ -379,7 +461,7 @@
         <div class="navlinks">
           <a href="#about">About</a>
           <a href="#skills">Skills</a>
-          <a href="#game">Mini-Game</a>
+          <a href="#projects">Projects</a>
           <a href="#profdev">Certificates</a>
           <a href="#contact">Contact</a>
         </div>
@@ -402,10 +484,13 @@
       </div>
       
       <div class="hidden-el">
-        <!-- THE NEW CYBER-PFP FRAME -->
-        <div class="cyber-pfp-frame">
-          <div class="scan-line"></div>
-          <img src="photoko.jpg" alt="Adrian Punzalan" />
+        <!-- THE OCTAGON PFP FRAME -->
+        <div class="octagon-frame">
+          <div class="octagon-bg"></div>
+          <div class="octagon-inner">
+            <div class="scan-line"></div>
+            <img src="photoko.png" alt="Adrian Punzalan" />
+          </div>
         </div>
       </div>
     </div>
@@ -426,44 +511,6 @@
             <h3>How I work</h3>
             <p>I value communication, teamwork, attention to detail, adaptability, and solving problems step by step.</p>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- MINI GAME -->
-    <section id="game">
-      <div class="wrap-narrow">
-        <div class="section-head hidden-el">
-          <div class="eyebrow">Interactive</div>
-          <h2>Cyber Reflex</h2>
-          <p>Test your reaction time. Click the glowing target as fast as you can.</p>
-        </div>
-
-        <div class="tech-card hidden-el" style="text-align: center;">
-          <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: 900; font-size: 1.2rem; color: var(--accent);">
-            <span>Score: <span id="score">0</span></span>
-            <span>Time: <span id="time">30</span>s</span>
-          </div>
-
-          <div id="game-board" style="position: relative; width: 100%; height: 300px; background: rgba(0,0,0,0.5); border: 2px solid var(--border); border-radius: 8px; overflow: hidden; cursor: crosshair;">
-            
-            <!-- Start Screen -->
-            <div id="game-start" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(10, 25, 35, 0.8); z-index: 10;">
-              <p style="margin-bottom: 20px; font-size: 1.1rem;">Ready to test your reflexes?</p>
-              <button id="start-btn" class="btn primary" style="cursor: pointer;">Start Game</button>
-            </div>
-
-            <!-- The Target -->
-            <div id="target" style="display: none; position: absolute; width: 50px; height: 50px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 20px var(--accent); cursor: pointer;"></div>
-            
-            <!-- Game Over Screen -->
-            <div id="game-over" style="display: none; position: absolute; inset: 0; flex-direction: column; justify-content: center; align-items: center; background: rgba(10, 25, 35, 0.9); z-index: 10;">
-              <h3 style="color: var(--accent); font-size: 2rem; margin-bottom: 10px;">Time's Up!</h3>
-              <p style="margin-bottom: 20px;">You scored <strong id="final-score">0</strong> points.</p>
-              <button id="restart-btn" class="btn primary" style="cursor: pointer;">Play Again</button>
-            </div>
-
-          </div>
         </div>
       </div>
     </section>
@@ -724,80 +771,55 @@
       });
     });
 
-    // 3. Mini Game Logic
-    const startBtn = document.getElementById('start-btn');
-    const restartBtn = document.getElementById('restart-btn');
-    const gameStart = document.getElementById('game-start');
-    const gameOver = document.getElementById('game-over');
-    const gameBoard = document.getElementById('game-board');
-    const target = document.getElementById('target');
-    const scoreDisplay = document.getElementById('score');
-    const timeDisplay = document.getElementById('time');
-    const finalScoreDisplay = document.getElementById('final-score');
+    // 3. SECRET RANDOM ENCOUNTER LOGIC
+    const bug = document.getElementById('encounter-bug');
+    const terminal = document.getElementById('secret-terminal');
+    const closeTerminal = document.getElementById('close-terminal');
 
-    let score = 0;
-    let timeLeft = 30;
-    let gameInterval;
-    let timerInterval;
-    let isPlaying = false;
+    function spawnBug() {
+      // Random position (keeping it away from the edges)
+      const x = Math.random() * (window.innerWidth - 100) + 50;
+      const y = Math.random() * (window.innerHeight - 100) + 50;
+      
+      bug.style.left = x + 'px';
+      bug.style.top = y + 'px';
+      bug.style.display = 'block';
 
-    function moveTarget() {
-      if (!isPlaying) return;
-      const boardWidth = gameBoard.clientWidth;
-      const boardHeight = gameBoard.clientHeight;
-      const targetSize = 50;
-      
-      const randomX = Math.floor(Math.random() * (boardWidth - targetSize));
-      const randomY = Math.floor(Math.random() * (boardHeight - targetSize));
-      
-      target.style.left = randomX + 'px';
-      target.style.top = randomY + 'px';
+      // The bug disappears after 3 seconds if not clicked
+      setTimeout(() => {
+        if (bug.style.display === 'block') {
+          bug.style.display = 'none';
+          scheduleNextBug();
+        }
+      }, 3000);
     }
 
-    function startGame() {
-      score = 0;
-      timeLeft = 30;
-      isPlaying = true;
-      scoreDisplay.textContent = score;
-      timeDisplay.textContent = timeLeft;
-      
-      gameStart.style.display = 'none';
-      gameOver.style.display = 'none';
-      target.style.display = 'block';
-      
-      moveTarget();
-      
-      timerInterval = setInterval(() => {
-        timeLeft--;
-        timeDisplay.textContent = timeLeft;
-        if (timeLeft <= 0) endGame();
-      }, 1000);
-      
-      gameInterval = setInterval(() => {
-        moveTarget();
-      }, Math.max(400, 800 - (score * 20)));
+    function scheduleNextBug() {
+      // Spawns a new bug randomly between 10 to 25 seconds
+      const nextSpawn = Math.random() * 15000 + 10000;
+      setTimeout(spawnBug, nextSpawn);
     }
 
-    function endGame() {
-      isPlaying = false;
-      clearInterval(timerInterval);
-      clearInterval(gameInterval);
-      target.style.display = 'none';
-      gameOver.style.display = 'flex';
-      finalScoreDisplay.textContent = score;
-    }
+    // Start the loop
+    scheduleNextBug();
 
-    target.addEventListener('click', () => {
-      if (!isPlaying) return;
-      score++;
-      scoreDisplay.textContent = score;
-      gameBoard.style.borderColor = '#fff';
-      setTimeout(() => { gameBoard.style.borderColor = 'var(--border)'; }, 100);
-      moveTarget();
+    // If the user clicks the bug
+    bug.addEventListener('click', () => {
+      bug.style.display = 'none';
+      terminal.classList.add('active');
+      
+      // Auto close the terminal after 8 seconds
+      setTimeout(() => {
+        terminal.classList.remove('active');
+      }, 8000);
+
+      scheduleNextBug();
     });
 
-    startBtn.addEventListener('click', startGame);
-    restartBtn.addEventListener('click', startGame);
+    // Manual close button for the terminal
+    closeTerminal.addEventListener('click', () => {
+      terminal.classList.remove('active');
+    });
 
     // 4. Slider Button Logic
     const track = document.getElementById('cert-track');
