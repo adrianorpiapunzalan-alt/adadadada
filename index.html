@@ -3,24 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Adrian Punzalan's Futuristic IT Portfolio." />
+  <meta name="description" content="Adrian Punzalan's IT Portfolio" />
   <title>Adrian Punzalan | IT Portfolio</title>
 
   <style>
-    /* ================= FUTURISTIC THEME ================= */
+    /* ================= UNIQUE CYBER-MINT THEME ================= */
     :root {
-      --bg: #050a14; /* Deeper, darker navy */
-      --surface: rgba(18, 26, 45, 0.6); /* Glassmorphism base */
-      --surface-hover: rgba(23, 34, 57, 0.8);
+      --bg: #040b11;
+      --surface: rgba(10, 25, 35, 0.6);
       --text: #edf2ff;
-      --muted: #8b9bb4;
-      --accent: #72e0c1; /* Mint Green */
-      --accent-glow: rgba(114, 224, 193, 0.4);
-      --line: rgba(114, 224, 193, 0.2);
-      --max: 1100px;
+      --muted: #7a8f9f;
+      --accent: #72e0c1; /* Mint */
+      --accent-dim: rgba(114, 224, 193, 0.2);
+      --border: rgba(114, 224, 193, 0.3);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; /* Custom cursor */ }
+    * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
     html { scroll-behavior: smooth; }
     
     body {
@@ -29,10 +27,6 @@
       font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 15% 50%, rgba(114, 224, 193, 0.05), transparent 30%),
-        radial-gradient(circle at 85% 30%, rgba(114, 224, 193, 0.05), transparent 30%);
-      background-attachment: fixed;
     }
 
     /* Canvas for Particles */
@@ -45,27 +39,27 @@
 
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
-    .wrap { width: min(var(--max), calc(100% - 40px)); margin: auto; }
+    .wrap { width: min(1100px, calc(100% - 40px)); margin: auto; }
 
-    /* ================= CUSTOM CURSOR ================= */
+    /* ================= NEW CUSTOM CURSOR (SQUARE TARGET) ================= */
     .cursor {
-      width: 8px; height: 8px;
+      width: 6px; height: 6px;
       background: var(--accent);
-      border-radius: 50%;
       position: fixed;
       pointer-events: none;
       z-index: 9999;
-      transition: transform 0.1s;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px var(--accent);
     }
     .cursor-follower {
-      width: 30px; height: 30px;
-      border: 2px solid var(--accent);
+      width: 36px; height: 36px;
+      border: 1px dashed var(--accent);
       border-radius: 50%;
       position: fixed;
       pointer-events: none;
       z-index: 9998;
-      transition: transform 0.3s, background 0.3s;
-      box-shadow: 0 0 15px var(--accent-glow);
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s, background 0.3s, transform 0.1s;
     }
 
     /* ================= SCROLL ANIMATIONS ================= */
@@ -81,15 +75,16 @@
 
     /* ================= HEADER ================= */
     header {
-      position: sticky;
+      position: fixed;
+      width: 100%;
       top: 0;
       z-index: 10;
-      background: rgba(5, 10, 20, 0.7);
-      backdrop-filter: blur(15px);
-      border-bottom: 1px solid var(--line);
+      background: rgba(4, 11, 17, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
     }
     nav {
-      min-height: 75px;
+      height: 75px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -97,17 +92,16 @@
     .brand {
       font-weight: 900;
       font-size: 1.2rem;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       color: #fff;
-      text-shadow: 0 0 10px var(--accent-glow);
     }
     .brand span { color: var(--accent); }
-    .navlinks { display: flex; gap: 25px; }
+    .navlinks { display: flex; gap: 30px; }
     .navlinks a {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       color: var(--muted);
       transition: all 0.3s;
     }
@@ -118,67 +112,54 @@
 
     /* ================= HERO ================= */
     .hero {
-      min-height: 90vh;
+      min-height: 100vh;
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: 1fr 1fr;
       gap: 60px;
       align-items: center;
-      padding-top: 40px;
+      padding-top: 75px;
     }
     
     .eyebrow {
       color: var(--accent);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 800;
       letter-spacing: 3px;
       text-transform: uppercase;
       margin-bottom: 15px;
     }
 
-    .typing-text::after {
-      content: '|';
-      animation: blink 1s infinite;
-      color: var(--accent);
-    }
-    @keyframes blink { 50% { opacity: 0; } }
-
     h1 {
       font-size: clamp(2.5rem, 6vw, 4.5rem);
       line-height: 1.1;
       margin-bottom: 20px;
       font-weight: 900;
-      background: linear-gradient(90deg, #fff, var(--accent), #fff);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientShift 4s linear infinite;
     }
-    @keyframes gradientShift { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
     
     .hero p {
       color: var(--muted);
       font-size: 1.1rem;
-      max-width: 550px;
-      margin-bottom: 30px;
+      max-width: 500px;
+      margin-bottom: 35px;
     }
 
     .actions { display: flex; gap: 15px; flex-wrap: wrap; }
     .btn {
       display: inline-block;
       padding: 14px 28px;
-      border-radius: 8px;
+      border-radius: 4px;
       font-size: 0.9rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 1px;
       transition: all 0.3s;
-      border: 1px solid var(--line);
+      border: 1px solid var(--border);
     }
     .btn.primary {
       background: var(--accent);
-      color: #050a14;
+      color: #040b11;
       border-color: var(--accent);
-      box-shadow: 0 0 15px var(--accent-glow);
+      box-shadow: 0 0 15px var(--accent-dim);
     }
     .btn.primary:hover {
       box-shadow: 0 0 30px var(--accent);
@@ -191,212 +172,235 @@
     .btn.secondary:hover {
       border-color: var(--accent);
       color: var(--accent);
-      box-shadow: 0 0 15px rgba(114, 224, 193, 0.2);
       transform: translateY(-3px);
     }
 
-    /* Profile Photo */
-    .profile-container {
+    /* ================= NEW HEXAGON PROFILE PIC ================= */
+    .hex-container {
       position: relative;
       width: 320px;
-      height: 380px;
+      height: 360px;
       margin: 0 auto;
-      background: var(--surface);
-      backdrop-filter: blur(15px);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 15px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(114, 224, 193, 0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* The glowing background border */
+    .hex-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: var(--accent);
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      animation: pulseGlow 3s infinite alternate;
       z-index: 1;
     }
-    .profile-container:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 40px rgba(114, 224, 193, 0.4);
+
+    @keyframes pulseGlow {
+      0% { opacity: 0.5; transform: scale(0.98); }
+      100% { opacity: 1; transform: scale(1.02); filter: drop-shadow(0 0 20px var(--accent)); }
     }
-    .profile-container img {
+
+    /* The inner photo container */
+    .hex-photo-container {
+      position: relative;
+      width: 300px;
+      height: 340px;
+      background: var(--bg);
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hex-photo-container img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 12px;
-      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+      opacity: 0.9;
+      transition: transform 0.5s;
     }
-    .profile-container::before {
-      content: '';
+
+    .hex-photo-container:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Decorative floating dots around the hex */
+    .dot {
       position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(135deg, rgba(114, 224, 193, 0.1), transparent);
-      z-index: -1;
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+      z-index: 3;
+    }
+    .dot-1 { top: 10%; left: 5%; animation: float 4s infinite alternate; }
+    .dot-2 { bottom: 15%; right: 5%; animation: float 5s infinite alternate-reverse; }
+    .dot-3 { top: 50%; right: -10px; animation: float 6s infinite alternate; }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-20px); }
     }
 
-    /* ================= SECTIONS ================= */
+    /* ================= UNIQUE TECH PANELS (Boxes) ================= */
     section { padding: 100px 0; }
-    .section-head { margin-bottom: 50px; text-align: left; }
-    .section-head h2 { font-size: 2.5rem; line-height: 1.2; color: #fff; }
-    .section-head p { color: var(--muted); max-width: 600px; margin-top: 10px; }
+    .section-head { margin-bottom: 50px; text-align: center; }
+    .section-head h2 { font-size: 2.5rem; color: #fff; }
+    .section-head p { color: var(--muted); margin-top: 10px; }
 
-    /* ================= GLASS CARDS ================= */
-    .about-grid, .skills-grid, .project-grid {
+    .about-grid, .skills-grid, .project-grid, .cert-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 25px;
     }
-    
-    .card {
+
+    .tech-card {
       background: var(--surface);
-      backdrop-filter: blur(15px);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 30px;
-      transition: transform 0.1s, box-shadow 0.3s, border-color 0.3s;
-      transform-style: preserve-3d;
-    }
-    
-    .card:hover {
-      border-color: var(--accent);
-      box-shadow: 0 0 25px rgba(114, 224, 193, 0.2);
-      background: var(--surface-hover);
-    }
-    
-    .card h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--accent); transform: translateZ(20px); }
-    .card p { color: var(--muted); transform: translateZ(10px); }
-
-    .detail-row { margin-top: 15px; font-size: 0.95rem; display: flex; gap: 15px; }
-    .detail-row strong { color: #fff; min-width: 100px; }
-
-    .pillrow { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; transform: translateZ(15px); }
-    .pill {
-      background: rgba(114, 224, 193, 0.1);
-      color: var(--accent);
-      border-radius: 20px;
-      padding: 8px 16px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      border: 1px solid var(--line);
-      transition: all 0.3s;
-    }
-    .pill:hover {
-      background: var(--accent);
-      color: #050a14;
-      box-shadow: 0 0 15px var(--accent);
-    }
-
-    /* ================= HORIZONTAL SLIDER CSS ================= */
-    .slider-buttons { display: flex; gap: 10px; }
-    .slider-btn {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      color: var(--accent);
-      width: 45px; height: 45px;
-      border-radius: 50%;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.3s;
-      display: grid; place-items: center;
       backdrop-filter: blur(10px);
-    }
-    .slider-btn:hover {
-      background: var(--accent);
-      color: #050a14;
-      box-shadow: 0 0 20px var(--accent);
-      border-color: var(--accent);
-    }
-
-    .cert-slider-wrap {
+      padding: 35px;
       position: relative;
-      padding: 20px 0;
-      mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+      transition: all 0.3s;
+      /* The corner bracket effect */
+      background-image: 
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent)),
+        linear-gradient(var(--accent), var(--accent));
+      background-repeat: no-repeat;
+      background-size: 15px 2px, 2px 15px, 15px 2px, 2px 15px;
+      background-position: top left, top left, bottom right, bottom right;
+      border: 1px solid rgba(255,255,255,0.05);
     }
 
-    .cert-slider {
-      display: flex; gap: 25px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      padding-bottom: 30px;
-      -ms-overflow-style: none;  
-      scrollbar-width: none;  
+    .tech-card:hover {
+      background-color: rgba(114, 224, 193, 0.05);
+      box-shadow: 0 0 20px rgba(114, 224, 193, 0.1);
+      transform: translateY(-3px);
     }
-    .cert-slider::-webkit-scrollbar { display: none; }
 
-    .cert-card {
-      flex: 0 0 320px;
-      scroll-snap-align: start;
-      background: var(--surface);
-      backdrop-filter: blur(15px);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 20px;
-      display: flex; flex-direction: column; gap: 15px;
-      transition: transform 0.1s, box-shadow 0.3s;
-      transform-style: preserve-3d;
+    .tech-card h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--accent); }
+    .tech-card p { color: var(--muted); }
+
+    .pillrow { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .pill {
+      background: rgba(114, 224, 193, 0.05);
+      color: var(--accent);
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      border-radius: 4px;
     }
-    .cert-card:hover {
-      border-color: var(--accent);
-      box-shadow: 0 0 25px rgba(114, 224, 193, 0.3);
+
+    /* ================= CERTIFICATES (HOVER ZOOM GRID) ================= */
+    .cert-grid {
+      grid-template-columns: repeat(3, 1fr); /* 3 columns for desktop */
+      gap: 20px;
     }
-    .cert-card h3 { font-size: 1.1rem; color: #fff; text-align: center; transform: translateZ(15px); }
-    .cert-preview {
-      width: 100%; border-radius: 10px; border: 1px solid #333;
-      cursor: pointer; transition: transform 0.3s;
-      transform: translateZ(10px);
-    }
-    .cert-preview:hover { transform: scale(1.03) translateZ(20px); }
     
-    .cert-actions { display: flex; gap: 10px; margin-top: auto; transform: translateZ(10px); }
-    .cert-actions a {
-      font-size: 0.85rem; padding: 10px 16px; border-radius: 8px;
-      border: 1px solid var(--line); font-weight: 800; text-transform: uppercase;
-      color: var(--muted); text-align: center; flex: 1; transition: all 0.3s;
+    .cert-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
     }
-    .cert-actions a:hover { background: rgba(255,255,255,0.1); color: #fff; }
-    .cert-actions a.download { background: var(--accent); color: #050a14; border-color: var(--accent); }
-    .cert-actions a.download:hover { box-shadow: 0 0 15px var(--accent); }
 
-    /* ================= RESUME ================= */
+    .cert-card:hover {
+      transform: scale(1.05) translateY(-5px);
+      box-shadow: 0 10px 30px rgba(114, 224, 193, 0.2);
+      border-color: var(--accent);
+      z-index: 2; /* Pops out over other cards */
+    }
+
+    .cert-card h3 {
+      font-size: 0.9rem;
+      color: var(--accent);
+      text-align: center;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .cert-preview {
+      width: 100%;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+    }
+
+    /* Buttons only appear on hover to look clean */
+    .cert-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+    
+    .cert-card:hover .cert-actions { opacity: 1; }
+
+    .cert-actions a {
+      flex: 1;
+      text-align: center;
+      font-size: 0.75rem;
+      padding: 8px;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      transition: all 0.3s;
+    }
+
+    .cert-actions a:hover {
+      background: var(--accent);
+      color: #040b11;
+    }
+
+    .cert-actions a.download {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .cert-actions a.download:hover {
+      background: var(--accent);
+      color: #040b11;
+    }
+
+    /* ================= RESUME & CONTACT ================= */
     .resume-band {
-      background: linear-gradient(135deg, rgba(114, 224, 193, 0.15), rgba(5, 10, 20, 0.8));
+      background: var(--surface);
       border: 1px solid var(--accent);
-      border-radius: 16px;
-      padding: 50px;
+      padding: 40px;
       display: flex; justify-content: space-between; align-items: center;
       gap: 30px; flex-wrap: wrap;
-      box-shadow: 0 0 40px rgba(114, 224, 193, 0.15);
+      box-shadow: inset 0 0 20px var(--accent-dim);
     }
-    .resume-band h2 { font-size: 2rem; margin-bottom: 10px; }
-    .resume-band p { color: var(--muted); font-size: 1.1rem; }
 
-    /* ================= CONTACT ================= */
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-    .contact-item { padding: 20px 0; border-bottom: 1px solid var(--line); }
-    .contact-item:last-child { border-bottom: none; }
-    .contact-item small {
-      display: block; font-weight: 800; color: var(--accent);
-      margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px;
-    }
-    .contact-item a, .contact-item span { font-size: 1.1rem; font-weight: 500; }
-    .contact-item a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent); }
-
-    /* ================= FOOTER ================= */
-    footer {
-      padding: 40px 0; text-align: center;
-      color: var(--muted); font-size: 0.9rem;
-      border-top: 1px solid var(--line);
-    }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
 
     /* ================= RESPONSIVE ================= */
-    @media (max-width: 850px) {
+    @media (max-width: 900px) {
       * { cursor: auto; } 
       .cursor, .cursor-follower { display: none; }
-      .hero { grid-template-columns: 1fr; gap: 50px; text-align: center; padding-top: 80px; }
+      .hero { grid-template-columns: 1fr; text-align: center; gap: 40px; padding-top: 120px; }
       .hero .actions { justify-content: center; }
       .hero p { margin: 0 auto 35px auto; }
       .about-grid, .skills-grid, .project-grid, .contact-grid { grid-template-columns: 1fr; }
+      .cert-grid { grid-template-columns: repeat(2, 1fr); }
       .navlinks { display: none; }
-      .profile-container { width: 280px; height: 330px; }
+    }
+    @media (max-width: 600px) {
+      .cert-grid { grid-template-columns: 1fr; }
+      .hex-container { transform: scale(0.8); }
     }
   </style>
 </head>
@@ -432,8 +436,8 @@
     <div class="wrap hero" id="home">
       <div class="hidden-el">
         <div class="eyebrow">Information Technology Student</div>
-        <h1 class="typing-text" id="typewriter"></h1>
-        <p>I'm an IT student at Northeastern College interested in technology, software development, and learning through practical projects. I'm building my skills one project at a time.</p>
+        <h1>Hi, I'm Adrian Punzalan.</h1>
+        <p>I'm an IT student at Northeastern College interested in technology, software development, and learning through practical projects.</p>
         <div class="actions">
           <a class="btn primary" href="#projects">View My Projects</a>
           <a class="btn secondary" href="#resume">Download Resume</a>
@@ -441,9 +445,15 @@
       </div>
       
       <div class="hidden-el">
-        <div class="profile-container">
-          <!-- ENSURE YOUR PHOTO IS NAMED photoko.jpg -->
-          <img src="photoko.jpg" alt="Adrian Punzalan" />
+        <!-- THE NEW HEXAGON PROFILE PIC -->
+        <div class="hex-container">
+          <div class="hex-bg"></div>
+          <div class="hex-photo-container">
+            <img src="photoko.jpg" alt="Adrian Punzalan" />
+          </div>
+          <div class="dot dot-1"></div>
+          <div class="dot dot-2"></div>
+          <div class="dot dot-3"></div>
         </div>
       </div>
     </div>
@@ -452,15 +462,15 @@
     <section id="about">
       <div class="wrap">
         <div class="section-head hidden-el">
-          <div class="eyebrow scramble-text">About Me</div>
+          <div class="eyebrow">About Me</div>
           <h2>Learning by building.</h2>
         </div>
         <div class="about-grid">
-          <article class="card hidden-el tilt">
+          <article class="tech-card hidden-el">
             <h3>What I'm working toward</h3>
             <p>Developing practical technical skills and gaining experience through academic and personal software projects.</p>
           </article>
-          <article class="card hidden-el tilt">
+          <article class="tech-card hidden-el">
             <h3>How I work</h3>
             <p>I value communication, teamwork, attention to detail, adaptability, and solving problems step by step.</p>
           </article>
@@ -472,20 +482,16 @@
     <section id="education">
       <div class="wrap">
         <div class="section-head hidden-el">
-          <div class="eyebrow scramble-text">Education</div>
-          <h2>My academic background</h2>
+          <div class="eyebrow">Education</div>
+          <h2>Academic Background</h2>
         </div>
-        <article class="card hidden-el tilt">
-          <div class="detail-row" style="flex-direction: column; gap: 4px;">
-            <strong>Northeastern College</strong>
-            <span>Bachelor of Science in Information Technology</span>
-            <span style="color: var(--accent); margin-top: 5px;">2024 – Present</span>
-          </div>
-          <div class="pillrow" style="margin-top: 20px;">
+        <article class="tech-card hidden-el">
+          <h3>Northeastern College</h3>
+          <p>Bachelor of Science in Information Technology (2024 – Present)</p>
+          <div class="pillrow">
             <span class="pill">Business Communication</span>
-            <span class="pill">Computer Applications</span>
             <span class="pill">Information Management</span>
-            <span class="pill">Systems Analysis and Design</span>
+            <span class="pill">Systems Analysis</span>
             <span class="pill">Database Management</span>
           </div>
         </article>
@@ -496,24 +502,24 @@
     <section id="skills">
       <div class="wrap">
         <div class="section-head hidden-el">
-          <div class="eyebrow scramble-text">Skills</div>
-          <h2>Tools and strengths</h2>
+          <div class="eyebrow">Skills</div>
+          <h2>Tools and Strengths</h2>
         </div>
         <div class="skills-grid">
-          <article class="card hidden-el tilt">
+          <article class="tech-card hidden-el">
             <h3>Technical Skills</h3>
             <div class="pillrow">
               <span class="pill">Google Workspace</span>
               <span class="pill">Microsoft Office</span>
               <span class="pill">Data Entry</span>
               <span class="pill">Web Applications</span>
-              <span class="pill">Computer Troubleshooting</span>
+              <span class="pill">Troubleshooting</span>
               <span class="pill">Flutter / Dart</span>
               <span class="pill">Supabase</span>
               <span class="pill">PHP / MySQL</span>
             </div>
           </article>
-          <article class="card hidden-el tilt">
+          <article class="tech-card hidden-el">
             <h3>Soft Skills</h3>
             <div class="pillrow">
               <span class="pill">Communication</span>
@@ -522,7 +528,6 @@
               <span class="pill">Time Management</span>
               <span class="pill">Problem Solving</span>
               <span class="pill">Adaptability</span>
-              <span class="pill">Attention to Detail</span>
             </div>
           </article>
         </div>
@@ -533,180 +538,156 @@
     <section id="projects">
       <div class="wrap">
         <div class="section-head hidden-el">
-          <div class="eyebrow scramble-text">Selected Work</div>
+          <div class="eyebrow">Selected Work</div>
           <h2>Projects</h2>
         </div>
         <div class="project-grid">
-          <article class="card hidden-el tilt">
+          <article class="tech-card hidden-el">
             <h3>Barangay Data Management System</h3>
             <p>A system concept for organizing resident records and supporting barangay services such as certificate requests, assistance requests, announcements, and reports.</p>
             <div class="pillrow"><span class="pill">PHP</span><span class="pill">MySQL</span><span class="pill">XAMPP</span></div>
           </article>
-          <article class="card hidden-el tilt">
+          <article class="tech-card hidden-el">
             <h3>Meal App</h3>
             <p>A Flutter application for browsing meal information and using meal categories and favorites, with Supabase used as a data source.</p>
-            <div class="pillrow"><span class="pill">Flutter</span><span class="pill">Dart</span><span class="pill">Supabase</span></div>
-          </article>
-          <article class="card hidden-el tilt">
-            <h3>Expense Tracker</h3>
-            <p>A Flutter app project focused on recording expenses and presenting expense information with a chart and a list.</p>
             <div class="pillrow"><span class="pill">Flutter</span><span class="pill">Dart</span><span class="pill">Supabase</span></div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- PROFDEV CERTIFICATES (SLIDER) -->
+    <!-- PROFDEV CERTIFICATES (HOVER ZOOM GRID) -->
     <section id="profdev">
       <div class="wrap">
-        <div class="section-head hidden-el" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px;">
-          <div>
-            <div class="eyebrow scramble-text">Professional Development</div>
-            <h2>Certificates</h2>
-          </div>
-          <!-- Slider Navigation Buttons -->
-          <div class="slider-buttons">
-            <button id="slide-left" class="slider-btn" aria-label="Previous">&#8592;</button>
-            <button id="slide-right" class="slider-btn" aria-label="Next">&#8594;</button>
-          </div>
+        <div class="section-head hidden-el">
+          <div class="eyebrow">Professional Development</div>
+          <h2>Certificates</h2>
+          <p>Hover over a certificate to view or download.</p>
         </div>
 
-        <div class="cert-slider-wrap hidden-el">
-          <div class="cert-slider" id="cert-slider">
-            
-            <!-- TESDA 1 -->
-            <article class="cert-card">
-              <h3>TESDA</h3>
-              <a href="1.jpg" target="_blank" rel="noopener">
-                <img class="cert-preview" src="1.jpg" alt="TESDA Certificate 1" />
-              </a>
-              <div class="cert-actions">
-                <a href="1.jpg" target="_blank" rel="noopener">View</a>
-                <a href="1.jpg" download="TESDA-1.jpg" class="download">Save</a>
-              </div>
-            </article>
+        <div class="cert-grid">
+          
+          <article class="cert-card hidden-el">
+            <h3>TESDA</h3>
+            <a href="1.jpg" target="_blank">
+              <img class="cert-preview" src="1.jpg" alt="TESDA 1" />
+            </a>
+            <div class="cert-actions">
+              <a href="1.jpg" target="_blank">View</a>
+              <a href="1.jpg" download="TESDA-1.jpg" class="download">Save</a>
+            </div>
+          </article>
 
-            <!-- TESDA 2 -->
-            <article class="cert-card">
-              <h3>TESDA</h3>
-              <a href="2.jpg" target="_blank" rel="noopener">
-                <img class="cert-preview" src="2.jpg" alt="TESDA Certificate 2" />
-              </a>
-              <div class="cert-actions">
-                <a href="2.jpg" target="_blank" rel="noopener">View</a>
-                <a href="2.jpg" download="TESDA-2.jpg" class="download">Save</a>
-              </div>
-            </article>
+          <article class="cert-card hidden-el">
+            <h3>TESDA</h3>
+            <a href="2.jpg" target="_blank">
+              <img class="cert-preview" src="2.jpg" alt="TESDA 2" />
+            </a>
+            <div class="cert-actions">
+              <a href="2.jpg" target="_blank">View</a>
+              <a href="2.jpg" download="TESDA-2.jpg" class="download">Save</a>
+            </div>
+          </article>
 
-            <!-- TESDA 3 -->
-            <article class="cert-card">
-              <h3>TESDA</h3>
-              <a href="3.jpg" target="_blank" rel="noopener">
-                <img class="cert-preview" src="3.jpg" alt="TESDA Certificate 3" />
-              </a>
-              <div class="cert-actions">
-                <a href="3.jpg" target="_blank" rel="noopener">View</a>
-                <a href="3.jpg" download="TESDA-3.jpg" class="download">Save</a>
-              </div>
-            </article>
+          <article class="cert-card hidden-el">
+            <h3>TESDA</h3>
+            <a href="3.jpg" target="_blank">
+              <img class="cert-preview" src="3.jpg" alt="TESDA 3" />
+            </a>
+            <div class="cert-actions">
+              <a href="3.jpg" target="_blank">View</a>
+              <a href="3.jpg" download="TESDA-3.jpg" class="download">Save</a>
+            </div>
+          </article>
 
-            <!-- TESDA 4 -->
-            <article class="cert-card">
-              <h3>TESDA</h3>
-              <a href="4.jpg" target="_blank" rel="noopener">
-                <img class="cert-preview" src="4.jpg" alt="TESDA Certificate 4" />
-              </a>
-              <div class="cert-actions">
-                <a href="4.jpg" target="_blank" rel="noopener">View</a>
-                <a href="4.jpg" download="TESDA-4.jpg" class="download">Save</a>
-              </div>
-            </article>
+          <article class="cert-card hidden-el">
+            <h3>TESDA</h3>
+            <a href="4.jpg" target="_blank">
+              <img class="cert-preview" src="4.jpg" alt="TESDA 4" />
+            </a>
+            <div class="cert-actions">
+              <a href="4.jpg" target="_blank">View</a>
+              <a href="4.jpg" download="TESDA-4.jpg" class="download">Save</a>
+            </div>
+          </article>
 
-            <!-- TESDA 5 -->
-            <article class="cert-card">
-              <h3>TESDA</h3>
-              <a href="5.jpg" target="_blank" rel="noopener">
-                <img class="cert-preview" src="5.jpg" alt="TESDA Certificate 5" />
-              </a>
-              <div class="cert-actions">
-                <a href="5.jpg" target="_blank" rel="noopener">View</a>
-                <a href="5.jpg" download="TESDA-5.jpg" class="download">Save</a>
-              </div>
-            </article>
+          <article class="cert-card hidden-el">
+            <h3>TESDA</h3>
+            <a href="5.jpg" target="_blank">
+              <img class="cert-preview" src="5.jpg" alt="TESDA 5" />
+            </a>
+            <div class="cert-actions">
+              <a href="5.jpg" target="_blank">View</a>
+              <a href="5.jpg" download="TESDA-5.jpg" class="download">Save</a>
+            </div>
+          </article>
 
-            <!-- NETACAD -->
-            <article class="cert-card">
-              <h3>NetAcad</h3>
-              <a href="net.jpg" target="_blank" rel="noopener">
-                <img class="cert-preview" src="net.jpg" alt="NetAcad Certificate" />
-              </a>
-              <div class="cert-actions">
-                <a href="net.jpg" target="_blank" rel="noopener">View</a>
-                <a href="net.jpg" download="NetAcad.jpg" class="download">Save</a>
-              </div>
-            </article>
+          <article class="cert-card hidden-el">
+            <h3>NetAcad</h3>
+            <a href="net.jpg" target="_blank">
+              <img class="cert-preview" src="net.jpg" alt="NetAcad" />
+            </a>
+            <div class="cert-actions">
+              <a href="net.jpg" target="_blank">View</a>
+              <a href="net.jpg" download="NetAcad.jpg" class="download">Save</a>
+            </div>
+          </article>
 
-            <!-- FREECODECAMP -->
-            <article class="cert-card">
-              <h3>freeCodeCamp</h3>
-              <a href="camp.png" target="_blank" rel="noopener">
-                <img class="cert-preview" src="camp.png" alt="freeCodeCamp Certificate" />
-              </a>
-              <div class="cert-actions">
-                <a href="camp.png" target="_blank" rel="noopener">View</a>
-                <a href="camp.png" download="freeCodeCamp.png" class="download">Save</a>
-              </div>
-            </article>
+          <article class="cert-card hidden-el">
+            <h3>freeCodeCamp</h3>
+            <a href="camp.png" target="_blank">
+              <img class="cert-preview" src="camp.png" alt="freeCodeCamp" />
+            </a>
+            <div class="cert-actions">
+              <a href="camp.png" target="_blank">View</a>
+              <a href="camp.png" download="freeCodeCamp.png" class="download">Save</a>
+            </div>
+          </article>
 
-            <!-- DICT 1 -->
-            <article class="cert-card">
-              <h3>DICT</h3>
-              <a href="dict1.jpg" target="_blank" rel="noopener">
-                <img class="cert-preview" src="dict1.jpg" alt="DICT Certificate 1" />
-              </a>
-              <div class="cert-actions">
-                <a href="dict1.jpg" target="_blank" rel="noopener">View</a>
-                <a href="dict1.jpg" download="DICT-1.jpg" class="download">Save</a>
-              </div>
-            </article>
+          <article class="cert-card hidden-el">
+            <h3>DICT</h3>
+            <a href="dict1.jpg" target="_blank">
+              <img class="cert-preview" src="dict1.jpg" alt="DICT 1" />
+            </a>
+            <div class="cert-actions">
+              <a href="dict1.jpg" target="_blank">View</a>
+              <a href="dict1.jpg" download="DICT-1.jpg" class="download">Save</a>
+            </div>
+          </article>
 
-            <!-- DICT 2 -->
-            <article class="cert-card">
-              <h3>DICT</h3>
-              <a href="dict2.jpg" target="_blank" rel="noopener">
-                <img class="cert-preview" src="dict2.jpg" alt="DICT Certificate 2" />
-              </a>
-              <div class="cert-actions">
-                <a href="dict2.jpg" target="_blank" rel="noopener">View</a>
-                <a href="dict2.jpg" download="DICT-2.jpg" class="download">Save</a>
-              </div>
-            </article>
+          <article class="cert-card hidden-el">
+            <h3>DICT</h3>
+            <a href="dict2.jpg" target="_blank">
+              <img class="cert-preview" src="dict2.jpg" alt="DICT 2" />
+            </a>
+            <div class="cert-actions">
+              <a href="dict2.jpg" target="_blank">View</a>
+              <a href="dict2.jpg" download="DICT-2.jpg" class="download">Save</a>
+            </div>
+          </article>
 
-            <!-- DICT 3 -->
-            <article class="cert-card">
-              <h3>DICT</h3>
-              <a href="dict3.jpg" target="_blank" rel="noopener">
-                <img class="cert-preview" src="dict3.jpg" alt="DICT Certificate 3" />
-              </a>
-              <div class="cert-actions">
-                <a href="dict3.jpg" target="_blank" rel="noopener">View</a>
-                <a href="dict3.jpg" download="DICT-3.jpg" class="download">Save</a>
-              </div>
-            </article>
+          <article class="cert-card hidden-el">
+            <h3>DICT</h3>
+            <a href="dict3.jpg" target="_blank">
+              <img class="cert-preview" src="dict3.jpg" alt="DICT 3" />
+            </a>
+            <div class="cert-actions">
+              <a href="dict3.jpg" target="_blank">View</a>
+              <a href="dict3.jpg" download="DICT-3.jpg" class="download">Save</a>
+            </div>
+          </article>
 
-            <!-- DICT 4 -->
-            <article class="cert-card">
-              <h3>DICT</h3>
-              <a href="dict4.png" target="_blank" rel="noopener">
-                <img class="cert-preview" src="dict4.png" alt="DICT Certificate 4" />
-              </a>
-              <div class="cert-actions">
-                <a href="dict4.png" target="_blank" rel="noopener">View</a>
-                <a href="dict4.png" download="DICT-4.png" class="download">Save</a>
-              </div>
-            </article>
+          <article class="cert-card hidden-el">
+            <h3>DICT</h3>
+            <a href="dict4.png" target="_blank">
+              <img class="cert-preview" src="dict4.png" alt="DICT 4" />
+            </a>
+            <div class="cert-actions">
+              <a href="dict4.png" target="_blank">View</a>
+              <a href="dict4.png" download="DICT-4.png" class="download">Save</a>
+            </div>
+          </article>
 
-          </div>
         </div>
       </div>
     </section>
@@ -718,7 +699,6 @@
           <div>
             <h2>Download my resume</h2>
             <p>My resume is available for viewing and download.</p>
-            <div class="resume-note" style="color: var(--accent); margin-top: 10px; font-size: 0.85rem;">Note: Ensure the file is saved as "resume.jpg" in the folder.</div>
           </div>
           <a class="btn primary" href="resume.jpg" download="Adrian-Punzalan-Resume.jpg">Download Resume</a>
         </div>
@@ -729,26 +709,17 @@
     <section id="contact">
       <div class="wrap">
         <div class="section-head hidden-el">
-          <div class="eyebrow scramble-text">Contact</div>
+          <div class="eyebrow">Contact</div>
           <h2>Let's connect.</h2>
         </div>
         <div class="contact-grid">
-          <article class="card hidden-el tilt">
+          <article class="tech-card hidden-el">
             <h3>Contact Information</h3>
-            <div class="contact-item">
-              <small>Email</small>
-              <a href="mailto:adrianorpiapunzalan@gmail.com">adrianorpiapunzalan@gmail.com</a>
-            </div>
-            <div class="contact-item">
-              <small>Phone</small>
-              <a href="tel:+639120120787">+63 912 012 0787</a>
-            </div>
-            <div class="contact-item">
-              <small>Location</small>
-              <span>Santiago City, Isabela, Philippines</span>
-            </div>
+            <p>Email: <a href="mailto:adrianorpiapunzalan@gmail.com" style="color:var(--accent);">adrianorpiapunzalan@gmail.com</a></p>
+            <p style="margin-top: 10px;">Phone: <a href="tel:+639120120787" style="color:var(--accent);">+63 912 012 0787</a></p>
+            <p style="margin-top: 10px;">Location: Santiago City, Isabela</p>
           </article>
-          <article class="card hidden-el tilt">
+          <article class="tech-card hidden-el">
             <h3>Career Objective</h3>
             <p>Seeking an entry-level customer service or virtual assistant opportunity where I can apply my communication, computer, and problem-solving skills while learning new tools and gaining professional experience.</p>
           </article>
@@ -758,10 +729,8 @@
 
   </main>
 
-  <footer>
-    <div class="wrap">
-      <p>© 2026 Adrian Punzalan. All rights reserved.</p>
-    </div>
+  <footer style="text-align:center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--muted);">
+    <p>© 2026 Adrian Punzalan. All rights reserved.</p>
   </footer>
 
   <!-- ================= JAVASCRIPT ================= -->
@@ -774,103 +743,35 @@
         }
       });
     }, { threshold: 0.1 });
-
     document.querySelectorAll('.hidden-el').forEach((el) => observer.observe(el));
 
-    // 2. Typing Effect Logic
-    const textToType = "Hi, I'm Adrian Punzalan.";
-    const typewriterElement = document.getElementById("typewriter");
-    let i = 0;
-
-    function typeWriter() {
-      if (i < textToType.length) {
-        typewriterElement.innerHTML += textToType.charAt(i);
-        i++;
-        setTimeout(typeWriter, 100);
-      }
-    }
-    window.onload = function() { setTimeout(typeWriter, 500); };
-
-    // 3. Custom Glowing Cursor
+    // 2. Custom Glowing Cursor (Updated to match new design)
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
 
     document.addEventListener('mousemove', (e) => {
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
-      
       setTimeout(() => {
         follower.style.left = e.clientX + 'px';
         follower.style.top = e.clientY + 'px';
       }, 50);
     });
 
-    document.querySelectorAll('a, button, .card').forEach(el => {
+    document.querySelectorAll('a, button, .tech-card, .cert-card').forEach(el => {
       el.addEventListener('mouseenter', () => {
-        follower.style.transform = 'scale(1.5)';
-        follower.style.background = 'rgba(114, 224, 193, 0.2)';
+        follower.style.width = '50px';
+        follower.style.height = '50px';
+        follower.style.background = 'rgba(114, 224, 193, 0.1)';
       });
       el.addEventListener('mouseleave', () => {
-        follower.style.transform = 'scale(1)';
+        follower.style.width = '36px';
+        follower.style.height = '36px';
         follower.style.background = 'transparent';
       });
     });
 
-    // 4. 3D Tilt Effect on Cards
-    document.querySelectorAll('.tilt').forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = ((y - centerY) / centerY) * -10;
-        const rotateY = ((x - centerX) / centerX) * 10;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
-      });
-    });
-
-    // 5. Horizontal Certificate Slider Buttons
-    const slider = document.getElementById('cert-slider');
-    const btnLeft = document.getElementById('slide-left');
-    const btnRight = document.getElementById('slide-right');
-
-    if (slider && btnLeft && btnRight) {
-      const scrollAmount = 350; 
-      btnLeft.addEventListener('click', () => {
-        slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-      });
-      btnRight.addEventListener('click', () => {
-        slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-      });
-    }
-
-    // 6. 3D Tilt for Slider Cards
-    document.querySelectorAll('.cert-slider .cert-card').forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -10;
-        const rotateY = ((x - centerX) / centerX) * 10;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
-      });
-    });
-
-    // 7. Interactive Particle Background (Canvas)
+    // 3. Interactive Particle Background (Canvas)
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     let particlesArray;
@@ -886,18 +787,17 @@
     });
 
     class Particle {
-      constructor(x, y, directionX, directionY, size, color) {
+      constructor(x, y, directionX, directionY, size) {
         this.x = x;
         this.y = y;
         this.directionX = directionX;
         this.directionY = directionY;
         this.size = size;
-        this.color = color;
       }
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = 'rgba(114, 224, 193, 0.5)';
+        ctx.fillStyle = 'rgba(114, 224, 193, 0.3)';
         ctx.fill();
       }
       update() {
@@ -929,7 +829,7 @@
         let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
         let directionX = (Math.random() * 1) - 0.5;
         let directionY = (Math.random() * 1) - 0.5;
-        particlesArray.push(new Particle(x, y, directionX, directionY, size, 'rgba(114, 224, 193, 0.5)'));
+        particlesArray.push(new Particle(x, y, directionX, directionY, size));
       }
     }
 
@@ -949,74 +849,6 @@
       canvas.height = innerHeight;
       init();
     });
-
-    // 8. Text Scramble Effect
-    class TextScramble {
-      constructor(el) {
-        this.el = el;
-        this.chars = '!<>-_\\/[]{}—=+*^?#________';
-        this.update = this.update.bind(this);
-      }
-      setText(newText) {
-        const oldText = this.el.innerText;
-        const length = Math.max(oldText.length, newText.length);
-        const promise = new Promise((resolve) => this.resolve = resolve);
-        this.queue = [];
-        for (let i = 0; i < length; i++) {
-          const from = oldText[i] || '';
-          const to = newText[i] || '';
-          const start = Math.floor(Math.random() * 40);
-          const end = start + Math.floor(Math.random() * 40);
-          this.queue.push({ from, to, start, end });
-        }
-        cancelAnimationFrame(this.frameRequest);
-        this.frame = 0;
-        this.update();
-        return promise;
-      }
-      update() {
-        let output = '';
-        let complete = 0;
-        for (let i = 0, n = this.queue.length; i < n; i++) {
-          let { from, to, start, end, char } = this.queue[i];
-          if (this.frame >= end) {
-            complete++;
-            output += to;
-          } else if (this.frame >= start) {
-            if (!char || Math.random() < 0.28) {
-              char = this.chars[Math.floor(Math.random() * this.chars.length)];
-              this.queue[i].char = char;
-            }
-            output += `<span class="dud">${char}</span>`;
-          } else {
-            output += from;
-          }
-        }
-        this.el.innerHTML = output;
-        if (complete === this.queue.length) {
-          this.resolve();
-        } else {
-          this.frameRequest = requestAnimationFrame(this.update);
-          this.frame++;
-        }
-      }
-    }
-
-    const phrases = ['About Me', 'Education', 'Skills', 'Selected Work', 'Professional Development', 'Contact'];
-    const scrambleElements = document.querySelectorAll('.scramble-text');
-    
-    const observerScramble = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const fx = new TextScramble(el);
-          fx.setText(el.innerText);
-          observerScramble.unobserve(el); // Only scramble once
-        }
-      });
-    }, { threshold: 0.5 });
-
-    scrambleElements.forEach(el => observerScramble.observe(el));
   </script>
 
 </body>
