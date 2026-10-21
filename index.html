@@ -29,13 +29,14 @@
       overflow-x: hidden;
     }
 
-    /* Canvas for Particles */
-    #particle-canvas {
+    /* ================= CANVAS BACKGROUNDS ================= */
+    #particle-canvas, #slash-canvas {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      z-index: -1;
       pointer-events: none;
     }
+    #particle-canvas { z-index: -2; }
+    #slash-canvas { z-index: 9997; } /* Sits above content but below cursor */
 
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
@@ -43,385 +44,218 @@
     .wrap { width: min(1300px, calc(100% - 40px)); margin: auto; }
     .wrap-narrow { width: min(1100px, calc(100% - 40px)); margin: auto; }
 
-    /* ================= CUSTOM CURSOR ================= */
+    /* ================= SANDEVISTAN CURSOR ================= */
     .cursor {
-      width: 6px; height: 6px;
-      background: var(--accent);
+      width: 8px; height: 8px;
+      background: #00f3ff; /* Cyan center */
+      box-shadow: 0 0 10px #00f3ff;
       position: fixed;
+      top: -4px; left: -4px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transition: width 0.2s, height 0.2s, background 0.2s;
+    }
+
+    .cursor-follower {
+      width: 40px; height: 40px;
+      border: 1px solid #b026ff; /* Magenta border */
+      border-radius: 2px; 
+      position: fixed;
+      top: -20px; left: -20px;
       pointer-events: none;
       z-index: 9999;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 10px var(--accent);
+      transition: width 0.3s, height 0.3s, border-color 0.3s, transform 0.1s;
+      box-shadow: 0 0 15px rgba(176, 38, 255, 0.3);
     }
-    .cursor-follower {
-      width: 36px; height: 36px;
-      border: 1px dashed var(--accent);
+
+    /* Chromatic Ghosts */
+    .cursor-ghost {
+      width: 40px; height: 40px;
       border-radius: 50%;
       position: fixed;
+      top: -20px; left: -20px;
       pointer-events: none;
       z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s, height 0.3s, background 0.3s, transform 0.1s;
+      opacity: 0.5;
+      filter: blur(2px);
+    }
+    .ghost-cyan { border: 2px solid #00f3ff; box-shadow: 0 0 15px #00f3ff; }
+    .ghost-magenta { border: 2px solid #ff00ea; box-shadow: 0 0 15px #ff00ea; }
+
+    .cursor-active.cursor { width: 12px; height: 12px; background: #fff; box-shadow: 0 0 20px #fff; }
+    .cursor-active.cursor-follower {
+      width: 60px; height: 60px; top: -30px; left: -30px;
+      border-color: #fff; border-width: 2px; box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
     }
 
     /* ================= SCROLL ANIMATIONS ================= */
-    .hidden-el {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-    }
-    .show-el {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .hidden-el { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+    .show-el { opacity: 1; transform: translateY(0); }
 
     /* ================= SECRET RANDOM ENCOUNTER ================= */
-    /* The hidden digital bug */
     .encounter-bug {
-      position: fixed;
-      width: 15px;
-      height: 15px;
-      background: var(--accent);
-      box-shadow: 0 0 15px 5px var(--accent);
-      border-radius: 50%;
-      z-index: 999;
-      cursor: crosshair;
-      animation: bugPulse 1s infinite alternate;
-      display: none; /* Hidden by default */
+      position: fixed; width: 15px; height: 15px;
+      background: var(--accent); box-shadow: 0 0 15px 5px var(--accent);
+      border-radius: 50%; z-index: 999; cursor: crosshair;
+      animation: bugPulse 1s infinite alternate; display: none; 
     }
-
     @keyframes bugPulse {
       0% { transform: scale(0.8); opacity: 0.5; }
       100% { transform: scale(1.2); opacity: 1; }
     }
 
-    /* The hacker terminal pop-up */
     #secret-terminal {
-      position: fixed;
-      top: 50%; left: 50%;
+      position: fixed; top: 50%; left: 50%;
       transform: translate(-50%, -50%) scale(0.9);
-      width: min(500px, 90%);
-      background: rgba(4, 11, 17, 0.95);
-      border: 2px solid var(--accent);
-      box-shadow: 0 0 40px rgba(114, 224, 193, 0.4);
-      padding: 30px;
-      z-index: 10000;
-      font-family: 'Courier New', Courier, monospace;
-      color: var(--accent);
-      opacity: 0;
-      pointer-events: none;
+      width: min(500px, 90%); background: rgba(4, 11, 17, 0.95);
+      border: 2px solid var(--accent); box-shadow: 0 0 40px rgba(114, 224, 193, 0.4);
+      padding: 30px; z-index: 10000; font-family: 'Courier New', Courier, monospace;
+      color: var(--accent); opacity: 0; pointer-events: none;
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-
-    #secret-terminal.active {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    #secret-terminal h3 {
-      margin-bottom: 15px;
-      font-size: 1.2rem;
-      border-bottom: 1px dashed var(--accent);
-      padding-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    #secret-terminal p {
-      margin-bottom: 10px;
-      font-size: 0.95rem;
-    }
-
-    .close-terminal {
-      cursor: pointer;
-      color: #ff5555;
-    }
+    #secret-terminal.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
+    #secret-terminal h3 { margin-bottom: 15px; font-size: 1.2rem; border-bottom: 1px dashed var(--accent); padding-bottom: 10px; display: flex; justify-content: space-between; }
+    #secret-terminal p { margin-bottom: 10px; font-size: 0.95rem; }
+    .close-terminal { cursor: pointer; color: #ff5555; }
 
     /* ================= HEADER ================= */
     header {
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 10;
-      background: rgba(4, 11, 17, 0.8);
-      backdrop-filter: blur(10px);
+      position: fixed; width: 100%; top: 0; z-index: 10;
+      background: rgba(4, 11, 17, 0.8); backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
     }
-    nav {
-      height: 75px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .brand {
-      font-weight: 900;
-      font-size: 1.2rem;
-      letter-spacing: 3px;
-      color: #fff;
-    }
+    nav { height: 75px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { font-weight: 900; font-size: 1.2rem; letter-spacing: 3px; color: #fff; }
     .brand span { color: var(--accent); }
     .navlinks { display: flex; gap: 30px; }
-    .navlinks a {
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--muted);
-      transition: all 0.3s;
-    }
-    .navlinks a:hover {
-      color: var(--accent);
-      text-shadow: 0 0 10px var(--accent);
-    }
+    .navlinks a { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); transition: all 0.3s; }
+    .navlinks a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent); }
 
     /* ================= HERO ================= */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 60px;
-      align-items: center;
-      padding-top: 75px;
-    }
-    
-    .eyebrow {
-      color: var(--accent);
-      font-size: 0.85rem;
-      font-weight: 800;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 15px;
-    }
-
-    h1 {
-      font-size: clamp(3rem, 7vw, 6rem); 
-      line-height: 1;
-      margin-bottom: 20px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: -2px;
-    }
-    
-    .hero p {
-      color: var(--muted);
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin-bottom: 35px;
-    }
-
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: center; padding-top: 75px; }
+    .eyebrow { color: var(--accent); font-size: 0.85rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; }
+    h1 { font-size: clamp(3rem, 7vw, 6rem); line-height: 1; margin-bottom: 20px; font-weight: 900; text-transform: uppercase; letter-spacing: -2px; }
+    .hero p { color: var(--muted); font-size: 1.2rem; max-width: 600px; margin-bottom: 35px; }
     .actions { display: flex; gap: 15px; flex-wrap: wrap; }
-    .btn {
-      display: inline-block;
-      padding: 16px 32px;
-      border-radius: 2px; 
-      font-size: 0.9rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      transition: all 0.3s;
-      border: 1px solid var(--border);
-    }
-    .btn.primary {
-      background: var(--accent);
-      color: #040b11;
-      border-color: var(--accent);
-      box-shadow: 0 0 15px var(--accent-dim);
-    }
-    .btn.primary:hover {
-      box-shadow: 0 0 40px var(--accent);
-      transform: translateY(-3px);
-    }
-    .btn.secondary {
-      background: transparent;
-      color: #fff;
-    }
-    .btn.secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-3px);
-    }
+    .btn { display: inline-block; padding: 16px 32px; border-radius: 2px; font-size: 0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s; border: 1px solid var(--border); }
+    .btn.primary { background: var(--accent); color: #040b11; border-color: var(--accent); box-shadow: 0 0 15px var(--accent-dim); }
+    .btn.primary:hover { box-shadow: 0 0 40px var(--accent); transform: translateY(-3px); }
+    .btn.secondary { background: transparent; color: #fff; }
+    .btn.secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
 
-    /* ================= OCTAGON PFP FRAME ================= */
-    .octagon-frame {
+    /* ================= REACTIVE BUBBLE PFP ================= */
+    .bubble-container {
       position: relative;
-      width: 340px;
-      height: 340px;
+      width: 320px;
+      height: 320px;
       margin: 0 auto;
       display: flex;
       justify-content: center;
       align-items: center;
+      border-radius: 50%;
+      /* The bubble reacts to hover */
+      transition: transform 0.1s, box-shadow 0.3s;
+      box-shadow: inset 0 0 30px rgba(114, 224, 193, 0.2), 0 0 30px rgba(114, 224, 193, 0.1);
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1), transparent);
     }
 
-    /* The glowing rotating background rings */
-    .octagon-bg {
-      position: absolute;
-      width: 100%; height: 100%;
-      background: var(--accent);
-      clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
-      animation: pulseGlow 3s infinite alternate;
-      z-index: 1;
+    .bubble-container:hover {
+      box-shadow: inset 0 0 50px rgba(114, 224, 193, 0.4), 0 0 50px rgba(114, 224, 193, 0.4);
+      transform: scale(1.02);
     }
 
-    @keyframes pulseGlow {
-      0% { opacity: 0.6; transform: scale(0.98); }
-      100% { opacity: 1; transform: scale(1.02); filter: drop-shadow(0 0 20px var(--accent)); }
-    }
-
-    /* The inner dark tech background */
-    .octagon-inner {
+    .bubble-frame {
       position: relative;
-      width: 320px; height: 320px;
-      background: #0a121e;
-      clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
-      z-index: 2;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 2px dashed var(--accent);
+      padding: 8px;
+      animation: spin 15s linear infinite;
     }
 
-    .octagon-inner img {
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    .bubble-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.9;
-      transition: transform 0.5s;
+      border-radius: 50%;
+      animation: spin-reverse 15s linear infinite; /* Keeps photo straight */
     }
 
-    .octagon-inner:hover img {
-      transform: scale(1.1);
-    }
+    @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
 
-    /* The scanning line */
-    .scan-line {
+    /* Glowing aura behind bubble */
+    .bubble-aura {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 4px;
+      width: 350px; height: 350px;
       background: var(--accent);
-      box-shadow: 0 0 15px 5px var(--accent);
-      opacity: 0.8;
-      z-index: 3;
-      animation: scan 3s linear infinite;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.2;
+      z-index: -1;
+      animation: pulse 3s infinite alternate;
     }
 
-    @keyframes scan {
-      0% { top: 0; }
-      50% { top: 100%; }
-      100% { top: 0; }
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.1; }
+      100% { transform: scale(1.1); opacity: 0.4; }
     }
 
-    /* ================= UNIQUE TECH PANELS ================= */
+    /* ================= TECH CARDS & SECTIONS ================= */
     section { padding: 100px 0; }
     .section-head { margin-bottom: 40px; text-align: left; }
     .section-head h2 { font-size: 3rem; color: #fff; text-transform: uppercase; font-weight: 900; letter-spacing: -1px;}
     .section-head p { color: var(--muted); margin-top: 10px; font-size: 1.1rem;}
 
-    .about-grid, .skills-grid, .project-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 25px;
-    }
+    .about-grid, .skills-grid, .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
 
     .tech-card {
-      background: var(--surface);
-      backdrop-filter: blur(10px);
-      padding: 35px;
-      position: relative;
-      transition: all 0.3s;
-      background-image: 
-        linear-gradient(var(--accent), var(--accent)),
-        linear-gradient(var(--accent), var(--accent)),
-        linear-gradient(var(--accent), var(--accent)),
-        linear-gradient(var(--accent), var(--accent));
-      background-repeat: no-repeat;
-      background-size: 15px 2px, 2px 15px, 15px 2px, 2px 15px;
-      background-position: top left, top left, bottom right, bottom right;
-      border: 1px solid rgba(255,255,255,0.05);
+      background: var(--surface); backdrop-filter: blur(10px); padding: 35px; position: relative; transition: all 0.3s;
+      background-image: linear-gradient(var(--accent), var(--accent)), linear-gradient(var(--accent), var(--accent)), linear-gradient(var(--accent), var(--accent)), linear-gradient(var(--accent), var(--accent));
+      background-repeat: no-repeat; background-size: 15px 2px, 2px 15px, 15px 2px, 2px 15px;
+      background-position: top left, top left, bottom right, bottom right; border: 1px solid rgba(255,255,255,0.05);
     }
-
-    .tech-card:hover {
-      background-color: rgba(114, 224, 193, 0.05);
-      box-shadow: 0 0 20px rgba(114, 224, 193, 0.1);
-      transform: translateY(-3px);
-    }
-
+    .tech-card:hover { background-color: rgba(114, 224, 193, 0.05); box-shadow: 0 0 20px rgba(114, 224, 193, 0.1); transform: translateY(-3px); }
     .tech-card h3 { font-size: 1.3rem; margin-bottom: 12px; color: var(--accent); text-transform: uppercase;}
     .tech-card p { color: var(--muted); font-size: 1.05rem;}
-
     .pillrow { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-    .pill {
-      background: rgba(114, 224, 193, 0.05);
-      color: var(--accent);
-      padding: 6px 14px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-    }
+    .pill { background: rgba(114, 224, 193, 0.05); color: var(--accent); padding: 6px 14px; font-size: 0.8rem; font-weight: 700; border: 1px solid var(--border); border-radius: 2px; }
 
     /* ================= ROCKSTAR STYLE CERT SLIDER ================= */
     .cert-section { position: relative; overflow: hidden; padding-bottom: 50px; }
     .slider-arrow {
-      position: absolute;
-      top: 50%; transform: translateY(-50%);
-      width: 60px; height: 100px;
-      background: rgba(4, 11, 17, 0.6);
-      border: 1px solid var(--border);
-      color: var(--accent);
-      font-size: 2rem;
-      display: grid; place-items: center;
-      cursor: pointer; z-index: 10; transition: all 0.3s;
-      backdrop-filter: blur(10px);
+      position: absolute; top: 50%; transform: translateY(-50%); width: 60px; height: 100px;
+      background: rgba(4, 11, 17, 0.6); border: 1px solid var(--border); color: var(--accent); font-size: 2rem;
+      display: grid; place-items: center; cursor: pointer; z-index: 10; transition: all 0.3s; backdrop-filter: blur(10px);
     }
     .slider-arrow:hover { background: var(--accent); color: #040b11; box-shadow: 0 0 20px var(--accent); }
     .arrow-left { left: 0; border-left: none; }
     .arrow-right { right: 0; border-right: none; }
 
-    .cert-track {
-      display: flex; gap: 30px;
-      overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
-      padding: 20px 80px; -ms-overflow-style: none; scrollbar-width: none;  
-    }
+    .cert-track { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 20px 80px; -ms-overflow-style: none; scrollbar-width: none; }
     .cert-track::-webkit-scrollbar { display: none; }
 
-    .cert-card {
-      flex: 0 0 380px; scroll-snap-align: center;
-      background: var(--surface); border: 1px solid var(--border);
-      padding: 20px; display: flex; flex-direction: column; gap: 15px;
-      position: relative; transition: all 0.4s ease; backdrop-filter: blur(10px);
-    }
-    .cert-card:hover {
-      transform: scale(1.02) translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(114, 224, 193, 0.2);
-      border-color: var(--accent); z-index: 2; 
-    }
-
+    .cert-card { flex: 0 0 380px; scroll-snap-align: center; background: var(--surface); border: 1px solid var(--border); padding: 20px; display: flex; flex-direction: column; gap: 15px; position: relative; transition: all 0.4s ease; backdrop-filter: blur(10px); }
+    .cert-card:hover { transform: scale(1.02) translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(114, 224, 193, 0.2); border-color: var(--accent); z-index: 2; }
     .cert-card h3 { font-size: 1rem; color: var(--accent); text-align: left; letter-spacing: 2px; text-transform: uppercase; font-weight: 900; }
     .cert-preview { width: 100%; height: 250px; object-fit: cover; object-position: top; border-radius: 2px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
     .cert-actions { display: flex; gap: 10px; margin-top: auto; }
-    .cert-actions a {
-      flex: 1; text-align: center; font-size: 0.8rem; padding: 12px; font-weight: 800;
-      text-transform: uppercase; letter-spacing: 1px; background: transparent;
-      border: 1px solid var(--border); color: var(--text); transition: all 0.3s;
-    }
+    .cert-actions a { flex: 1; text-align: center; font-size: 0.8rem; padding: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; background: transparent; border: 1px solid var(--border); color: var(--text); transition: all 0.3s; }
     .cert-actions a:hover { background: var(--accent); color: #040b11; }
     .cert-actions a.download { background: rgba(114, 224, 193, 0.1); border-color: var(--accent); color: var(--accent); }
     .cert-actions a.download:hover { background: var(--accent); color: #040b11; }
 
     /* ================= RESUME & CONTACT ================= */
-    .resume-band {
-      background: var(--surface); border: 1px solid var(--accent);
-      padding: 40px; display: flex; justify-content: space-between; align-items: center;
-      gap: 30px; flex-wrap: wrap; box-shadow: inset 0 0 20px var(--accent-dim);
-    }
-
+    .resume-band { background: var(--surface); border: 1px solid var(--accent); padding: 40px; display: flex; justify-content: space-between; align-items: center; gap: 30px; flex-wrap: wrap; box-shadow: inset 0 0 20px var(--accent-dim); }
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
 
     /* ================= RESPONSIVE ================= */
     @media (max-width: 900px) {
       * { cursor: auto; } 
-      .cursor, .cursor-follower { display: none; }
+      .cursor, .cursor-follower, .cursor-ghost { display: none; }
       .hero { grid-template-columns: 1fr; text-align: center; gap: 40px; padding-top: 120px; }
       .hero .actions { justify-content: center; }
       .hero p { margin: 0 auto 35px auto; }
@@ -430,20 +264,23 @@
       .slider-arrow { display: none; } 
       .cert-track { padding: 20px; }
       .cert-card { flex: 0 0 300px; }
-      .octagon-frame { width: 280px; height: 280px; }
-      .octagon-inner { width: 260px; height: 260px; }
+      .bubble-container { width: 250px; height: 250px; }
+      .bubble-frame { width: 230px; height: 230px; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- INTERACTIVE BACKGROUND CANVAS -->
+  <!-- BACKGROUNDS -->
   <canvas id="particle-canvas"></canvas>
+  <canvas id="slash-canvas"></canvas> <!-- For the Sandevistan slash -->
 
-  <!-- CUSTOM CURSOR -->
+  <!-- SANDEVISTAN CURSOR -->
   <div class="cursor"></div>
   <div class="cursor-follower"></div>
+  <div class="cursor-ghost ghost-cyan"></div>
+  <div class="cursor-ghost ghost-magenta"></div>
 
   <!-- SECRET ENCOUNTER ELEMENTS -->
   <div class="encounter-bug" id="encounter-bug"></div>
@@ -484,12 +321,11 @@
       </div>
       
       <div class="hidden-el">
-        <!-- THE OCTAGON PFP FRAME -->
-        <div class="octagon-frame">
-          <div class="octagon-bg"></div>
-          <div class="octagon-inner">
-            <div class="scan-line"></div>
-            <img src="photoko.png" alt="Adrian Punzalan" />
+        <!-- REACTIVE BUBBLE PFP -->
+        <div class="bubble-container">
+          <div class="bubble-aura"></div>
+          <div class="bubble-frame">
+            <img src="photoko.jpg" alt="Adrian Punzalan" />
           </div>
         </div>
       </div>
@@ -587,106 +423,17 @@
       <button class="slider-arrow arrow-right" id="slide-right">&#10095;</button>
 
       <div class="cert-track" id="cert-track">
-        
-        <article class="cert-card hidden-el">
-          <h3>TESDA</h3>
-          <a href="1.jpg" target="_blank"><img class="cert-preview" src="1.jpg" alt="TESDA 1" /></a>
-          <div class="cert-actions">
-            <a href="1.jpg" target="_blank">View</a>
-            <a href="1.jpg" download="TESDA-1.jpg" class="download">Save</a>
-          </div>
-        </article>
-
-        <article class="cert-card hidden-el">
-          <h3>TESDA</h3>
-          <a href="2.jpg" target="_blank"><img class="cert-preview" src="2.jpg" alt="TESDA 2" /></a>
-          <div class="cert-actions">
-            <a href="2.jpg" target="_blank">View</a>
-            <a href="2.jpg" download="TESDA-2.jpg" class="download">Save</a>
-          </div>
-        </article>
-
-        <article class="cert-card hidden-el">
-          <h3>TESDA</h3>
-          <a href="3.jpg" target="_blank"><img class="cert-preview" src="3.jpg" alt="TESDA 3" /></a>
-          <div class="cert-actions">
-            <a href="3.jpg" target="_blank">View</a>
-            <a href="3.jpg" download="TESDA-3.jpg" class="download">Save</a>
-          </div>
-        </article>
-
-        <article class="cert-card hidden-el">
-          <h3>TESDA</h3>
-          <a href="4.jpg" target="_blank"><img class="cert-preview" src="4.jpg" alt="TESDA 4" /></a>
-          <div class="cert-actions">
-            <a href="4.jpg" target="_blank">View</a>
-            <a href="4.jpg" download="TESDA-4.jpg" class="download">Save</a>
-          </div>
-        </article>
-
-        <article class="cert-card hidden-el">
-          <h3>TESDA</h3>
-          <a href="5.jpg" target="_blank"><img class="cert-preview" src="5.jpg" alt="TESDA 5" /></a>
-          <div class="cert-actions">
-            <a href="5.jpg" target="_blank">View</a>
-            <a href="5.jpg" download="TESDA-5.jpg" class="download">Save</a>
-          </div>
-        </article>
-
-        <article class="cert-card hidden-el">
-          <h3>NetAcad</h3>
-          <a href="net.jpg" target="_blank"><img class="cert-preview" src="net.jpg" alt="NetAcad" /></a>
-          <div class="cert-actions">
-            <a href="net.jpg" target="_blank">View</a>
-            <a href="net.jpg" download="NetAcad.jpg" class="download">Save</a>
-          </div>
-        </article>
-
-        <article class="cert-card hidden-el">
-          <h3>freeCodeCamp</h3>
-          <a href="camp.png" target="_blank"><img class="cert-preview" src="camp.png" alt="freeCodeCamp" /></a>
-          <div class="cert-actions">
-            <a href="camp.png" target="_blank">View</a>
-            <a href="camp.png" download="freeCodeCamp.png" class="download">Save</a>
-          </div>
-        </article>
-
-        <article class="cert-card hidden-el">
-          <h3>DICT</h3>
-          <a href="dict1.jpg" target="_blank"><img class="cert-preview" src="dict1.jpg" alt="DICT 1" /></a>
-          <div class="cert-actions">
-            <a href="dict1.jpg" target="_blank">View</a>
-            <a href="dict1.jpg" download="DICT-1.jpg" class="download">Save</a>
-          </div>
-        </article>
-
-        <article class="cert-card hidden-el">
-          <h3>DICT</h3>
-          <a href="dict2.jpg" target="_blank"><img class="cert-preview" src="dict2.jpg" alt="DICT 2" /></a>
-          <div class="cert-actions">
-            <a href="dict2.jpg" target="_blank">View</a>
-            <a href="dict2.jpg" download="DICT-2.jpg" class="download">Save</a>
-          </div>
-        </article>
-
-        <article class="cert-card hidden-el">
-          <h3>DICT</h3>
-          <a href="dict3.jpg" target="_blank"><img class="cert-preview" src="dict3.jpg" alt="DICT 3" /></a>
-          <div class="cert-actions">
-            <a href="dict3.jpg" target="_blank">View</a>
-            <a href="dict3.jpg" download="DICT-3.jpg" class="download">Save</a>
-          </div>
-        </article>
-
-        <article class="cert-card hidden-el">
-          <h3>DICT</h3>
-          <a href="dict4.png" target="_blank"><img class="cert-preview" src="dict4.png" alt="DICT 4" /></a>
-          <div class="cert-actions">
-            <a href="dict4.png" target="_blank">View</a>
-            <a href="dict4.png" download="DICT-4.png" class="download">Save</a>
-          </div>
-        </article>
-
+        <article class="cert-card hidden-el"><h3>TESDA</h3><a href="1.jpg" target="_blank"><img class="cert-preview" src="1.jpg" alt="TESDA 1" /></a><div class="cert-actions"><a href="1.jpg" target="_blank">View</a><a href="1.jpg" download="TESDA-1.jpg" class="download">Save</a></div></article>
+        <article class="cert-card hidden-el"><h3>TESDA</h3><a href="2.jpg" target="_blank"><img class="cert-preview" src="2.jpg" alt="TESDA 2" /></a><div class="cert-actions"><a href="2.jpg" target="_blank">View</a><a href="2.jpg" download="TESDA-2.jpg" class="download">Save</a></div></article>
+        <article class="cert-card hidden-el"><h3>TESDA</h3><a href="3.jpg" target="_blank"><img class="cert-preview" src="3.jpg" alt="TESDA 3" /></a><div class="cert-actions"><a href="3.jpg" target="_blank">View</a><a href="3.jpg" download="TESDA-3.jpg" class="download">Save</a></div></article>
+        <article class="cert-card hidden-el"><h3>TESDA</h3><a href="4.jpg" target="_blank"><img class="cert-preview" src="4.jpg" alt="TESDA 4" /></a><div class="cert-actions"><a href="4.jpg" target="_blank">View</a><a href="4.jpg" download="TESDA-4.jpg" class="download">Save</a></div></article>
+        <article class="cert-card hidden-el"><h3>TESDA</h3><a href="5.jpg" target="_blank"><img class="cert-preview" src="5.jpg" alt="TESDA 5" /></a><div class="cert-actions"><a href="5.jpg" target="_blank">View</a><a href="5.jpg" download="TESDA-5.jpg" class="download">Save</a></div></article>
+        <article class="cert-card hidden-el"><h3>NetAcad</h3><a href="net.jpg" target="_blank"><img class="cert-preview" src="net.jpg" alt="NetAcad" /></a><div class="cert-actions"><a href="net.jpg" target="_blank">View</a><a href="net.jpg" download="NetAcad.jpg" class="download">Save</a></div></article>
+        <article class="cert-card hidden-el"><h3>freeCodeCamp</h3><a href="camp.png" target="_blank"><img class="cert-preview" src="camp.png" alt="freeCodeCamp" /></a><div class="cert-actions"><a href="camp.png" target="_blank">View</a><a href="camp.png" download="freeCodeCamp.png" class="download">Save</a></div></article>
+        <article class="cert-card hidden-el"><h3>DICT</h3><a href="dict1.jpg" target="_blank"><img class="cert-preview" src="dict1.jpg" alt="DICT 1" /></a><div class="cert-actions"><a href="dict1.jpg" target="_blank">View</a><a href="dict1.jpg" download="DICT-1.jpg" class="download">Save</a></div></article>
+        <article class="cert-card hidden-el"><h3>DICT</h3><a href="dict2.jpg" target="_blank"><img class="cert-preview" src="dict2.jpg" alt="DICT 2" /></a><div class="cert-actions"><a href="dict2.jpg" target="_blank">View</a><a href="dict2.jpg" download="DICT-2.jpg" class="download">Save</a></div></article>
+        <article class="cert-card hidden-el"><h3>DICT</h3><a href="dict3.jpg" target="_blank"><img class="cert-preview" src="dict3.jpg" alt="DICT 3" /></a><div class="cert-actions"><a href="dict3.jpg" target="_blank">View</a><a href="dict3.jpg" download="DICT-3.jpg" class="download">Save</a></div></article>
+        <article class="cert-card hidden-el"><h3>DICT</h3><a href="dict4.png" target="_blank"><img class="cert-preview" src="dict4.png" alt="DICT 4" /></a><div class="cert-actions"><a href="dict4.png" target="_blank">View</a><a href="dict4.png" download="DICT-4.png" class="download">Save</a></div></article>
       </div>
     </section>
 
@@ -738,36 +485,108 @@
     // 1. Scroll Reveal Animation
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show-el');
-        }
+        if (entry.isIntersecting) { entry.target.classList.add('show-el'); }
       });
     }, { threshold: 0.1 });
     document.querySelectorAll('.hidden-el').forEach((el) => observer.observe(el));
 
-    // 2. Custom Cursor
+    // 2. SANDEVISTAN CURSOR & SLASH LOGIC
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
+    const ghostCyan = document.querySelector('.ghost-cyan');
+    const ghostMagenta = document.querySelector('.ghost-magenta');
+    
+    // Slash Canvas Setup
+    const slashCanvas = document.getElementById('slash-canvas');
+    const slashCtx = slashCanvas.getContext('2d');
+    slashCanvas.width = window.innerWidth;
+    slashCanvas.height = window.innerHeight;
+
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    let followerX = 0, followerY = 0;
+    let cyanX = 0, cyanY = 0;
+    let magentaX = 0, magentaY = 0;
+    let isSlashing = false;
+    let slashTrail = [];
 
     document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      setTimeout(() => {
-        follower.style.left = e.clientX + 'px';
-        follower.style.top = e.clientY + 'px';
-      }, 50);
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      
+      // Add points to slash trail if holding click
+      if (isSlashing) {
+        slashTrail.push({ x: mouseX, y: mouseY, life: 1.0 });
+      }
     });
 
-    document.querySelectorAll('a, button, .tech-card, .cert-card').forEach(el => {
+    document.addEventListener('mousedown', () => { isSlashing = true; });
+    document.addEventListener('mouseup', () => { isSlashing = false; });
+
+    // Animation loop for cursor and slash
+    function animateSandevistan() {
+      // Lerp (smooth dragging)
+      cursorX += (mouseX - cursorX) * 0.4;
+      cursorY += (mouseY - cursorY) * 0.4;
+      followerX += (mouseX - followerX) * 0.15;
+      followerY += (mouseY - followerY) * 0.15;
+      cyanX += (mouseX - cyanX) * 0.08;
+      cyanY += (mouseY - cyanY) * 0.08;
+      magentaX += (mouseX - magentaX) * 0.05;
+      magentaY += (mouseY - magentaY) * 0.05;
+
+      cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+      follower.style.transform = `translate(${followerX}px, ${followerY}px)`;
+      ghostCyan.style.transform = `translate(${cyanX}px, ${cyanY}px)`;
+      ghostMagenta.style.transform = `translate(${magentaX}px, ${magentaY}px)`;
+
+      // Draw Slash Effect
+      slashCtx.clearRect(0, 0, slashCanvas.width, slashCanvas.height);
+      
+      if (slashTrail.length > 0) {
+        slashCtx.beginPath();
+        slashCtx.moveTo(slashTrail[0].x, slashTrail[0].y);
+        
+        for (let i = 1; i < slashTrail.length; i++) {
+          slashCtx.lineTo(slashTrail[i].x, slashTrail[i].y);
+        }
+        
+        slashCtx.strokeStyle = `rgba(0, 243, 255, ${slashTrail[0].life})`; 
+        slashCtx.lineWidth = 4;
+        slashCtx.lineCap = 'round';
+        slashCtx.lineJoin = 'round';
+        slashCtx.shadowBlur = 15;
+        slashCtx.shadowColor = '#00f3ff';
+        slashCtx.stroke();
+        slashCtx.shadowBlur = 0; // Reset shadow for next frame
+
+        // Fade out the trail
+        for (let i = 0; i < slashTrail.length; i++) {
+          slashTrail[i].life -= 0.03; // speed of fade
+        }
+        
+        // Remove dead points
+        slashTrail = slashTrail.filter(point => point.life > 0);
+        
+        // Limit trail length
+        if(slashTrail.length > 30) {
+            slashTrail.shift();
+        }
+      }
+
+      requestAnimationFrame(animateSandevistan);
+    }
+    animateSandevistan();
+
+    // Hover effects for cursor
+    document.querySelectorAll('a, button, .tech-card, .cert-card, .bubble-container').forEach(el => {
       el.addEventListener('mouseenter', () => {
-        follower.style.width = '50px';
-        follower.style.height = '50px';
-        follower.style.background = 'rgba(114, 224, 193, 0.1)';
+        follower.classList.add('cursor-active');
+        cursor.classList.add('cursor-active');
       });
       el.addEventListener('mouseleave', () => {
-        follower.style.width = '36px';
-        follower.style.height = '36px';
-        follower.style.background = 'transparent';
+        follower.classList.remove('cursor-active');
+        cursor.classList.remove('cursor-active');
       });
     });
 
@@ -777,15 +596,10 @@
     const closeTerminal = document.getElementById('close-terminal');
 
     function spawnBug() {
-      // Random position (keeping it away from the edges)
       const x = Math.random() * (window.innerWidth - 100) + 50;
       const y = Math.random() * (window.innerHeight - 100) + 50;
-      
-      bug.style.left = x + 'px';
-      bug.style.top = y + 'px';
-      bug.style.display = 'block';
+      bug.style.left = x + 'px'; bug.style.top = y + 'px'; bug.style.display = 'block';
 
-      // The bug disappears after 3 seconds if not clicked
       setTimeout(() => {
         if (bug.style.display === 'block') {
           bug.style.display = 'none';
@@ -795,31 +609,19 @@
     }
 
     function scheduleNextBug() {
-      // Spawns a new bug randomly between 10 to 25 seconds
       const nextSpawn = Math.random() * 15000 + 10000;
       setTimeout(spawnBug, nextSpawn);
     }
-
-    // Start the loop
     scheduleNextBug();
 
-    // If the user clicks the bug
     bug.addEventListener('click', () => {
       bug.style.display = 'none';
       terminal.classList.add('active');
-      
-      // Auto close the terminal after 8 seconds
-      setTimeout(() => {
-        terminal.classList.remove('active');
-      }, 8000);
-
+      setTimeout(() => { terminal.classList.remove('active'); }, 8000);
       scheduleNextBug();
     });
 
-    // Manual close button for the terminal
-    closeTerminal.addEventListener('click', () => {
-      terminal.classList.remove('active');
-    });
+    closeTerminal.addEventListener('click', () => { terminal.classList.remove('active'); });
 
     // 4. Slider Button Logic
     const track = document.getElementById('cert-track');
@@ -841,43 +643,26 @@
     canvas.height = window.innerHeight;
 
     let mouse = { x: null, y: null, radius: 150 };
-
-    window.addEventListener('mousemove', (e) => {
-      mouse.x = e.x;
-      mouse.y = e.y;
-    });
+    window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
 
     class Particle {
       constructor(x, y, directionX, directionY, size) {
-        this.x = x;
-        this.y = y;
-        this.directionX = directionX;
-        this.directionY = directionY;
-        this.size = size;
+        this.x = x; this.y = y; this.directionX = directionX; this.directionY = directionY; this.size = size;
       }
       draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = 'rgba(114, 224, 193, 0.3)';
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); ctx.fillStyle = 'rgba(114, 224, 193, 0.3)'; ctx.fill();
       }
       update() {
         if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
         if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-        
-        let dx = mouse.x - this.x;
-        let dy = mouse.y - this.y;
-        let distance = Math.sqrt(dx * dx + dy * dy);
+        let dx = mouse.x - this.x; let dy = mouse.y - this.y; let distance = Math.sqrt(dx * dx + dy * dy);
         if (distance < mouse.radius + this.size) {
           if (mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 3;
           if (mouse.x > this.x && this.x > this.size * 10) this.x -= 3;
           if (mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 3;
           if (mouse.y > this.y && this.y > this.size * 10) this.y -= 3;
         }
-
-        this.x += this.directionX;
-        this.y += this.directionY;
-        this.draw();
+        this.x += this.directionX; this.y += this.directionY; this.draw();
       }
     }
 
@@ -897,18 +682,14 @@
     function animate() {
       requestAnimationFrame(animate);
       ctx.clearRect(0, 0, innerWidth, innerHeight);
-      for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update();
-      }
+      for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); }
     }
 
-    init();
-    animate();
+    init(); animate();
 
     window.addEventListener('resize', () => {
-      canvas.width = innerWidth;
-      canvas.height = innerHeight;
-      init();
+      canvas.width = innerWidth; canvas.height = innerHeight; init();
+      slashCanvas.width = innerWidth; slashCanvas.height = innerHeight;
     });
   </script>
 
