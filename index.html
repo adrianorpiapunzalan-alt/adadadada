@@ -3,127 +3,416 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Adrian Punzalan's IT student portfolio, projects, skills, certificates, and contact information." />
-  <title>Adrian Punzalan | IT Student Portfolio</title>
+  <meta name="description" content="Adrian Punzalan's Futuristic IT Portfolio." />
+  <title>Adrian Punzalan | IT Portfolio</title>
 
   <style>
-    /* ================= THEME ================= */
+    /* ================= FUTURISTIC THEME ================= */
     :root {
-      --bg: #0b1020;
-      --panel: #121a2d;
-      --panel2: #172239;
+      --bg: #050a14; /* Deeper, darker navy */
+      --surface: rgba(18, 26, 45, 0.6); /* Glassmorphism base */
+      --surface-hover: rgba(23, 34, 57, 0.8);
       --text: #edf2ff;
-      --muted: #aab6d1;
-      --accent: #72e0c1;
-      --line: #27334d;
-      --max: 1080px;
+      --muted: #8b9bb4;
+      --accent: #72e0c1; /* Mint Green */
+      --accent-glow: rgba(114, 224, 193, 0.4);
+      --line: rgba(114, 224, 193, 0.2);
+      --max: 1100px;
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; /* Custom cursor */ }
     html { scroll-behavior: smooth; }
-    body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, Segoe UI, Arial, sans-serif; line-height: 1.65; }
+    
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(114, 224, 193, 0.05), transparent 30%),
+        radial-gradient(circle at 85% 30%, rgba(114, 224, 193, 0.05), transparent 30%);
+      background-attachment: fixed;
+    }
+
+    /* Canvas for Particles */
+    #particle-canvas {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
     a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
     .wrap { width: min(var(--max), calc(100% - 40px)); margin: auto; }
 
-    /* HEADER */
-    header { position: sticky; top: 0; z-index: 5; background: rgba(11, 16, 32, .92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
-    nav { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
-    .brand { font-weight: 800; letter-spacing: .3px; }
+    /* ================= CUSTOM CURSOR ================= */
+    .cursor {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s;
+    }
+    .cursor-follower {
+      width: 30px; height: 30px;
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.3s, background 0.3s;
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    /* ================= SCROLL ANIMATIONS ================= */
+    .hidden-el {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+    }
+    .show-el {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ================= HEADER ================= */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(5, 10, 20, 0.7);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--line);
+    }
+    nav {
+      min-height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      font-weight: 900;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      color: #fff;
+      text-shadow: 0 0 10px var(--accent-glow);
+    }
     .brand span { color: var(--accent); }
-    .navlinks { display: flex; gap: 22px; flex-wrap: wrap; }
-    .navlinks a { font-size: .92rem; color: var(--muted); }
-    .navlinks a:hover { color: var(--accent); }
+    .navlinks { display: flex; gap: 25px; }
+    .navlinks a {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      transition: all 0.3s;
+    }
+    .navlinks a:hover {
+      color: var(--accent);
+      text-shadow: 0 0 10px var(--accent);
+    }
 
-    /* HERO */
-    .hero { padding: 92px 0 74px; display: grid; grid-template-columns: 1.5fr .8fr; gap: 44px; align-items: center; }
-    .eyebrow { color: var(--accent); font-size: .84rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
-    h1 { font-size: clamp(2.7rem, 7vw, 5rem); line-height: 1.04; letter-spacing: -2px; margin: 15px 0 22px; }
-    .hero p { color: var(--muted); font-size: 1.1rem; max-width: 650px; }
-    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-    .btn { display: inline-block; padding: 11px 17px; border-radius: 10px; border: 1px solid var(--line); font-weight: 700; }
-    .btn.primary { background: var(--accent); color: #07131a; border-color: var(--accent); }
-    .btn:hover { transform: translateY(-1px); }
-
-    /* PROFILE */
-    .profile-card { background: linear-gradient(145deg, var(--panel2), var(--panel)); border: 1px solid var(--line); padding: 28px; border-radius: 22px; }
-    .avatar-photo { width: 110px; height: 110px; border-radius: 20px; object-fit: cover; border: 2px solid var(--accent); display: block; margin-bottom: 20px; }
-    .profile-card h2 { margin: 0 0 6px; font-size: 1.25rem; }
-    .profile-card p { font-size: .95rem; margin: 0 0 16px; }
-    .pillrow { display: flex; flex-wrap: wrap; gap: 8px; }
-    .pill { border: 1px solid var(--line); border-radius: 999px; padding: 5px 10px; color: var(--muted); font-size: .8rem; }
-
-    /* SECTIONS */
-    section { padding: 56px 0; scroll-margin-top: 75px; }
-    .section-head { margin-bottom: 25px; }
-    .section-head .eyebrow { font-size: .76rem; }
-    .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.2; margin: 8px 0; }
-    .section-head p { color: var(--muted); margin: 0; max-width: 680px; }
-    .about-grid, .skills-grid, .project-grid, .cert-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    /* ================= HERO ================= */
+    .hero {
+      min-height: 90vh;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 60px;
+      align-items: center;
+      padding-top: 40px;
+    }
     
-    /* CARDS */
-    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 23px; }
-    .card h3 { margin: 0 0 9px; }
-    .card p { color: var(--muted); margin: 0; }
-    .detail { display: flex; gap: 12px; margin-top: 13px; color: var(--muted); font-size: .95rem; }
-    .detail strong { color: var(--text); min-width: 94px; }
-    .skill-list { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 14px; }
-    .skill { background: var(--panel2); border: 1px solid var(--line); border-radius: 9px; padding: 7px 11px; font-size: .9rem; }
-    .project-top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
-    .project-type { font-size: .75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; font-weight: 800; }
-    .project-grid .card { display: flex; flex-direction: column; gap: 12px; }
-    .project-grid .card p { flex: 1; }
-    .note { font-size: .85rem; color: var(--muted); border-left: 2px solid var(--accent); padding-left: 12px; margin-top: 8px; }
+    .eyebrow {
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
 
-    /* CERTIFICATES */
-    .cert-card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 23px; display: flex; flex-direction: column; gap: 12px; }
-    .cert-card h3 { margin: 0; }
-    .cert-preview { width: 100%; border-radius: 12px; border: 1px solid var(--line); background: #0e1526; cursor: pointer; transition: transform .2s; }
-    .cert-preview:hover { transform: scale(1.02); }
-    .cert-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-    .cert-actions a { font-size: .82rem; padding: 8px 14px; border-radius: 9px; border: 1px solid var(--line); font-weight: 700; }
-    .cert-actions a:hover { background: var(--panel2); color: var(--accent); }
+    .typing-text::after {
+      content: '|';
+      animation: blink 1s infinite;
+      color: var(--accent);
+    }
+    @keyframes blink { 50% { opacity: 0; } }
 
-    /* ACHIEVEMENTS & RESUME */
-    .achieve-list { list-style: none; margin: 0; padding: 0; }
-    .achieve-list li { padding: 16px 0; border-bottom: 1px solid var(--line); display: flex; gap: 18px; }
-    .achieve-list li:last-child { border-bottom: 0; }
-    .achieve-list .year { font-size: .82rem; color: var(--accent); font-weight: 800; min-width: 60px; }
-    .achieve-list .body h3 { margin: 0 0 4px; font-size: 1rem; }
-    .achieve-list .body p { margin: 0; color: var(--muted); font-size: .92rem; }
-    .resume-band { background: var(--panel2); border: 1px solid var(--line); border-radius: 16px; padding: 32px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
-    .resume-band h2 { margin: 0 0 6px; font-size: 1.4rem; }
-    .resume-band p { margin: 0; color: var(--muted); font-size: .95rem; max-width: 600px; }
-    .resume-note { font-size: .78rem; color: var(--muted); margin-top: 8px; }
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      font-weight: 900;
+      background: linear-gradient(90deg, #fff, var(--accent), #fff);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 4s linear infinite;
+    }
+    @keyframes gradientShift { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+    
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 550px;
+      margin-bottom: 30px;
+    }
 
-    /* CONTACT */
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    .contact-item { padding: 17px 0; border-bottom: 1px solid var(--line); }
-    .contact-item:last-child { border-bottom: 0; }
-    .contact-item small { display: block; color: var(--muted); margin-bottom: 3px; }
-    .contact-item a:hover { color: var(--accent); }
+    .actions { display: flex; gap: 15px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+      border: 1px solid var(--line);
+    }
+    .btn.primary {
+      background: var(--accent);
+      color: #050a14;
+      border-color: var(--accent);
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+    .btn.primary:hover {
+      box-shadow: 0 0 30px var(--accent);
+      transform: translateY(-3px);
+    }
+    .btn.secondary {
+      background: transparent;
+      color: #fff;
+    }
+    .btn.secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 15px rgba(114, 224, 193, 0.2);
+      transform: translateY(-3px);
+    }
 
-    /* FOOTER */
-    footer { border-top: 1px solid var(--line); padding: 24px 0; color: var(--muted); font-size: .88rem; }
-    .footer-row { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    /* Profile Photo */
+    .profile-container {
+      position: relative;
+      width: 320px;
+      height: 380px;
+      margin: 0 auto;
+      background: var(--surface);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 15px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(114, 224, 193, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .profile-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 40px rgba(114, 224, 193, 0.4);
+    }
+    .profile-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+    }
+    .profile-container::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(135deg, rgba(114, 224, 193, 0.1), transparent);
+      z-index: -1;
+    }
 
-    /* RESPONSIVE */
-    @media (max-width: 760px) {
-      .hero { grid-template-columns: 1fr; padding: 65px 0 45px; gap: 26px; }
-      .about-grid, .skills-grid, .project-grid, .cert-grid, .contact-grid { grid-template-columns: 1fr; }
-      .navlinks { gap: 12px; }
-      .navlinks a { font-size: .82rem; }
-      .wrap { width: min(var(--max), calc(100% - 28px)); }
-      h1 { letter-spacing: -1px; }
-      .profile-card { max-width: 520px; }
+    /* ================= SECTIONS ================= */
+    section { padding: 100px 0; }
+    .section-head { margin-bottom: 50px; text-align: left; }
+    .section-head h2 { font-size: 2.5rem; line-height: 1.2; color: #fff; }
+    .section-head p { color: var(--muted); max-width: 600px; margin-top: 10px; }
+
+    /* ================= GLASS CARDS ================= */
+    .about-grid, .skills-grid, .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 25px;
+    }
+    
+    .card {
+      background: var(--surface);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 30px;
+      transition: transform 0.1s, box-shadow 0.3s, border-color 0.3s;
+      transform-style: preserve-3d;
+    }
+    
+    .card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 25px rgba(114, 224, 193, 0.2);
+      background: var(--surface-hover);
+    }
+    
+    .card h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--accent); transform: translateZ(20px); }
+    .card p { color: var(--muted); transform: translateZ(10px); }
+
+    .detail-row { margin-top: 15px; font-size: 0.95rem; display: flex; gap: 15px; }
+    .detail-row strong { color: #fff; min-width: 100px; }
+
+    .pillrow { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; transform: translateZ(15px); }
+    .pill {
+      background: rgba(114, 224, 193, 0.1);
+      color: var(--accent);
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: 1px solid var(--line);
+      transition: all 0.3s;
+    }
+    .pill:hover {
+      background: var(--accent);
+      color: #050a14;
+      box-shadow: 0 0 15px var(--accent);
+    }
+
+    /* ================= HORIZONTAL SLIDER CSS ================= */
+    .slider-buttons { display: flex; gap: 10px; }
+    .slider-btn {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      color: var(--accent);
+      width: 45px; height: 45px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: grid; place-items: center;
+      backdrop-filter: blur(10px);
+    }
+    .slider-btn:hover {
+      background: var(--accent);
+      color: #050a14;
+      box-shadow: 0 0 20px var(--accent);
+      border-color: var(--accent);
+    }
+
+    .cert-slider-wrap {
+      position: relative;
+      padding: 20px 0;
+      mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    }
+
+    .cert-slider {
+      display: flex; gap: 25px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding-bottom: 30px;
+      -ms-overflow-style: none;  
+      scrollbar-width: none;  
+    }
+    .cert-slider::-webkit-scrollbar { display: none; }
+
+    .cert-card {
+      flex: 0 0 320px;
+      scroll-snap-align: start;
+      background: var(--surface);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex; flex-direction: column; gap: 15px;
+      transition: transform 0.1s, box-shadow 0.3s;
+      transform-style: preserve-3d;
+    }
+    .cert-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 25px rgba(114, 224, 193, 0.3);
+    }
+    .cert-card h3 { font-size: 1.1rem; color: #fff; text-align: center; transform: translateZ(15px); }
+    .cert-preview {
+      width: 100%; border-radius: 10px; border: 1px solid #333;
+      cursor: pointer; transition: transform 0.3s;
+      transform: translateZ(10px);
+    }
+    .cert-preview:hover { transform: scale(1.03) translateZ(20px); }
+    
+    .cert-actions { display: flex; gap: 10px; margin-top: auto; transform: translateZ(10px); }
+    .cert-actions a {
+      font-size: 0.85rem; padding: 10px 16px; border-radius: 8px;
+      border: 1px solid var(--line); font-weight: 800; text-transform: uppercase;
+      color: var(--muted); text-align: center; flex: 1; transition: all 0.3s;
+    }
+    .cert-actions a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .cert-actions a.download { background: var(--accent); color: #050a14; border-color: var(--accent); }
+    .cert-actions a.download:hover { box-shadow: 0 0 15px var(--accent); }
+
+    /* ================= RESUME ================= */
+    .resume-band {
+      background: linear-gradient(135deg, rgba(114, 224, 193, 0.15), rgba(5, 10, 20, 0.8));
+      border: 1px solid var(--accent);
+      border-radius: 16px;
+      padding: 50px;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 30px; flex-wrap: wrap;
+      box-shadow: 0 0 40px rgba(114, 224, 193, 0.15);
+    }
+    .resume-band h2 { font-size: 2rem; margin-bottom: 10px; }
+    .resume-band p { color: var(--muted); font-size: 1.1rem; }
+
+    /* ================= CONTACT ================= */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .contact-item { padding: 20px 0; border-bottom: 1px solid var(--line); }
+    .contact-item:last-child { border-bottom: none; }
+    .contact-item small {
+      display: block; font-weight: 800; color: var(--accent);
+      margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px;
+    }
+    .contact-item a, .contact-item span { font-size: 1.1rem; font-weight: 500; }
+    .contact-item a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent); }
+
+    /* ================= FOOTER ================= */
+    footer {
+      padding: 40px 0; text-align: center;
+      color: var(--muted); font-size: 0.9rem;
+      border-top: 1px solid var(--line);
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 850px) {
+      * { cursor: auto; } 
+      .cursor, .cursor-follower { display: none; }
+      .hero { grid-template-columns: 1fr; gap: 50px; text-align: center; padding-top: 80px; }
+      .hero .actions { justify-content: center; }
+      .hero p { margin: 0 auto 35px auto; }
+      .about-grid, .skills-grid, .project-grid, .contact-grid { grid-template-columns: 1fr; }
+      .navlinks { display: none; }
+      .profile-container { width: 280px; height: 330px; }
     }
   </style>
 </head>
 
 <body>
 
+  <!-- INTERACTIVE BACKGROUND CANVAS -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
   <header>
     <div class="wrap">
-      <nav aria-label="Main navigation">
+      <nav>
         <a class="brand" href="#home">ADRIAN<span>.</span></a>
         <div class="navlinks">
           <a href="#about">About</a>
@@ -131,7 +420,6 @@
           <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
           <a href="#profdev">Certificates</a>
-          <a href="#achievements">Achievements</a>
           <a href="#contact">Contact</a>
         </div>
       </nav>
@@ -142,43 +430,37 @@
 
     <!-- HERO -->
     <div class="wrap hero" id="home">
-      <div>
+      <div class="hidden-el">
         <div class="eyebrow">Information Technology Student</div>
-        <h1>Hi, I'm Adrian<br>Punzalan.</h1>
-        <p>I'm an Information Technology student at Northeastern College who is interested in technology, software development, and learning through practical projects. I'm building my skills one project at a time.</p>
+        <h1 class="typing-text" id="typewriter"></h1>
+        <p>I'm an IT student at Northeastern College interested in technology, software development, and learning through practical projects. I'm building my skills one project at a time.</p>
         <div class="actions">
           <a class="btn primary" href="#projects">View My Projects</a>
-          <a class="btn" href="#resume">Download Resume</a>
+          <a class="btn secondary" href="#resume">Download Resume</a>
         </div>
       </div>
-      <aside class="profile-card">
-        <img class="avatar-photo" src="photoko.jpg" alt="Adrian Punzalan" />
-        <h2>Adrian Punzalan</h2>
-        <p>BS Information Technology student</p>
-        <div class="pillrow">
-          <span class="pill">Problem-solving</span>
-          <span class="pill">Web applications</span>
-          <span class="pill">Continuous learning</span>
+      
+      <div class="hidden-el">
+        <div class="profile-container">
+          <!-- ENSURE YOUR PHOTO IS NAMED photoko.jpg -->
+          <img src="photoko.jpg" alt="Adrian Punzalan" />
         </div>
-        <div class="detail"><strong>Location</strong><span>Santiago City, Isabela, Philippines</span></div>
-        <div class="detail"><strong>Education</strong><span>Northeastern College</span></div>
-      </aside>
+      </div>
     </div>
 
     <!-- ABOUT -->
     <section id="about">
       <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">About Me</div>
+        <div class="section-head hidden-el">
+          <div class="eyebrow scramble-text">About Me</div>
           <h2>Learning by building.</h2>
-          <p>I'm a motivated IT student with an interest in computer systems, software, programming, and problem-solving. I can work independently or with a team, and I'm willing to keep learning and gain practical experience.</p>
         </div>
         <div class="about-grid">
-          <article class="card">
+          <article class="card hidden-el tilt">
             <h3>What I'm working toward</h3>
             <p>Developing practical technical skills and gaining experience through academic and personal software projects.</p>
           </article>
-          <article class="card">
+          <article class="card hidden-el tilt">
             <h3>How I work</h3>
             <p>I value communication, teamwork, attention to detail, adaptability, and solving problems step by step.</p>
           </article>
@@ -189,24 +471,22 @@
     <!-- EDUCATION -->
     <section id="education">
       <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">Education</div>
+        <div class="section-head hidden-el">
+          <div class="eyebrow scramble-text">Education</div>
           <h2>My academic background</h2>
         </div>
-        <article class="card">
-          <div class="project-top">
-            <div>
-              <h3>Northeastern College</h3>
-              <p>Bachelor of Science in Information Technology</p>
-            </div>
-            <span class="pill">2024 – Present</span>
+        <article class="card hidden-el tilt">
+          <div class="detail-row" style="flex-direction: column; gap: 4px;">
+            <strong>Northeastern College</strong>
+            <span>Bachelor of Science in Information Technology</span>
+            <span style="color: var(--accent); margin-top: 5px;">2024 – Present</span>
           </div>
-          <div class="skill-list">
-            <span class="skill">Business Communication</span>
-            <span class="skill">Computer Applications</span>
-            <span class="skill">Information Management</span>
-            <span class="skill">Systems Analysis and Design</span>
-            <span class="skill">Database Management</span>
+          <div class="pillrow" style="margin-top: 20px;">
+            <span class="pill">Business Communication</span>
+            <span class="pill">Computer Applications</span>
+            <span class="pill">Information Management</span>
+            <span class="pill">Systems Analysis and Design</span>
+            <span class="pill">Database Management</span>
           </div>
         </article>
       </div>
@@ -215,37 +495,34 @@
     <!-- SKILLS -->
     <section id="skills">
       <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">Skills</div>
+        <div class="section-head hidden-el">
+          <div class="eyebrow scramble-text">Skills</div>
           <h2>Tools and strengths</h2>
-          <p>Based on the skills listed in my resume and tools used in my projects.</p>
         </div>
         <div class="skills-grid">
-          <article class="card">
+          <article class="card hidden-el tilt">
             <h3>Technical Skills</h3>
-            <div class="skill-list">
-              <span class="skill">Google Workspace</span>
-              <span class="skill">Microsoft Office</span>
-              <span class="skill">Email Communication</span>
-              <span class="skill">Data Entry</span>
-              <span class="skill">Internet and Web Applications</span>
-              <span class="skill">Basic Computer Troubleshooting</span>
-              <span class="skill">Flutter / Dart</span>
-              <span class="skill">Supabase</span>
-              <span class="skill">PHP / MySQL</span>
+            <div class="pillrow">
+              <span class="pill">Google Workspace</span>
+              <span class="pill">Microsoft Office</span>
+              <span class="pill">Data Entry</span>
+              <span class="pill">Web Applications</span>
+              <span class="pill">Computer Troubleshooting</span>
+              <span class="pill">Flutter / Dart</span>
+              <span class="pill">Supabase</span>
+              <span class="pill">PHP / MySQL</span>
             </div>
           </article>
-          <article class="card">
+          <article class="card hidden-el tilt">
             <h3>Soft Skills</h3>
-            <div class="skill-list">
-              <span class="skill">Communication</span>
-              <span class="skill">Customer Service</span>
-              <span class="skill">Teamwork</span>
-              <span class="skill">Time Management</span>
-              <span class="skill">Problem Solving</span>
-              <span class="skill">Adaptability</span>
-              <span class="skill">Attention to Detail</span>
-              <span class="skill">Empathy</span>
+            <div class="pillrow">
+              <span class="pill">Communication</span>
+              <span class="pill">Customer Service</span>
+              <span class="pill">Teamwork</span>
+              <span class="pill">Time Management</span>
+              <span class="pill">Problem Solving</span>
+              <span class="pill">Adaptability</span>
+              <span class="pill">Attention to Detail</span>
             </div>
           </article>
         </div>
@@ -255,229 +532,194 @@
     <!-- PROJECTS -->
     <section id="projects">
       <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">Selected Work</div>
+        <div class="section-head hidden-el">
+          <div class="eyebrow scramble-text">Selected Work</div>
           <h2>Projects</h2>
-          <p>Examples of academic and practice projects. Add screenshots, repository links, or demos when you are ready to share them.</p>
         </div>
         <div class="project-grid">
-          <article class="card">
-            <div class="project-top"><h3>Barangay Data Management System</h3><span class="project-type">Academic project</span></div>
+          <article class="card hidden-el tilt">
+            <h3>Barangay Data Management System</h3>
             <p>A system concept for organizing resident records and supporting barangay services such as certificate requests, assistance requests, announcements, and reports.</p>
             <div class="pillrow"><span class="pill">PHP</span><span class="pill">MySQL</span><span class="pill">XAMPP</span></div>
-            <div class="note">Project description based on the system you have been developing. Add only features that are implemented in your current version.</div>
           </article>
-          <article class="card">
-            <div class="project-top"><h3>Meal App</h3><span class="project-type">Practice project</span></div>
+          <article class="card hidden-el tilt">
+            <h3>Meal App</h3>
             <p>A Flutter application for browsing meal information and using meal categories and favorites, with Supabase used as a data source.</p>
             <div class="pillrow"><span class="pill">Flutter</span><span class="pill">Dart</span><span class="pill">Supabase</span></div>
-            <div class="note">Add a screenshot and the final feature list to show the current state of the app.</div>
           </article>
-          <article class="card">
-            <div class="project-top"><h3>Expense Tracker</h3><span class="project-type">Practice project</span></div>
+          <article class="card hidden-el tilt">
+            <h3>Expense Tracker</h3>
             <p>A Flutter app project focused on recording expenses and presenting expense information with a chart and a list.</p>
             <div class="pillrow"><span class="pill">Flutter</span><span class="pill">Dart</span><span class="pill">Supabase</span></div>
-            <div class="note">Update this description to match the features that work in your final build.</div>
-          </article>
-          <article class="card">
-            <div class="project-top"><h3>More Projects</h3><span class="project-type">Coming soon</span></div>
-            <p>More coursework, web projects, and software experiments can be added here as they are completed.</p>
-            <div class="pillrow"><span class="pill">Learning</span><span class="pill">Development</span></div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- PROFDEV CERTIFICATES (USING EXACT FILENAMES) -->
+    <!-- PROFDEV CERTIFICATES (SLIDER) -->
     <section id="profdev">
       <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">Professional Development</div>
-          <h2>Certificates</h2>
+        <div class="section-head hidden-el" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px;">
+          <div>
+            <div class="eyebrow scramble-text">Professional Development</div>
+            <h2>Certificates</h2>
+          </div>
+          <!-- Slider Navigation Buttons -->
+          <div class="slider-buttons">
+            <button id="slide-left" class="slider-btn" aria-label="Previous">&#8592;</button>
+            <button id="slide-right" class="slider-btn" aria-label="Next">&#8594;</button>
+          </div>
         </div>
 
-        <div class="cert-grid">
+        <div class="cert-slider-wrap hidden-el">
+          <div class="cert-slider" id="cert-slider">
+            
+            <!-- TESDA 1 -->
+            <article class="cert-card">
+              <h3>TESDA</h3>
+              <a href="1.jpg" target="_blank" rel="noopener">
+                <img class="cert-preview" src="1.jpg" alt="TESDA Certificate 1" />
+              </a>
+              <div class="cert-actions">
+                <a href="1.jpg" target="_blank" rel="noopener">View</a>
+                <a href="1.jpg" download="TESDA-1.jpg" class="download">Save</a>
+              </div>
+            </article>
 
-          <!-- TESDA 1 -->
-          <article class="cert-card">
-            <h3>TESDA</h3>
-            <a href="1.jpg" target="_blank" rel="noopener">
-              <img class="cert-preview" src="1.jpg" alt="TESDA Certificate 1" />
-            </a>
-            <div class="cert-actions">
-              <a href="1.jpg" target="_blank" rel="noopener">View</a>
-              <a href="1.jpg" download="TESDA-1.jpg">Download</a>
-            </div>
-          </article>
+            <!-- TESDA 2 -->
+            <article class="cert-card">
+              <h3>TESDA</h3>
+              <a href="2.jpg" target="_blank" rel="noopener">
+                <img class="cert-preview" src="2.jpg" alt="TESDA Certificate 2" />
+              </a>
+              <div class="cert-actions">
+                <a href="2.jpg" target="_blank" rel="noopener">View</a>
+                <a href="2.jpg" download="TESDA-2.jpg" class="download">Save</a>
+              </div>
+            </article>
 
-          <!-- TESDA 2 -->
-          <article class="cert-card">
-            <h3>TESDA</h3>
-            <a href="2.jpg" target="_blank" rel="noopener">
-              <img class="cert-preview" src="2.jpg" alt="TESDA Certificate 2" />
-            </a>
-            <div class="cert-actions">
-              <a href="2.jpg" target="_blank" rel="noopener">View</a>
-              <a href="2.jpg" download="TESDA-2.jpg">Download</a>
-            </div>
-          </article>
+            <!-- TESDA 3 -->
+            <article class="cert-card">
+              <h3>TESDA</h3>
+              <a href="3.jpg" target="_blank" rel="noopener">
+                <img class="cert-preview" src="3.jpg" alt="TESDA Certificate 3" />
+              </a>
+              <div class="cert-actions">
+                <a href="3.jpg" target="_blank" rel="noopener">View</a>
+                <a href="3.jpg" download="TESDA-3.jpg" class="download">Save</a>
+              </div>
+            </article>
 
-          <!-- TESDA 3 -->
-          <article class="cert-card">
-            <h3>TESDA</h3>
-            <a href="3.jpg" target="_blank" rel="noopener">
-              <img class="cert-preview" src="3.jpg" alt="TESDA Certificate 3" />
-            </a>
-            <div class="cert-actions">
-              <a href="3.jpg" target="_blank" rel="noopener">View</a>
-              <a href="3.jpg" download="TESDA-3.jpg">Download</a>
-            </div>
-          </article>
+            <!-- TESDA 4 -->
+            <article class="cert-card">
+              <h3>TESDA</h3>
+              <a href="4.jpg" target="_blank" rel="noopener">
+                <img class="cert-preview" src="4.jpg" alt="TESDA Certificate 4" />
+              </a>
+              <div class="cert-actions">
+                <a href="4.jpg" target="_blank" rel="noopener">View</a>
+                <a href="4.jpg" download="TESDA-4.jpg" class="download">Save</a>
+              </div>
+            </article>
 
-          <!-- TESDA 4 -->
-          <article class="cert-card">
-            <h3>TESDA</h3>
-            <a href="4.jpg" target="_blank" rel="noopener">
-              <img class="cert-preview" src="4.jpg" alt="TESDA Certificate 4" />
-            </a>
-            <div class="cert-actions">
-              <a href="4.jpg" target="_blank" rel="noopener">View</a>
-              <a href="4.jpg" download="TESDA-4.jpg">Download</a>
-            </div>
-          </article>
+            <!-- TESDA 5 -->
+            <article class="cert-card">
+              <h3>TESDA</h3>
+              <a href="5.jpg" target="_blank" rel="noopener">
+                <img class="cert-preview" src="5.jpg" alt="TESDA Certificate 5" />
+              </a>
+              <div class="cert-actions">
+                <a href="5.jpg" target="_blank" rel="noopener">View</a>
+                <a href="5.jpg" download="TESDA-5.jpg" class="download">Save</a>
+              </div>
+            </article>
 
-          <!-- TESDA 5 -->
-          <article class="cert-card">
-            <h3>TESDA</h3>
-            <a href="5.jpg" target="_blank" rel="noopener">
-              <img class="cert-preview" src="5.jpg" alt="TESDA Certificate 5" />
-            </a>
-            <div class="cert-actions">
-              <a href="5.jpg" target="_blank" rel="noopener">View</a>
-              <a href="5.jpg" download="TESDA-5.jpg">Download</a>
-            </div>
-          </article>
+            <!-- NETACAD -->
+            <article class="cert-card">
+              <h3>NetAcad</h3>
+              <a href="net.jpg" target="_blank" rel="noopener">
+                <img class="cert-preview" src="net.jpg" alt="NetAcad Certificate" />
+              </a>
+              <div class="cert-actions">
+                <a href="net.jpg" target="_blank" rel="noopener">View</a>
+                <a href="net.jpg" download="NetAcad.jpg" class="download">Save</a>
+              </div>
+            </article>
 
-          <!-- NETACAD -->
-          <article class="cert-card">
-            <h3>NetAcad</h3>
-            <a href="net.jpg" target="_blank" rel="noopener">
-              <img class="cert-preview" src="net.jpg" alt="NetAcad Certificate" />
-            </a>
-            <div class="cert-actions">
-              <a href="net.jpg" target="_blank" rel="noopener">View</a>
-              <a href="net.jpg" download="NetAcad.jpg">Download</a>
-            </div>
-          </article>
+            <!-- FREECODECAMP -->
+            <article class="cert-card">
+              <h3>freeCodeCamp</h3>
+              <a href="camp.png" target="_blank" rel="noopener">
+                <img class="cert-preview" src="camp.png" alt="freeCodeCamp Certificate" />
+              </a>
+              <div class="cert-actions">
+                <a href="camp.png" target="_blank" rel="noopener">View</a>
+                <a href="camp.png" download="freeCodeCamp.png" class="download">Save</a>
+              </div>
+            </article>
 
-          <!-- FREECODECAMP -->
-          <article class="cert-card">
-            <h3>freeCodeCamp</h3>
-            <a href="camp.png" target="_blank" rel="noopener">
-              <img class="cert-preview" src="camp.png" alt="freeCodeCamp Certificate" />
-            </a>
-            <div class="cert-actions">
-              <a href="camp.png" target="_blank" rel="noopener">View</a>
-              <a href="camp.png" download="freeCodeCamp.png">Download</a>
-            </div>
-          </article>
+            <!-- DICT 1 -->
+            <article class="cert-card">
+              <h3>DICT</h3>
+              <a href="dict1.jpg" target="_blank" rel="noopener">
+                <img class="cert-preview" src="dict1.jpg" alt="DICT Certificate 1" />
+              </a>
+              <div class="cert-actions">
+                <a href="dict1.jpg" target="_blank" rel="noopener">View</a>
+                <a href="dict1.jpg" download="DICT-1.jpg" class="download">Save</a>
+              </div>
+            </article>
 
-          <!-- DICT 1 -->
-          <article class="cert-card">
-            <h3>DICT</h3>
-            <a href="dict1.jpg" target="_blank" rel="noopener">
-              <img class="cert-preview" src="dict1.jpg" alt="DICT Certificate 1" />
-            </a>
-            <div class="cert-actions">
-              <a href="dict1.jpg" target="_blank" rel="noopener">View</a>
-              <a href="dict1.jpg" download="DICT-1.jpg">Download</a>
-            </div>
-          </article>
+            <!-- DICT 2 -->
+            <article class="cert-card">
+              <h3>DICT</h3>
+              <a href="dict2.jpg" target="_blank" rel="noopener">
+                <img class="cert-preview" src="dict2.jpg" alt="DICT Certificate 2" />
+              </a>
+              <div class="cert-actions">
+                <a href="dict2.jpg" target="_blank" rel="noopener">View</a>
+                <a href="dict2.jpg" download="DICT-2.jpg" class="download">Save</a>
+              </div>
+            </article>
 
-          <!-- DICT 2 -->
-          <article class="cert-card">
-            <h3>DICT</h3>
-            <a href="dict2.jpg" target="_blank" rel="noopener">
-              <img class="cert-preview" src="dict2.jpg" alt="DICT Certificate 2" />
-            </a>
-            <div class="cert-actions">
-              <a href="dict2.jpg" target="_blank" rel="noopener">View</a>
-              <a href="dict2.jpg" download="DICT-2.jpg">Download</a>
-            </div>
-          </article>
+            <!-- DICT 3 -->
+            <article class="cert-card">
+              <h3>DICT</h3>
+              <a href="dict3.jpg" target="_blank" rel="noopener">
+                <img class="cert-preview" src="dict3.jpg" alt="DICT Certificate 3" />
+              </a>
+              <div class="cert-actions">
+                <a href="dict3.jpg" target="_blank" rel="noopener">View</a>
+                <a href="dict3.jpg" download="DICT-3.jpg" class="download">Save</a>
+              </div>
+            </article>
 
-          <!-- DICT 3 -->
-          <article class="cert-card">
-            <h3>DICT</h3>
-            <a href="dict3.jpg" target="_blank" rel="noopener">
-              <img class="cert-preview" src="dict3.jpg" alt="DICT Certificate 3" />
-            </a>
-            <div class="cert-actions">
-              <a href="dict3.jpg" target="_blank" rel="noopener">View</a>
-              <a href="dict3.jpg" download="DICT-3.jpg">Download</a>
-            </div>
-          </article>
+            <!-- DICT 4 -->
+            <article class="cert-card">
+              <h3>DICT</h3>
+              <a href="dict4.png" target="_blank" rel="noopener">
+                <img class="cert-preview" src="dict4.png" alt="DICT Certificate 4" />
+              </a>
+              <div class="cert-actions">
+                <a href="dict4.png" target="_blank" rel="noopener">View</a>
+                <a href="dict4.png" download="DICT-4.png" class="download">Save</a>
+              </div>
+            </article>
 
-          <!-- DICT 4 -->
-          <article class="cert-card">
-            <h3>DICT</h3>
-            <a href="dict4.png" target="_blank" rel="noopener">
-              <img class="cert-preview" src="dict4.png" alt="DICT Certificate 4" />
-            </a>
-            <div class="cert-actions">
-              <a href="dict4.png" target="_blank" rel="noopener">View</a>
-              <a href="dict4.png" download="DICT-4.png">Download</a>
-            </div>
-          </article>
-
+          </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ACHIEVEMENTS -->
-    <section id="achievements">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">Achievements</div>
-          <h2>Other highlights</h2>
-          <p>Awards, volunteer work, and additional accomplishments that reflect my growth.</p>
-        </div>
-        <ul class="achieve-list">
-          <li>
-            <span class="year">2025</span>
-            <div class="body">
-              <h3>Dean's Lister Eme-eme lang</h3>
-              <p>Recognized for academic performance during the first semester.</p>
-            </div>
-          </li>
-          <li>
-            <span class="year">2025</span>
-            <div class="body">
-              <h3>Volunteer — Campus IT Week</h3>
-              <p>Assisted with event setup, registration, and technical support during the IT department's annual event.</p>
-            </div>
-          </li>
-          <li>
-            <span class="year">2024</span>
-            <div class="body">
-              <h3>Participant — Coding Bootcamp</h3>
-              <p>Completed a short intensive program on programming fundamentals and problem-solving.</p>
-            </div>
-          </li>
-        </ul>
       </div>
     </section>
 
     <!-- RESUME DOWNLOAD -->
     <section id="resume">
       <div class="wrap">
-        <div class="resume-band">
+        <div class="resume-band hidden-el">
           <div>
             <h2>Download my resume</h2>
             <p>My resume is available for viewing and download.</p>
-            <div class="resume-note">Note: If you have a PDF version, change "resume.jpg" to "resume.pdf" in the code.</div>
+            <div class="resume-note" style="color: var(--accent); margin-top: 10px; font-size: 0.85rem;">Note: Ensure the file is saved as "resume.jpg" in the folder.</div>
           </div>
-          <!-- Using your resume.jpg here -->
           <a class="btn primary" href="resume.jpg" download="Adrian-Punzalan-Resume.jpg">Download Resume</a>
         </div>
       </div>
@@ -486,13 +728,12 @@
     <!-- CONTACT -->
     <section id="contact">
       <div class="wrap">
-        <div class="section-head">
-          <div class="eyebrow">Contact</div>
+        <div class="section-head hidden-el">
+          <div class="eyebrow scramble-text">Contact</div>
           <h2>Let's connect.</h2>
-          <p>For entry-level opportunities, collaboration, or questions about my projects, you can reach me using the details below.</p>
         </div>
         <div class="contact-grid">
-          <article class="card">
+          <article class="card hidden-el tilt">
             <h3>Contact Information</h3>
             <div class="contact-item">
               <small>Email</small>
@@ -507,10 +748,9 @@
               <span>Santiago City, Isabela, Philippines</span>
             </div>
           </article>
-          <article class="card">
+          <article class="card hidden-el tilt">
             <h3>Career Objective</h3>
             <p>Seeking an entry-level customer service or virtual assistant opportunity where I can apply my communication, computer, and problem-solving skills while learning new tools and gaining professional experience.</p>
-            <p style="margin-top:14px">I'm also interested in continuing to develop my IT and software project skills.</p>
           </article>
         </div>
       </div>
@@ -519,11 +759,265 @@
   </main>
 
   <footer>
-    <div class="wrap footer-row">
-      <span>© <span id="year">2026</span> Adrian Punzalan</span>
-      <span>Portfolio • Santiago City, Isabela</span>
+    <div class="wrap">
+      <p>© 2026 Adrian Punzalan. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    // 1. Scroll Reveal Animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show-el');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.hidden-el').forEach((el) => observer.observe(el));
+
+    // 2. Typing Effect Logic
+    const textToType = "Hi, I'm Adrian Punzalan.";
+    const typewriterElement = document.getElementById("typewriter");
+    let i = 0;
+
+    function typeWriter() {
+      if (i < textToType.length) {
+        typewriterElement.innerHTML += textToType.charAt(i);
+        i++;
+        setTimeout(typeWriter, 100);
+      }
+    }
+    window.onload = function() { setTimeout(typeWriter, 500); };
+
+    // 3. Custom Glowing Cursor
+    const cursor = document.querySelector('.cursor');
+    const follower = document.querySelector('.cursor-follower');
+
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      
+      setTimeout(() => {
+        follower.style.left = e.clientX + 'px';
+        follower.style.top = e.clientY + 'px';
+      }, 50);
+    });
+
+    document.querySelectorAll('a, button, .card').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        follower.style.transform = 'scale(1.5)';
+        follower.style.background = 'rgba(114, 224, 193, 0.2)';
+      });
+      el.addEventListener('mouseleave', () => {
+        follower.style.transform = 'scale(1)';
+        follower.style.background = 'transparent';
+      });
+    });
+
+    // 4. 3D Tilt Effect on Cards
+    document.querySelectorAll('.tilt').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((y - centerY) / centerY) * -10;
+        const rotateY = ((x - centerX) / centerX) * 10;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+      });
+    });
+
+    // 5. Horizontal Certificate Slider Buttons
+    const slider = document.getElementById('cert-slider');
+    const btnLeft = document.getElementById('slide-left');
+    const btnRight = document.getElementById('slide-right');
+
+    if (slider && btnLeft && btnRight) {
+      const scrollAmount = 350; 
+      btnLeft.addEventListener('click', () => {
+        slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+      btnRight.addEventListener('click', () => {
+        slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
+    }
+
+    // 6. 3D Tilt for Slider Cards
+    document.querySelectorAll('.cert-slider .cert-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -10;
+        const rotateY = ((x - centerX) / centerX) * 10;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+      });
+    });
+
+    // 7. Interactive Particle Background (Canvas)
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let particlesArray;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let mouse = { x: null, y: null, radius: 150 };
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.x;
+      mouse.y = e.y;
+    });
+
+    class Particle {
+      constructor(x, y, directionX, directionY, size, color) {
+        this.x = x;
+        this.y = y;
+        this.directionX = directionX;
+        this.directionY = directionY;
+        this.size = size;
+        this.color = color;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+        ctx.fillStyle = 'rgba(114, 224, 193, 0.5)';
+        ctx.fill();
+      }
+      update() {
+        if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+        if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+        
+        let dx = mouse.x - this.x;
+        let dy = mouse.y - this.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < mouse.radius + this.size) {
+          if (mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 3;
+          if (mouse.x > this.x && this.x > this.size * 10) this.x -= 3;
+          if (mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 3;
+          if (mouse.y > this.y && this.y > this.size * 10) this.y -= 3;
+        }
+
+        this.x += this.directionX;
+        this.y += this.directionY;
+        this.draw();
+      }
+    }
+
+    function init() {
+      particlesArray = [];
+      let numberOfParticles = (canvas.height * canvas.width) / 12000;
+      for (let i = 0; i < numberOfParticles; i++) {
+        let size = (Math.random() * 2) + 1;
+        let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+        let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+        let directionX = (Math.random() * 1) - 0.5;
+        let directionY = (Math.random() * 1) - 0.5;
+        particlesArray.push(new Particle(x, y, directionX, directionY, size, 'rgba(114, 224, 193, 0.5)'));
+      }
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+      }
+    }
+
+    init();
+    animate();
+
+    window.addEventListener('resize', () => {
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+      init();
+    });
+
+    // 8. Text Scramble Effect
+    class TextScramble {
+      constructor(el) {
+        this.el = el;
+        this.chars = '!<>-_\\/[]{}—=+*^?#________';
+        this.update = this.update.bind(this);
+      }
+      setText(newText) {
+        const oldText = this.el.innerText;
+        const length = Math.max(oldText.length, newText.length);
+        const promise = new Promise((resolve) => this.resolve = resolve);
+        this.queue = [];
+        for (let i = 0; i < length; i++) {
+          const from = oldText[i] || '';
+          const to = newText[i] || '';
+          const start = Math.floor(Math.random() * 40);
+          const end = start + Math.floor(Math.random() * 40);
+          this.queue.push({ from, to, start, end });
+        }
+        cancelAnimationFrame(this.frameRequest);
+        this.frame = 0;
+        this.update();
+        return promise;
+      }
+      update() {
+        let output = '';
+        let complete = 0;
+        for (let i = 0, n = this.queue.length; i < n; i++) {
+          let { from, to, start, end, char } = this.queue[i];
+          if (this.frame >= end) {
+            complete++;
+            output += to;
+          } else if (this.frame >= start) {
+            if (!char || Math.random() < 0.28) {
+              char = this.chars[Math.floor(Math.random() * this.chars.length)];
+              this.queue[i].char = char;
+            }
+            output += `<span class="dud">${char}</span>`;
+          } else {
+            output += from;
+          }
+        }
+        this.el.innerHTML = output;
+        if (complete === this.queue.length) {
+          this.resolve();
+        } else {
+          this.frameRequest = requestAnimationFrame(this.update);
+          this.frame++;
+        }
+      }
+    }
+
+    const phrases = ['About Me', 'Education', 'Skills', 'Selected Work', 'Professional Development', 'Contact'];
+    const scrambleElements = document.querySelectorAll('.scramble-text');
+    
+    const observerScramble = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const fx = new TextScramble(el);
+          fx.setText(el.innerText);
+          observerScramble.unobserve(el); // Only scramble once
+        }
+      });
+    }, { threshold: 0.5 });
+
+    scrambleElements.forEach(el => observerScramble.observe(el));
+  </script>
 
 </body>
 </html>
