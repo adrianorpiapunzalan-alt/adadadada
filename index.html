@@ -429,6 +429,70 @@
       .cert-track { padding: 20px; }
       .cert-card { flex: 0 0 300px; }
     }
+        /* ================= SANDEVISTAN CURSOR STYLES ================= */
+    .cursor {
+      width: 8px; height: 8px;
+      background: #00f3ff; /* Cyan center */
+      box-shadow: 0 0 10px #00f3ff;
+      position: fixed;
+      top: -4px; left: -4px; /* Offset for exact centering */
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: width 0.2s, height 0.2s, background 0.2s;
+    }
+
+    .cursor-follower {
+      width: 40px; height: 40px;
+      border: 1px solid #b026ff; /* Magenta border */
+      border-radius: 2px; /* Square target */
+      position: fixed;
+      top: -20px; left: -20px;
+      pointer-events: none;
+      z-index: 9998;
+      transition: width 0.3s, height 0.3s, border-color 0.3s, transform 0.1s;
+      box-shadow: 0 0 15px rgba(176, 38, 255, 0.3);
+    }
+
+    .cursor-ghost {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      position: fixed;
+      top: -20px; left: -20px;
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0.5;
+      filter: blur(2px);
+    }
+
+    .ghost-cyan {
+      border: 2px solid #00f3ff;
+      box-shadow: 0 0 15px #00f3ff;
+    }
+
+    .ghost-magenta {
+      border: 2px solid #ff00ea;
+      box-shadow: 0 0 15px #ff00ea;
+    }
+
+    /* When hovering over interactive elements */
+    .cursor-active.cursor {
+      width: 12px; height: 12px;
+      background: #fff;
+      box-shadow: 0 0 20px #fff;
+    }
+
+    .cursor-active.cursor-follower {
+      width: 60px; height: 60px;
+      top: -30px; left: -30px;
+      border-color: #fff;
+      border-width: 2px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+
+    @media (max-width: 900px) {
+      .cursor, .cursor-follower, .cursor-ghost { display: none; } /* Hide on mobile */
+    }
   </style>
 </head>
 
@@ -745,7 +809,7 @@
   </footer>
 
   <!-- ================= JAVASCRIPT ================= -->
-  <script>
+ <script>
     // 1. Scroll Reveal Animation
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -756,45 +820,81 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.hidden-el').forEach((el) => observer.observe(el));
 
-    // 2. Custom Cursor
+    // 2. SANDEVISTAN CURSOR LOGIC
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
+    
+    // Create the chromatic ghosts dynamically
+    const ghostCyan = document.createElement('div');
+    ghostCyan.classList.add('cursor-ghost', 'ghost-cyan');
+    document.body.appendChild(ghostCyan);
 
+    const ghostMagenta = document.createElement('div');
+    ghostMagenta.classList.add('cursor-ghost', 'ghost-magenta');
+    document.body.appendChild(ghostMagenta);
+
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    let followerX = 0, followerY = 0;
+    let ghostCyanX = 0, ghostCyanY = 0;
+    let ghostMagentaX = 0, ghostMagentaY = 0;
+
+    // Track mouse movement
     document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      setTimeout(() => {
-        follower.style.left = e.clientX + 'px';
-        follower.style.top = e.clientY + 'px';
-      }, 50);
+      mouseX = e.clientX;
+      mouseY = e.clientY;
     });
 
+    // The Animation Loop (Sandevistan Snap)
+    function animateCursor() {
+      // Lerp (Linear Interpolation) for smooth trailing
+      // 0.2 is the speed for the main cursor (fast)
+      cursorX += (mouseX - cursorX) * 0.3;
+      cursorY += (mouseY - cursorY) * 0.3;
+      
+      // 0.15 is the speed for the follower (slower, heavier)
+      followerX += (mouseX - followerX) * 0.15;
+      followerY += (mouseY - followerY) * 0.15;
+
+      // Chromatic ghosts drag behind even more
+      ghostCyanX += (mouseX - ghostCyanX) * 0.08;
+      ghostCyanY += (mouseY - ghostCyanY) * 0.08;
+
+      ghostMagentaX += (mouseX - ghostMagentaX) * 0.05;
+      ghostMagentaY += (mouseY - ghostMagentaY) * 0.05;
+
+      // Apply positions
+      cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+      follower.style.transform = `translate(${followerX}px, ${followerY}px)`;
+      ghostCyan.style.transform = `translate(${ghostCyanX}px, ${ghostCyanY}px)`;
+      ghostMagenta.style.transform = `translate(${ghostMagentaX}px, ${ghostMagentaY}px)`;
+
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Hover Effects
     document.querySelectorAll('a, button, .tech-card, .cert-card').forEach(el => {
       el.addEventListener('mouseenter', () => {
-        follower.style.width = '50px';
-        follower.style.height = '50px';
-        follower.style.background = 'rgba(114, 224, 193, 0.1)';
+        follower.classList.add('cursor-active');
+        cursor.classList.add('cursor-active');
       });
       el.addEventListener('mouseleave', () => {
-        follower.style.width = '36px';
-        follower.style.height = '36px';
-        follower.style.background = 'transparent';
+        follower.classList.remove('cursor-active');
+        cursor.classList.remove('cursor-active');
       });
     });
 
-    // 3. Slider Button Logic (Rockstar Style)
+    // 3. Slider Button Logic
     const track = document.getElementById('cert-track');
     const btnLeft = document.getElementById('slide-left');
     const btnRight = document.getElementById('slide-right');
 
     if (track && btnLeft && btnRight) {
-      // The width of one card + the gap
       const scrollAmount = 410; 
-
       btnLeft.addEventListener('click', () => {
         track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
       });
-
       btnRight.addEventListener('click', () => {
         track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
       });
@@ -878,7 +978,7 @@
       canvas.height = innerHeight;
       init();
     });
-  </script>
+</script>
 
 </body>
 </html>
