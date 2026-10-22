@@ -18,7 +18,7 @@
       --border: rgba(114, 224, 193, 0.3);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
+    * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; /* Hide default cursor */ }
     html { scroll-behavior: smooth; }
     
     body {
@@ -44,49 +44,47 @@
     .wrap { width: min(1300px, calc(100% - 40px)); margin: auto; }
     .wrap-narrow { width: min(1100px, calc(100% - 40px)); margin: auto; }
 
-    /* ================= SANDEVISTAN CURSOR ================= */
-    .cursor {
-      width: 8px; height: 8px;
-      background: #00f3ff; /* Cyan center */
-      box-shadow: 0 0 10px #00f3ff;
+    /* ================= NEW SPIKY CURSOR ================= */
+    /* The main cursor container */
+    .custom-cursor {
       position: fixed;
-      top: -4px; left: -4px;
-      border-radius: 50%;
+      top: 0; left: 0;
+      width: 40px; height: 40px;
       pointer-events: none;
       z-index: 10000;
-      transition: width 0.2s, height 0.2s, background 0.2s;
+      /* Use SVG from HTML, styling the path */
     }
 
-    .cursor-follower {
-      width: 40px; height: 40px;
-      border: 1px solid #b026ff; /* Magenta border */
-      border-radius: 2px; 
-      position: fixed;
-      top: -20px; left: -20px;
-      pointer-events: none;
-      z-index: 9999;
-      transition: width 0.3s, height 0.3s, border-color 0.3s, transform 0.1s;
-      box-shadow: 0 0 15px rgba(176, 38, 255, 0.3);
+    .custom-cursor svg {
+      width: 100%; height: 100%;
+      fill: #ffffff; /* Frost white color */
+      filter: drop-shadow(0 0 10px rgba(114, 224, 193, 0.8)); /* Mint glow */
+      transition: transform 0.2s;
     }
 
-    /* Chromatic Ghosts */
+    /* The trailing ghosts */
     .cursor-ghost {
-      width: 40px; height: 40px;
-      border-radius: 50%;
       position: fixed;
-      top: -20px; left: -20px;
+      top: 0; left: 0;
+      width: 40px; height: 40px;
       pointer-events: none;
       z-index: 9998;
-      opacity: 0.5;
+      opacity: 0.3;
       filter: blur(2px);
     }
-    .ghost-cyan { border: 2px solid #00f3ff; box-shadow: 0 0 15px #00f3ff; }
-    .ghost-magenta { border: 2px solid #ff00ea; box-shadow: 0 0 15px #ff00ea; }
 
-    .cursor-active.cursor { width: 12px; height: 12px; background: #fff; box-shadow: 0 0 20px #fff; }
-    .cursor-active.cursor-follower {
-      width: 60px; height: 60px; top: -30px; left: -30px;
-      border-color: #fff; border-width: 2px; box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+    .cursor-ghost svg {
+      width: 100%; height: 100%;
+    }
+
+    .ghost-1 svg { fill: #72e0c1; } /* Mint ghost */
+    .ghost-2 svg { fill: #ffffff; } /* White ghost */
+
+    /* Hover state for cursor */
+    .custom-cursor.active svg {
+      transform: scale(1.3) rotate(15deg);
+      fill: var(--accent);
+      filter: drop-shadow(0 0 20px var(--accent));
     }
 
     /* ================= SCROLL ANIMATIONS ================= */
@@ -146,59 +144,33 @@
 
     /* ================= REACTIVE BUBBLE PFP ================= */
     .bubble-container {
-      position: relative;
-      width: 320px;
-      height: 320px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50%;
-      /* The bubble reacts to hover */
-      transition: transform 0.1s, box-shadow 0.3s;
+      position: relative; width: 320px; height: 320px; margin: 0 auto;
+      display: flex; justify-content: center; align-items: center;
+      border-radius: 50%; transition: transform 0.1s, box-shadow 0.3s;
       box-shadow: inset 0 0 30px rgba(114, 224, 193, 0.2), 0 0 30px rgba(114, 224, 193, 0.1);
       background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1), transparent);
     }
-
     .bubble-container:hover {
       box-shadow: inset 0 0 50px rgba(114, 224, 193, 0.4), 0 0 50px rgba(114, 224, 193, 0.4);
       transform: scale(1.02);
     }
-
     .bubble-frame {
-      position: relative;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      border: 2px dashed var(--accent);
-      padding: 8px;
-      animation: spin 15s linear infinite;
+      position: relative; width: 300px; height: 300px;
+      border-radius: 50%; border: 2px dashed var(--accent);
+      padding: 8px; animation: spin 15s linear infinite;
     }
-
     @keyframes spin { 100% { transform: rotate(360deg); } }
-
     .bubble-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      animation: spin-reverse 15s linear infinite; /* Keeps photo straight */
+      width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+      animation: spin-reverse 15s linear infinite;
     }
-
     @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
-
-    /* Glowing aura behind bubble */
     .bubble-aura {
-      position: absolute;
-      width: 350px; height: 350px;
-      background: var(--accent);
-      border-radius: 50%;
-      filter: blur(40px);
-      opacity: 0.2;
-      z-index: -1;
+      position: absolute; width: 350px; height: 350px;
+      background: var(--accent); border-radius: 50%;
+      filter: blur(40px); opacity: 0.2; z-index: -1;
       animation: pulse 3s infinite alternate;
     }
-
     @keyframes pulse {
       0% { transform: scale(0.9); opacity: 0.1; }
       100% { transform: scale(1.1); opacity: 0.4; }
@@ -255,7 +227,7 @@
     /* ================= RESPONSIVE ================= */
     @media (max-width: 900px) {
       * { cursor: auto; } 
-      .cursor, .cursor-follower, .cursor-ghost { display: none; }
+      .custom-cursor, .cursor-ghost { display: none; }
       .hero { grid-template-columns: 1fr; text-align: center; gap: 40px; padding-top: 120px; }
       .hero .actions { justify-content: center; }
       .hero p { margin: 0 auto 35px auto; }
@@ -276,11 +248,19 @@
   <canvas id="particle-canvas"></canvas>
   <canvas id="slash-canvas"></canvas> <!-- For the Sandevistan slash -->
 
-  <!-- SANDEVISTAN CURSOR -->
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
-  <div class="cursor-ghost ghost-cyan"></div>
-  <div class="cursor-ghost ghost-magenta"></div>
+  <!-- CUSTOM SPIKY CURSOR -->
+  <div class="custom-cursor" id="main-cursor">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <!-- The spiky shape from your image -->
+      <path d="M12 2C12 2 13 6 15 8C17 10 21 10 21 10C21 10 17 12 16 14C15 16 16 20 16 20C16 20 12 18 9 19C6 20 3 22 3 22C3 22 5 18 4 15C3 12 1 9 1 9C1 9 5 9 8 8C10 7 12 2 12 2Z" />
+    </svg>
+  </div>
+  <div class="cursor-ghost ghost-1" id="ghost-1">
+    <svg viewBox="0 0 24 24"><path d="M12 2C12 2 13 6 15 8C17 10 21 10 21 10C21 10 17 12 16 14C15 16 16 20 16 20C16 20 12 18 9 19C6 20 3 22 3 22C3 22 5 18 4 15C3 12 1 9 1 9C1 9 5 9 8 8C10 7 12 2 12 2Z" /></svg>
+  </div>
+  <div class="cursor-ghost ghost-2" id="ghost-2">
+    <svg viewBox="0 0 24 24"><path d="M12 2C12 2 13 6 15 8C17 10 21 10 21 10C21 10 17 12 16 14C15 16 16 20 16 20C16 20 12 18 9 19C6 20 3 22 3 22C3 22 5 18 4 15C3 12 1 9 1 9C1 9 5 9 8 8C10 7 12 2 12 2Z" /></svg>
+  </div>
 
   <!-- SECRET ENCOUNTER ELEMENTS -->
   <div class="encounter-bug" id="encounter-bug"></div>
@@ -490,11 +470,10 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.hidden-el').forEach((el) => observer.observe(el));
 
-    // 2. SANDEVISTAN CURSOR & SLASH LOGIC
-    const cursor = document.querySelector('.cursor');
-    const follower = document.querySelector('.cursor-follower');
-    const ghostCyan = document.querySelector('.ghost-cyan');
-    const ghostMagenta = document.querySelector('.ghost-magenta');
+    // 2. NEW SPIKY CURSOR & SLASH LOGIC
+    const mainCursor = document.getElementById('main-cursor');
+    const ghost1 = document.getElementById('ghost-1');
+    const ghost2 = document.getElementById('ghost-2');
     
     // Slash Canvas Setup
     const slashCanvas = document.getElementById('slash-canvas');
@@ -504,41 +483,39 @@
 
     let mouseX = 0, mouseY = 0;
     let cursorX = 0, cursorY = 0;
-    let followerX = 0, followerY = 0;
-    let cyanX = 0, cyanY = 0;
-    let magentaX = 0, magentaY = 0;
+    let g1X = 0, g1Y = 0;
+    let g2X = 0, g2Y = 0;
     let isSlashing = false;
     let slashTrail = [];
 
+    // Offset to center the custom cursor (width/height is 40px)
+    const offset = 20; 
+
     document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      mouseX = e.clientX - offset;
+      mouseY = e.clientY - offset;
       
-      // Add points to slash trail if holding click
       if (isSlashing) {
-        slashTrail.push({ x: mouseX, y: mouseY, life: 1.0 });
+        // The slash trail uses the exact mouse coordinates
+        slashTrail.push({ x: e.clientX, y: e.clientY, life: 1.0 });
       }
     });
 
     document.addEventListener('mousedown', () => { isSlashing = true; });
     document.addEventListener('mouseup', () => { isSlashing = false; });
 
-    // Animation loop for cursor and slash
-    function animateSandevistan() {
+    function animateCustomCursor() {
       // Lerp (smooth dragging)
       cursorX += (mouseX - cursorX) * 0.4;
       cursorY += (mouseY - cursorY) * 0.4;
-      followerX += (mouseX - followerX) * 0.15;
-      followerY += (mouseY - followerY) * 0.15;
-      cyanX += (mouseX - cyanX) * 0.08;
-      cyanY += (mouseY - cyanY) * 0.08;
-      magentaX += (mouseX - magentaX) * 0.05;
-      magentaY += (mouseY - magentaY) * 0.05;
+      g1X += (mouseX - g1X) * 0.15;
+      g1Y += (mouseY - g1Y) * 0.15;
+      g2X += (mouseX - g2X) * 0.08;
+      g2Y += (mouseY - g2Y) * 0.08;
 
-      cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
-      follower.style.transform = `translate(${followerX}px, ${followerY}px)`;
-      ghostCyan.style.transform = `translate(${cyanX}px, ${cyanY}px)`;
-      ghostMagenta.style.transform = `translate(${magentaX}px, ${magentaY}px)`;
+      mainCursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+      ghost1.style.transform = `translate(${g1X}px, ${g1Y}px)`;
+      ghost2.style.transform = `translate(${g2X}px, ${g2Y}px)`;
 
       // Draw Slash Effect
       slashCtx.clearRect(0, 0, slashCanvas.width, slashCanvas.height);
@@ -551,42 +528,34 @@
           slashCtx.lineTo(slashTrail[i].x, slashTrail[i].y);
         }
         
-        slashCtx.strokeStyle = `rgba(0, 243, 255, ${slashTrail[0].life})`; 
-        slashCtx.lineWidth = 4;
+        slashCtx.strokeStyle = `rgba(114, 224, 193, ${slashTrail[0].life})`; 
+        slashCtx.lineWidth = 3;
         slashCtx.lineCap = 'round';
         slashCtx.lineJoin = 'round';
         slashCtx.shadowBlur = 15;
-        slashCtx.shadowColor = '#00f3ff';
+        slashCtx.shadowColor = '#72e0c1';
         slashCtx.stroke();
-        slashCtx.shadowBlur = 0; // Reset shadow for next frame
+        slashCtx.shadowBlur = 0; 
 
-        // Fade out the trail
         for (let i = 0; i < slashTrail.length; i++) {
-          slashTrail[i].life -= 0.03; // speed of fade
+          slashTrail[i].life -= 0.03; 
         }
         
-        // Remove dead points
         slashTrail = slashTrail.filter(point => point.life > 0);
-        
-        // Limit trail length
-        if(slashTrail.length > 30) {
-            slashTrail.shift();
-        }
+        if(slashTrail.length > 30) { slashTrail.shift(); }
       }
 
-      requestAnimationFrame(animateSandevistan);
+      requestAnimationFrame(animateCustomCursor);
     }
-    animateSandevistan();
+    animateCustomCursor();
 
-    // Hover effects for cursor
+    // Hover effects for cursor (Scaling up the spiky shape)
     document.querySelectorAll('a, button, .tech-card, .cert-card, .bubble-container').forEach(el => {
       el.addEventListener('mouseenter', () => {
-        follower.classList.add('cursor-active');
-        cursor.classList.add('cursor-active');
+        mainCursor.classList.add('active');
       });
       el.addEventListener('mouseleave', () => {
-        follower.classList.remove('cursor-active');
-        cursor.classList.remove('cursor-active');
+        mainCursor.classList.remove('active');
       });
     });
 
